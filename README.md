@@ -1,2 +1,2 @@
 # SOS2425-10
-aa
+funciona
