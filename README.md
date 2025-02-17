@@ -1,2 +1,2 @@
 # SOS2425-10
-funciona
+funciona todo bien
