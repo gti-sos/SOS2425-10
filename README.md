@@ -1,2 +1,12 @@
 # SOS2425-10
-funciona todo bien, ignacio
+- **Team**
+  - Víctor José Cabrera Hurtado (https://github.com/viccabhur10)
+  - Ignacio Ortiz Moreno (https://github.com/IgnacioOrtizMoreno)
+  - Jesús Aznar Montero (https://github.com/jesaznmon23)
+- **Project description**: Our project is aimed at analyzing the relationship between radars, accidents  and registrations data.
+- **Repository**: [gti-sos/SOS2425-10](https://github.com/gti-sos/SOS2425-10)
+- **URL**: TBD
+-  **APIs**:
+    - TBD
+    - TBD
+    - TBD
