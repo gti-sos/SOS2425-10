@@ -36,5 +36,6 @@ let sum = filtered.reduce((acc,value) => acc + value.averageSpeedFined,0)
 let average = sum / filtered.length
 
 app.get('/samples/IOM', (request,response)=> {
-    response.send(IOM())
+    response.send(`La media de velocidad en Andalucía es: ${average} km/h <br>
+        <a href="/">Volver atrás</a>`)
 })
