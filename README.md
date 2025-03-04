@@ -5,7 +5,7 @@
   - Jesús Aznar Montero (https://github.com/jesaznmon23)
 - **Project description**: Our project is aimed at analyzing the relationship between radars, accidents  and registrations data.
 - **Repository**: [gti-sos/SOS2425-10](https://github.com/gti-sos/SOS2425-10)
-- **URL**: TBD
+- **URL**: https://sos2425-10.onrender.com
 -  **APIs**:
     - TBD
     - TBD
