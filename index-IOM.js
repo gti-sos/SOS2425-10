@@ -31,8 +31,10 @@ let average = sum / filtered.length
 
 
 //log(JSON.stringify(filtered, null, 2))
-log(`La media de velocidad en Andalucía es: ${average} km/h`)
+log(`La media de velocidad en Andalucía es: ${average} km/h <br>
+        <a href="/">Volver atrás</a>`)
 
+module.exports = myArray
 
 
   
