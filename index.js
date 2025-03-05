@@ -1,33 +1,50 @@
 const express = require("express");
-const cool = require("cool-ascii-faces");
-const app =express();
-const PORT=process.env.PORT || 16078;
+const cool = require("cool-ascii-faces")
+const app = express()
+const PORT = process.env.PORT || 16079
 
-// Datos del archivo index-JAM
-datos = [
-    { year: 2018, province: "Araba/Álava", total_general_national: 1445, total_general_import: 8791, total_general_auction: 0, total_general: 10236},
-    { year: 2018, province: "Albacete", total_general_national: 786, total_general_import: 8743, total_general_auction: 1, total_general: 9530 },
-    { year: 2018, province: "Alicante/Alacant", total_general_national: 8004, total_general_import: 91734, total_general_auction: 5, total_general: 99743 },
-    { year: 2018, province: "Almería", total_general_national: 1662, total_general_import: 14611, total_general_auction: 0, total_general: 16273 },
-    { year: 2019, province: "Araba/Álava", total_general_national: 1340, total_general_import: 8257, total_general_auction: 0, total_general: 9597 },
-    { year: 2019, province: "Albacete", total_general_national: 638, total_general_import: 9140, total_general_auction: 0, total_general: 9778 },
-    { year: 2019, province: "Alicante/Alacant", total_general_national: 5066, total_general_import: 93357, total_general_auction: 1, total_general: 98424 },
-    { year: 2019, province: "Almería", total_general_national: 1105, total_general_import: 13954, total_general_auction: 1, total_general: 15060 },
-    { year: 2020, province: "Araba/Álava", total_general_national: 1530, total_general_import: 6732, total_general_auction: 0, total_general: 8262 },
-    { year: 2020, province: "Albacete", total_general_national: 461, total_general_import: 7836, total_general_auction: 0, total_general: 8297 },
-    { year: 2020, province: "Alicante/Alacant", total_general_national: 3240, total_general_import: 50442, total_general_auction: 1, total_general: 53683 },
-    { year: 2020, province: "Almería", total_general_national: 749, total_general_import: 10563, total_general_auction: 0, total_general: 11312 }
-  ];
+const IOM = require('./index-IOM')
+const JAM = require('./index-JAM')
 
-//Static html
-app.use("/about/", express.static("./static"))
+app.use("/about",express.static("./public"))
 
-// Ruta para /cool
+app.get("/",(request,response)=>{
+    response.send(`Servidor del <a href="/about">grupo 10</a><br>
+        <a href="/cool">Cool</a><br>
+        <a href="/samples/IOM">IOM</a><br>
+        <a href="/samples/JAM">JAM</a><br>
+        `)
+})
+
+
 app.get("/cool",(request, response)=>{
     response.send(cool());
 });
 
-// Ruta para /samples/JAM
+
+app.listen(PORT,()=>{
+    console.log(`Server running on ${PORT}`)
+})
+
+//Ignacio Ortiz Moreno
+
+// Filtrar por comunidad 
+let filtered = IOM.filter((v)=> v.autonomousCommunity === "Andalucía")
+
+//Suma de velocidad media
+
+let sum = filtered.reduce((acc,value) => acc + value.averageSpeedFined,0)
+
+// Media de velocidad en Andalucía 
+
+let average = sum / filtered.length
+
+app.get('/samples/IOM', (request,response)=> {
+    response.send(`La media de velocidad en Andalucía es: ${average} km/h <br>
+        <a href="/">Volver atrás</a>`)
+})
+
+//Jesús Aznar Montero
 app.get("/samples/JAM", (request, response) => {
     const provinciaSeleccionada = "Alicante/Alacant";
     const datosProvincia = datos.filter(d => d.province === provinciaSeleccionada);
@@ -36,7 +53,3 @@ app.get("/samples/JAM", (request, response) => {
     response.send(`La media de 'total_general' para la provincia de ${provinciaSeleccionada} es: ${media.toFixed(2)}`);
 });
 
-// Iniciar el servidor
-app.listen(PORT, ()=>{
-    console.log(`Server running on port ${PORT}!`);
-});
