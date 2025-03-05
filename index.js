@@ -50,6 +50,7 @@ app.get("/samples/JAM", (request, response) => {
     const datosProvincia = datos.filter(d => d.province === provinciaSeleccionada);
     const media = datosProvincia.reduce((acc, d) => acc + d.total_general, 0) / datosProvincia.length;
 
-    response.send(`La media de 'total_general' para la provincia de ${provinciaSeleccionada} es: ${media.toFixed(2)}`);
+    response.send(`La media de 'total_general' para la provincia de ${provinciaSeleccionada} es: ${media.toFixed(2)}<br>
+        <a href="/">Volver atrás</a>`);
 });
 
