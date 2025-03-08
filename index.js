@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 16079
 
 const IOM = require('./index-IOM')
 const JAM = require('./index-JAM')
+const VCH = require('./index-VCH')
 
 app.use("/about",express.static("./public"))
 
@@ -12,7 +13,7 @@ app.get("/",(request,response)=>{
     response.send(`Servidor del <a href="/about">grupo 10</a><br>
         <a href="/cool">Cool</a><br>
         <a href="/samples/IOM">IOM</a><br>
-        <a href="/samples/JAM">JAM</a><br>
+        <a href="/samples/VCH">VCH</a><br>
         `)
 })
 
@@ -54,3 +55,16 @@ app.get("/samples/JAM", (request, response) => {
         <a href="/">Volver atrás</a>`);
 });
 
+
+//Victor Cabrera Hurtado
+
+//Media de fallecidos en accidentes ocurridos en Albacete
+
+let albaceteAccidents = myData.filter(accident => accident.province === "Albacete");
+let totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
+let averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
+
+app.get('/samples/VCH', (request,response)=> {
+    response.send(`La media de fallecidos en accidentes ocurridos en Albacete es: ${averageVictims} <br>
+        <a href="/">Volver atrás</a>`)
+})
