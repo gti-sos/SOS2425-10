@@ -60,11 +60,11 @@ app.get("/samples/JAM", (request, response) => {
 //Victor Cabrera Hurtado
 
 //Media de fallecidos en accidentes ocurridos en Albacete
-
+let albaceteAccidents = VCH.filter(accident => accident.province === "Albacete");
+let totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
+let averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
 app.get('/samples/VCH', (request,response)=> {
-    const albaceteAccidents = myData.filter(accident => accident.province === "Albacete");
-    const totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
-    const averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
-    response.send(`La media de fallecidos en accidentes ocurridos en Albacete es: ${averageVictims} <br>
+    
+    response.send(`La media de fallecidos en accidentes ocurridos en Albacete es: ${averageVictims}<br>
         <a href="/">Volver atrás</a>`);
-})
+});
