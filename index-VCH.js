@@ -26,3 +26,5 @@ let averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccid
 console.log("filtrado por tipo de accidente: ", filtered);
 
 console.log("Media de total_victims en Albacete:", averageVictims);
+
+module.exports = myData

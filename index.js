@@ -70,9 +70,11 @@ app.get('/samples/VCH', (request,response)=> {
         <a href="/">Volver atrás</a>`);
 }) 
 */
+
+
 app.get("/samples/VCH", (req, res) => {
     const ciudadFiltrada = "Albacete";
-    const datosFiltrados = myData.filter(dato => dato.province === ciudadFiltrada);
+    const datosFiltrados = VCH.filter(dato => dato.province === ciudadFiltrada);
     const media = datosFiltrados.reduce((acc, curr) => acc + (curr.general || 0), 0) / datosFiltrados.length;
     
     res.json({ provincia: ciudadFiltrada, mediaGeneral: media.toFixed(2) });
