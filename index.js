@@ -63,9 +63,9 @@ app.get("/samples/JAM", (request, response) => {
 
 app.get('/samples/VCH', (request,response)=> {
     let prueba = 1
-    const albaceteAccidents = myData.filter(accident => accident.province === "Albacete");
-    const totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
-    const averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
+    //const albaceteAccidents = myData.filter(accident => accident.province === "Albacete");
+    //const totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
+    //const averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
     response.send(`La media de fallecidos en accidentes ocurridos en Albacete es: ${prueba}<br>
         <a href="/">Volver atrás</a>`);
 })
