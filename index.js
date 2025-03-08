@@ -61,21 +61,11 @@ app.get("/samples/JAM", (request, response) => {
 
 //Media de fallecidos en accidentes ocurridos en Albacete
 
-/*
-app.get('/samples/VCH', (request,response)=> {
+
+app.get("/samples/VCH", (req, res) => {
     const albaceteAccidents = myData.filter(accident => accident.province === "Albacete");
     const totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
     const averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
-    response.json(`La media de fallecidos en accidentes ocurridos en Albacete es: ${averageVictims}<br>
-        <a href="/">Volver atrás</a>`);
-}) 
-*/
-
-
-app.get("/samples/VCH", (req, res) => {
-    const ciudadFiltrada = "Albacete";
-    const datosFiltrados = VCH.filter(dato => dato.province === ciudadFiltrada);
-    const media = datosFiltrados.reduce((acc, curr) => acc + (curr.general || 0), 0) / datosFiltrados.length;
     
-    res.json({ provincia: ciudadFiltrada, mediaGeneral: media.toFixed(2) });
+    res.json({ provincia: ciudadFiltrada, mediaGeneral: averageVictims.toFixed(2) });
 });
