@@ -13,6 +13,7 @@ app.get("/",(request,response)=>{
     response.send(`Servidor del <a href="/about">grupo 10</a><br>
         <a href="/cool">Cool</a><br>
         <a href="/samples/IOM">IOM</a><br>
+        <a href="/samples/JAM">JAM</a><br>
         <a href="/samples/VCH">VCH</a><br>
         `)
 })
