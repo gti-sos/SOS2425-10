@@ -77,5 +77,5 @@ app.get("/samples/VCH", (req, res) => {
     const datosFiltrados = VCH.filter(dato => dato.province === ciudadFiltrada);
     const media = datosFiltrados.reduce((acc, curr) => acc + (curr.total_victims || 0), 0) / datosFiltrados.length;
     
-    res.json({ provincia: ciudadFiltrada, mediaGeneral: media.toFixed(2) });
+    res.json({ provincia: ciudadFiltrada, mediaGeneral: media.toFixed(2),volverAtras: '<a href="/">Volver atrás</a>'});
 });
