@@ -68,5 +68,5 @@ app.get('/samples/VCH', (request,response)=> {
     let totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
     let averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
     response.send(`La media de fallecidos en accidentes ocurridos en Albacete es: ${averageVictims} <br>
-        <a href="/">Volver atrás</a>`)
+        <a href="/">Volver atrás</a>`);
 })
