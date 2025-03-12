@@ -99,7 +99,7 @@ let myNullArray=[]
 app.get(BASE_API+"/radars-stats/loadInitialData",(request,response)=>{
     if (myNullArray.length ===0)
         myNullArray.concat(IOM)
-        response.send(JSON.stringify(myNullArray));
+        response.send(JSON.stringify(myNullArray)); //Arreglar No se añade
         
     
 
