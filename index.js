@@ -88,3 +88,10 @@ app.get("/samples/VCH", (req, res) => {
     res.send(`La media de fallecidos en accidentes ocurridos en ${ciudadFiltrada} es: ${media.toFixed(2)}<br>
     <a href="/">Volver atrás</a>`);
 });
+
+//API v1 IOM
+
+app.get(BASE_API+"/radars-stats", (request,response)=>{
+    console.log("New GET to /radars-stats");
+    response.send(JSON.stringify(IOM))
+});
