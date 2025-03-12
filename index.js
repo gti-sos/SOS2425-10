@@ -6,8 +6,10 @@ const IOM = require('./index-IOM')
 const JAM = require('./index-JAM')
 const VCH = require('./index-VCH')
 
-app.use("/about",express.static("./public"))
+const BASE_API="/api/v1";
 
+app.use("/about",express.static("./public"));
+app.use(express.json());
 app.get("/",(request,response)=>{
     response.send(`Servidor del <a href="/about">grupo 10</a><br>
         <a href="/cool">Cool</a><br>
@@ -18,8 +20,15 @@ app.get("/",(request,response)=>{
 })
 
 
-app.get("/cool",(request, response)=>{
-    response.send(cool());
+app.get(BASE_API+"/registrations-stats",(request, response)=>{
+    console.log("New GET to /registrations-stats")
+    response.send(JSON.stringify(datos));
+});
+app.post(BASE_API+"/registrations-stats",(request, response)=>{
+    console.log("New POST to /registrations-stats")
+    let newRegistrations = request.body;
+    datos.push(newRegistrations)
+    response.sendStatus(201);
 });
 
 
