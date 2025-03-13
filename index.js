@@ -114,8 +114,12 @@ app.get(BASE_API + "/registrations-stats", (req, res) => {
     let filteredData = registrationsData;
 
     if (req.query.province) {
-        const province = req.query.province.toLowerCase();
-        filteredData = filteredData.filter(d => d.province.toLowerCase() === province);
+        const provinceQuery = req.query.province.toLowerCase().trim();
+
+        // Filtrar datos normalizando la provincia
+        filteredData = filteredData.filter(d => 
+            d.province.toLowerCase().trim() === provinceQuery
+        );
     }
 
     if (req.query.year) {
