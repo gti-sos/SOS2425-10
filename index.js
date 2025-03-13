@@ -109,50 +109,45 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
 // API Jesús Aznar Montero - Registrations Stats
 let registrationsData = JAM; // Usar datos correctamente
 
-// Obtener todos los registros
+// Obtener todas las estadísticas con filtros opcionales
 app.get(BASE_API + "/registrations-stats", (req, res) => {
-    res.status(200).json(registrationsData);
+    let filteredData = registrationsData;
+
+    if (req.query.province) {
+        const province = req.query.province.toLowerCase();
+        filteredData = filteredData.filter(d => d.province.toLowerCase() === province);
+    }
+
+    if (req.query.year) {
+        const year = parseInt(req.query.year);
+        filteredData = filteredData.filter(d => d.year === year);
+    }
+
+    if (req.query.from && req.query.to) {
+        const fromYear = parseInt(req.query.from);
+        const toYear = parseInt(req.query.to);
+        filteredData = filteredData.filter(d => d.year >= fromYear && d.year <= toYear);
+    }
+
+    res.status(200).json(filteredData);
 });
 
-// Cargar datos iniciales
 // Cargar datos iniciales
 app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
     console.log("Intentando cargar datos iniciales...");
 
     if (registrationsData.length === 0) {
         console.log("El array está vacío. Cargando datos...");
-        registrationsData.push(...JAM.slice(0, 10)); // Ahora toma los datos de JAM correctamente
-        console.log("Datos después de la carga:", registrationsData);
+        registrationsData.push(...JAM.slice(0, 10));
+        console.log("✅ Datos después de la carga:", registrationsData);
         return res.status(201).json({ message: "Initial data loaded", data: registrationsData });
     }
 
-    console.log("Ya había datos cargados.");
+    console.log("✅ Ya había datos cargados.");
     res.status(200).json({ message: "Data already initialized", data: registrationsData });
 });
 
-// Obtener registros por año y provincia
-app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
-    const year = parseInt(req.params.year);
-    let province = req.params.  province.toLowerCase().trim(); // Normalizamos el parámetro de la URL
-
-    console.log("Provincia recibida en la URL:", province); // Muestra el valor recibido
-
-    // Normalizar nombres de provincia eliminando espacios y barras
-    const normalizeProvince = (p) => p.toLowerCase().trim().replace(/\s/g, "").replace(/\//g, "");
-
-    const data = registrationsData.filter(d => {
-        console.log("Comparando con:", normalizeProvince(d.province)); // Muestra qué valores tiene en los datos
-        return d.year === year && normalizeProvince(d.province) === normalizeProvince(province);
-    });
-
-    if (data.length === 0) {
-        return res.status(404).json({ error: "No data found for the given year and province" });
-    }
-    
-    res.status(200).json(data);
-});
-
-// Agregar un nuevo registro
+// Agregar una nueva estadística
 app.post(BASE_API + "/registrations-stats", (req, res) => {
     const newRecord = req.body;
     if (!newRecord.year || !newRecord.province || !newRecord.total_general) {
@@ -165,25 +160,34 @@ app.post(BASE_API + "/registrations-stats", (req, res) => {
     res.status(201).json({ message: "Record added successfully" });
 });
 
-// Modificar un registro existente
-app.put(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
-    const year = parseInt(req.params.year);
-    const province = req.params.province;
+// Modificar una estadística existente
+app.put(BASE_API + "/registrations-stats", (req, res) => {
+    const { year, province, total_general } = req.body;
+    if (!year || !province || total_general === undefined) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+    
     const index = registrationsData.findIndex(d => d.year === year && d.province === province);
     if (index === -1) return res.status(404).json({ error: "Record not found" });
-    if (req.body.year !== year || req.body.province !== province) {
-        return res.status(400).json({ error: "Year and province in body must match URL parameters" });
-    }
-    registrationsData[index] = { ...registrationsData[index], ...req.body };
+    
+    registrationsData[index] = { ...registrationsData[index], total_general };
     res.status(200).json({ message: "Record updated successfully" });
 });
 
-// Eliminar un registro existente
-app.delete(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
-    const year = parseInt(req.params.year);
-    const province = req.params.province;
-    const index = registrationsData.findIndex(d => d.year === year && d.province === province);
+// Eliminar una estadística existente
+app.delete(BASE_API + "/registrations-stats", (req, res) => {
+    const { year, province } = req.query;
+    if (!year || !province) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }
+    
+    const index = registrationsData.findIndex(d => d.year == year && d.province.toLowerCase() === province.toLowerCase());
     if (index === -1) return res.status(404).json({ error: "Record not found" });
+    
     registrationsData.splice(index, 1);
     res.status(200).json({ message: "Record deleted successfully" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
