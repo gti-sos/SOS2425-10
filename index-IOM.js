@@ -12,7 +12,7 @@ let myArray = [
     { autonomousCommunity: "Madrid (Comunidad de)", province: "Madrid", way: "A-4", kilometerPoint: 12.4, complaint: 25778, year: 2022, speedEstimation: 120, averageSpeedFined: 135 }
   ];
 
-//Imnprimir por pantalla
+//Imprimir por pantalla
 
 function log(m){
     console.log(m)
@@ -36,5 +36,6 @@ log(`La media de velocidad en Andalucía es: ${average} km/h <br>
 
 module.exports = myArray
 
+//API v1
 
   
