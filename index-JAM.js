@@ -22,3 +22,4 @@ const media = datosProvincia.reduce((acc, d) => acc + d.total_general, 0) / dato
 
 console.log(`La media de 'total_general' para la provincia de ${provinciaSeleccionada} es: ${media.toFixed(2)}`);
 
+module.exports=datos;

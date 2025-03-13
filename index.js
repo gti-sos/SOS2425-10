@@ -106,14 +106,64 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
 });
 
 
-//API Jesús Aznar Montero
-app.get(BASE_API+"/registrations-stats",(request, response)=>{
-    console.log("New GET to /registrations-stats")
-    response.send(JSON.stringify(datos));
+// API Jesús Aznar Montero - Registrations Stats
+let registrationsData = JAM; // Usar datos correctamente
+
+// Obtener todos los registros
+app.get(BASE_API + "/registrations-stats", (req, res) => {
+    res.status(200).json(registrationsData);
 });
-app.post(BASE_API+"/registrations-stats",(request, response)=>{
-    console.log("New POST to /registrations-stats")
-    let newRegistrations = request.body;
-    datos.push(newRegistrations)
-    response.sendStatus(201);
+
+// Cargar datos iniciales
+app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
+    if (registrationsData.length === 0) {
+        registrationsData.push(...JAM.slice(0, 10));
+        return res.status(201).json({ message: "Initial data loaded", data: registrationsData });
+    }
+    res.status(200).json({ message: "Data already initialized", data: registrationsData });
+});
+
+// Obtener registros por año y provincia
+app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
+    const year = parseInt(req.params.year);
+    const province = req.params.province;
+    const data = registrationsData.filter(d => d.year === year && d.province === province);
+    if (data.length === 0) return res.status(404).json({ error: "No data found for the given year and province" });
+    res.status(200).json(data);
+});
+
+// Agregar un nuevo registro
+app.post(BASE_API + "/registrations-stats", (req, res) => {
+    const newRecord = req.body;
+    if (!newRecord.year || !newRecord.province || !newRecord.total_general) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+    if (registrationsData.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
+        return res.status(409).json({ error: "Record already exists" });
+    }
+    registrationsData.push(newRecord);
+    res.status(201).json({ message: "Record added successfully" });
+});
+
+// Modificar un registro existente
+app.put(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
+    const year = parseInt(req.params.year);
+    const province = req.params.province;
+    const index = registrationsData.findIndex(d => d.year === year && d.province === province);
+    if (index === -1) return res.status(404).json({ error: "Record not found" });
+    if (req.body.year !== year || req.body.province !== province) {
+        return res.status(400).json({ error: "Year and province in body must match URL parameters" });
+    }
+    registrationsData[index] = { ...registrationsData[index], ...req.body };
+    res.status(200).json({ message: "Record updated successfully" });
+});
+
+// Eliminar un registro existente
+app.delete(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
+    const year = parseInt(req.params.year);
+    const province = req.params.province;
+    const index = registrationsData.findIndex(d => d.year === year && d.province === province);
+    if (index === -1) return res.status(404).json({ error: "Record not found" });
+    registrationsData.splice(index, 1);
+    res.status(200).json({ message: "Record deleted successfully" });
 });
