@@ -115,19 +115,20 @@ app.get(BASE_API + "/registrations-stats", (req, res) => {
 });
 
 // Cargar datos iniciales
+// Cargar datos iniciales
 app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
     console.log("Intentando cargar datos iniciales...");
 
     if (registrationsData.length === 0) {
         console.log("El array está vacío. Cargando datos...");
-        registrationsData.push(...registrationsData.slice(0, 10));
+        registrationsData.push(...JAM.slice(0, 10)); // Ahora toma los datos de JAM correctamente
+        console.log("Datos después de la carga:", registrationsData);
         return res.status(201).json({ message: "Initial data loaded", data: registrationsData });
     }
 
     console.log("Ya había datos cargados.");
     res.status(200).json({ message: "Data already initialized", data: registrationsData });
 });
-
 
 // Obtener registros por año y provincia
 app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
