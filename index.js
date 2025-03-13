@@ -124,20 +124,24 @@ app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
 });
 
 // Obtener registros por año y provincia
-pp.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
+app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
     const year = parseInt(req.params.year);
-    let province = req.params.province.toLowerCase(); // Convertir a minúsculas para evitar errores de mayúsculas
+    let province = req.params.province.toLowerCase().trim(); // Normalizamos el parámetro de la URL
 
-    // Normalizar nombres de provincia eliminando barras y espacios
-    const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
+    console.log("Provincia recibida en la URL:", province); // Muestra el valor recibido
 
-    const data = registrationsData.filter(d => 
-        d.year === year && normalizeProvince(d.province) === normalizeProvince(province)
-    );
+    // Normalizar nombres de provincia eliminando espacios y barras
+    const normalizeProvince = (p) => p.toLowerCase().trim().replace(/\s/g, "").replace(/\//g, "");
+
+    const data = registrationsData.filter(d => {
+        console.log("Comparando con:", normalizeProvince(d.province)); // Muestra qué valores tiene en los datos
+        return d.year === year && normalizeProvince(d.province) === normalizeProvince(province);
+    });
 
     if (data.length === 0) {
         return res.status(404).json({ error: "No data found for the given year and province" });
     }
+    
     res.status(200).json(data);
 });
 
