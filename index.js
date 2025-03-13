@@ -127,6 +127,11 @@ app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
     console.log("Ya había datos cargados.");
     res.status(200).json({ message: "Data already initialized", data: registrationsData });
 });
+//Para vaciar todos los datos
+app.delete(BASE_API + "/registrations-stats", (req, res) => {
+    registrationsData = [];  // Vacía completamente el array
+    res.status(200).json({ message: "All registration stats deleted" });
+});
 
 // Obtener registros por año y provincia
 app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
