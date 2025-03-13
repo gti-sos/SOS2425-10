@@ -20,18 +20,6 @@ app.get("/",(request,response)=>{
 })
 
 
-app.get(BASE_API+"/registrations-stats",(request, response)=>{
-    console.log("New GET to /registrations-stats")
-    response.send(JSON.stringify(datos));
-});
-app.post(BASE_API+"/registrations-stats",(request, response)=>{
-    console.log("New POST to /registrations-stats")
-    let newRegistrations = request.body;
-    datos.push(newRegistrations)
-    response.sendStatus(201);
-});
-
-
 app.listen(PORT,()=>{
     console.log(`Server running on ${PORT}`)
 })
@@ -115,4 +103,17 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
     let newRadar= request.body;
     IOM.push(newRadar);
     response.sendStatus(201)
+});
+
+
+//API Jesús Aznar Montero
+app.get(BASE_API+"/registrations-stats",(request, response)=>{
+    console.log("New GET to /registrations-stats")
+    response.send(JSON.stringify(datos));
+});
+app.post(BASE_API+"/registrations-stats",(request, response)=>{
+    console.log("New POST to /registrations-stats")
+    let newRegistrations = request.body;
+    datos.push(newRegistrations)
+    response.sendStatus(201);
 });
