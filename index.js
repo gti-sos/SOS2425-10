@@ -98,11 +98,21 @@ app.get(BASE_API+"/radars-stats", (request,response)=>{
 let myNullArray=[]
 app.get(BASE_API+"/radars-stats/loadInitialData",(request,response)=>{
     if (myNullArray.length ===0){
-        myNullArray.push(...IOM)
+        myNullArray.push(...IOM) // Los puntos suspensivos sirven para añadirlos de 1 en 1
     }
         
-        response.send(JSON.stringify(myNullArray)); //Arreglar No se añade
+        response.send(JSON.stringify(myNullArray));
         
     
 
 })
+
+//POST
+
+app.post(BASE_API+"/radars-stats", (request,response)=>{
+    console.log("POST to /radars-stats");
+
+    let newRadar= request.body;
+    myNullArray.push(newRadar);
+    response.sendStatus(201)
+});
