@@ -101,7 +101,13 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
     console.log("POST to /radars-stats");
 
     let newRadar= request.body;
-    console.log(newRadar)
+    //Verificamos si ya existe un radar en la misma carretera y punto kilometrico
+    let exits = IOM.some(radar =>
+        radar.way === newRadar.way && radar.kilometerPoint === newRadar.kilometerPoint
+    );
+    if (exits){
+        return response.status(409).send({error: "El radar ya existe"});
+    }
     IOM.push(newRadar);
     response.sendStatus(201)
 });
