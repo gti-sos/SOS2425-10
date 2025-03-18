@@ -113,6 +113,7 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
     console.log("POST to /radars-stats");
 
     let newRadar= request.body;
+    console.log(newRadar)
     IOM.push(newRadar);
     response.sendStatus(201)
 });
