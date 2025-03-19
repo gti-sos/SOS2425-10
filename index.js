@@ -57,15 +57,7 @@ app.get("/samples/JAM", (request, response) => {
 
 //Media de fallecidos en accidentes ocurridos en Albacete
 
-/*
-app.get('/samples/VCH', (request,response)=> {
-    const albaceteAccidents = myData.filter(accident => accident.province === "Albacete");
-    const totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
-    const averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
-    response.json(`La media de fallecidos en accidentes ocurridos en Albacete es: ${averageVictims}<br>
-        <a href="/">Volver atrás</a>`);
-}) 
-*/
+
 
 
 app.get("/samples/VCH", (req, res) => {
@@ -205,93 +197,90 @@ app.listen(PORT, () => {
 
 
 
-s
-
-
-
+//-------------------------------------------------------
 // API Victor Jose Cabrera Hurtado - Accidents Stats
-let registrationsData = JAM; // Usar datos correctamente
+let Datos = VCH; 
 
 // Obtener todas las estadísticas con filtros opcionales
-app.get(BASE_API + "/registrations-stats", (req, res) => {
-    let filteredData = registrationsData;
+app.get(BASE_API + "/accidents-stats", (req, res) => {
+    let filteredDataAcc = Datos;
 
     if (req.query.province) {
         const provinceQuery = req.query.province.toLowerCase().trim();
 
         // Filtrar datos normalizando la provincia
-        filteredData = filteredData.filter(d => 
+        filteredDataAcc = filteredDataAcc.filter(d => 
             d.province.toLowerCase().trim() === provinceQuery
         );
     }
 
     if (req.query.year) {
         const year = parseInt(req.query.year);
-        filteredData = filteredData.filter(d => d.year === year);
+        filteredDataAcc = filteredDataAcc.filter(d => d.year === year);
     }
 
     if (req.query.from && req.query.to) {
         const fromYear = parseInt(req.query.from);
         const toYear = parseInt(req.query.to);
-        filteredData = filteredData.filter(d => d.year >= fromYear && d.year <= toYear);
+        filteredDataAcc = filteredDataAcc.filter(d => d.year >= fromYear && d.year <= toYear);
     }
 
-    res.status(200).json(filteredData);
+    res.status(200).json(filteredDataAcc);
 });
 
 // Cargar datos iniciales
-app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
+app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
     console.log("Intentando cargar datos iniciales...");
 
-    if (registrationsData.length === 0) {
+    if (filteredDataAcc.length === 0) {
         console.log("El array está vacío. Cargando datos...");
-        registrationsData.push(...JAM.slice(0, 10));
-        console.log("✅ Datos después de la carga:", registrationsData);
-        return res.status(201).json({ message: "Initial data loaded", data: registrationsData });
+        filteredDataAcc.push(...JAM.slice(0, 10));
+        console.log("Datos después de la carga:", filteredDataAcc);
+        return res.status(201).json({ message: "Initial data loaded", data: filteredDataAcc });
     }
 
-    console.log("✅ Ya había datos cargados.");
-    res.status(200).json({ message: "Data already initialized", data: registrationsData });
+    console.log("Ya había datos cargados.");
+    res.status(200).json({ message: "Data already initialized", data: filteredDataAcc });
 });
 
 // Agregar una nueva estadística
-app.post(BASE_API + "/registrations-stats", (req, res) => {
+app.post(BASE_API + "/accidents-stats", (req, res) => {
     const newRecord = req.body;
-    if (!newRecord.year || !newRecord.province || !newRecord.total_general) {
+    if (!newRecord.year || !newRecord.province || !newRecord.total_victims) {
         return res.status(400).json({ error: "Missing required fields" });
     }
-    if (registrationsData.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
+    if (filteredDataAcc.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
         return res.status(409).json({ error: "Record already exists" });
     }
-    registrationsData.push(newRecord);
+    filteredDataAcc.push(newRecord);
     res.status(201).json({ message: "Record added successfully" });
 });
 
 // Modificar una estadística existente
-app.put(BASE_API + "/registrations-stats", (req, res) => {
-    const { year, province, total_general } = req.body;
-    if (!year || !province || total_general === undefined) {
+app.put(BASE_API + "/accidents-stats", (req, res) => {
+    const { year, province, total_victims } = req.body;
+    if (!year || !province || total_victims === undefined) {
         return res.status(400).json({ error: "Missing required fields" });
     }
     
-    const index = registrationsData.findIndex(d => d.year === year && d.province === province);
+    const index = filteredDataAcc.findIndex(d => d.year === year && d.province === province);
     if (index === -1) return res.status(404).json({ error: "Record not found" });
     
-    registrationsData[index] = { ...registrationsData[index], total_general };
+    filteredDataAcc[index] = { ...filteredDataAcc[index], total_victims };
     res.status(200).json({ message: "Record updated successfully" });
 });
 
 // Eliminar una estadística existente
-app.delete(BASE_API + "/registrations-stats", (req, res) => {
+app.delete(BASE_API + "/accidents-stats", (req, res) => {
     const { year, province } = req.query;
     if (!year || !province) {
         return res.status(400).json({ error: "Missing required parameters" });
     }
     
-    const index = registrationsData.findIndex(d => d.year == year && d.province.toLowerCase() === province.toLowerCase());
+    const index = filteredDataAcc.findIndex(d => d.year == year && d.province.toLowerCase() === province.toLowerCase());
     if (index === -1) return res.status(404).json({ error: "Record not found" });
     
-    registrationsData.splice(index, 1);
+    filteredDataAcc.splice(index, 1);
     res.status(200).json({ message: "Record deleted successfully" });
 });
 
