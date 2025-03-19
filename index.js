@@ -144,8 +144,11 @@ app.get(BASE_API+"/radars-stats/:way",(request,response)=>{
 
 app.put(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
     let way = request.params.way;
-    let km = request.params.kilometerPoint;
-    console.log(km)
+    let km = parseFloat(request.params.kilometerPoint);
+
+
+
+
     let change = request.body;
     let index = IOM.findIndex(r=> r.way ===way && km === r.kilometerPoint );
     console.log(index);
@@ -154,7 +157,30 @@ app.put(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
     }
     else {
         IOM[index]={...IOM[index], ... change};
+        response.send(JSON.stringify(IOM[index]))
     }
-    response.send(JSON.stringify(IOM))
+    
 
+})
+
+//DELETE 
+app.delete(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
+    let way = request.params.way;
+    let km = parseFloat(request.params.kilometerPoint);
+    let exists = IOM.some(r => r.way===way && r.kilometerPoint === km); 
+    if (!exists){
+        response.sendStatus(404);
+    }
+    else{
+        IOM = IOM.filter(r => !(r.way === way && r.kilometerPoint === km));
+
+        response.send(JSON.stringify(IOM));
+    }
+})
+
+//POST
+
+app.post(BASE_API+"/radars-stats/:way/",(request,response)=>{
+    console.log("POST to radars-stats/way");
+    response.sendStatus(405);
 })
