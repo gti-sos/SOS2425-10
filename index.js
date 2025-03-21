@@ -217,7 +217,12 @@ app.get(BASE_API + "/accidents-stats", (req, res) => {
         datosFiltrados = datosFiltrados.filter(stat => normalizeProvince(stat.province) === normalizeProvince(province));
     }
 
-    res.status(200).json(datosFiltrados);
+    if (!datosFiltradosx) {
+        return res.sendStatus(404);
+    }
+    // Enviar la encontrada
+    res.send(JSON.stringify(a,null,2))
+    res.status(200);
 });
 
 
