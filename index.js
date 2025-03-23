@@ -70,10 +70,29 @@ app.get("/samples/VCH", (req, res) => {
 
 //API v1 IOM
 
-app.get(BASE_API+"/radars-stats", (request,response)=>{
-    console.log("New GET to /radars-stats");
-    response.send(JSON.stringify(IOM))
+app.get(BASE_API + "/radars-stats", (request, response) => {
+    console.log("Nuevo GET a /radars-stats");
+    const { way, year  } = request.query;
+    console.log("Parámetro recibido:", {way, year}); // ✅ Verifica si está llegando el parámetro
+    let filteredData = IOM;
+    // Si se recibe el parámetro 'way', filtrar por la carretera
+    if (way) {
+        filteredData = filteredData.filter(r=> r.way && r.way.toLocaleLowerCase() === way.toLocaleLowerCase()); // Si no se recibe 'way', devuelve todos los datos
+    }
+    // Si se recibe el parámetro 'year', filtrar por el año
+    if (year){
+        filteredData = filteredData.filter(r=> r.year === parseInt(year));
+    }
+
+    console.log("Resultados filtrados:", filteredData); // ✅ Verifica qué datos se están filtrando
+
+    if (filteredData.length === 0) {
+        return response.status(404).send({ error: `No se encontraron radares en la carretera '${way}'` });
+    }
+
+    return response.json(filteredData); // Devuelve los datos filtrados
 });
+
 let myArray = [
     { autonomousCommunity: "Madrid (Comunidad de)", province: "Madrid", way: "M-40", kilometerPoint: 20.2, complaint: 118149, year: 2023, speedEstimation: 80, averageSpeedFined: 95 },
     { autonomousCommunity: "Andalucía", province: "Málaga", way: "A-7", kilometerPoint: 968.2, complaint: 66869, year: 2023, speedEstimation: 120, averageSpeedFined: 135 },
@@ -132,16 +151,46 @@ app.put(BASE_API+"/radars-stats",(request,response)=>{
 
 //Recursos Concretos
 
-//GET
-app.get(BASE_API+"/radars-stats/:way",(request,response)=>{
-    let way = request.params.way;
-    let exists = IOM.some(r => r.way===way);
-    if (!exists){
-        response.sendStatus(404);
-    }
-    response.send(JSON.stringify(IOM.filter(r=>r.way=== way)))
+// //GET
+// app.get(BASE_API+"/radars-stats/:way",(request,response)=>{
+//     let way = request.params.way;
+//     let exists = IOM.some(r => r.way===way);
+//     if (!exists){
+//         response.sendStatus(404);
+//     }
+//     response.send(JSON.stringify(IOM.filter(r=>r.way=== way)))
     
-})
+// })
+app.get(BASE_API + "/radars-stats/:way", (request, response) => {
+    let way = request.params.way;  // Obtener la carretera desde la URL
+    const { from, to } = request.query; // Obtener los parámetros de consulta 'from' y 'to'
+
+    // Verificar si la carretera existe en los datos
+    let exists = IOM.some(r => r.way === way);
+    if (!exists) {
+        return response.sendStatus(404); // Si no existe la carretera, devolver 404
+    }
+
+    // Filtrar los datos por la carretera
+    let filteredData = IOM.filter(r => r.way === way);
+
+    // Si 'from' y 'to' están presentes, filtrar también por el año
+    if (from && to) {
+        if (isNaN(from) || isNaN(to)) {
+            return response.status(400).send({ error: "Los parámetros 'from' y 'to' deben ser números válidos." });
+        }
+
+        filteredData = filteredData.filter(r => r.year >= parseInt(from) && r.year <= parseInt(to));
+    }
+
+    // Si no se encuentran datos después del filtrado, devolver un mensaje de error
+    if (filteredData.length === 0) {
+        return response.status(404).send({ error: `No se encontraron radares en la carretera '${way}' para el rango de años ${from} a ${to}.` });
+    }
+
+    // Devolver los datos filtrados
+    response.json(filteredData);
+});
 
 //PUT
 
@@ -157,9 +206,6 @@ app.put(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
     console.log(index);
     if (index===-1){
         response.sendStatus(404);
-    }
-    else if(change.way){
-
     }
     else {
         IOM[index]={...IOM[index], ... change};
@@ -190,6 +236,33 @@ app.post(BASE_API+"/radars-stats/:way/",(request,response)=>{
     console.log("POST to radars-stats/way");
     response.sendStatus(405);
 })
+
+//ENDPOINTS
+
+app.get(BASE_API + "/radars-stats", (req, res) => {
+    const { way } = req.query;
+    
+    console.log("Parámetro recibido:", way); // ✅ Verifica si está llegando el parámetro
+
+    if (!way) {
+        return res.json(IOM);
+    }
+
+    const filteredData = IOM.filter(entry => 
+        entry.way && entry.way.toLowerCase() === way.toLowerCase()
+    );
+
+    console.log("Resultados filtrados:", filteredData); // ✅ Verifica qué datos se están filtrando
+
+    if (filteredData.length === 0) {
+        return res.status(404).send({ error: `No se encontraron radares en la carretera '${way}'` });
+    }
+
+    res.json(filteredData);
+});
+
+
+
 
 // API Jesús Aznar Montero - Registrations Stats
 let registrationsData = JAM; // Usar datos correctamente
