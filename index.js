@@ -171,7 +171,7 @@ app.delete(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
 
 
 
-//--------------------------------------------------
+//--------------------------------------------------&&&&&&&&&&&
 // API VICTOR - accidents-stats
 
 // Obtener registros por año y provincia
@@ -187,7 +187,7 @@ app.get(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
         d.year === year && normalizeProvince(d.province) === normalizeProvince(province)
     );
 
-    if (data.length === 0) {
+    if (data == []) {
         return res.status(404).json({ error: "No data found for the given year and province" });
     }
     res.status(200).json(data);
@@ -230,7 +230,7 @@ app.get(BASE_API + "/accidents-stats", (req, res) => {
 // Agregar un nuevo registro
 app.post(BASE_API + "/accidents-stats", (req, res) => {
     const newRecord = req.body;
-    if (!newRecord.year || !newRecord.province || !newRecord.total_victims) {
+    if (!newRecord.year || !newRecord.province || !newRecord.total_victims || !newRecord.accident_id|| !newRecord.month || !newRecord.weekday|| !newRecord.hour || !newRecord.municipality || !newRecord.zone || !newRecord.grouped_zone || !newRecord.road || !newRecord.km || !newRecord.direction_f1 || !newRecord.road_ownership || !newRecord.road_type || !newRecord.accident_type  ) {
         return res.status(400).json({ error: "Missing required fields" });
     }
     if (datos.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
@@ -264,7 +264,7 @@ app.delete(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
 });
 
 //---------
-
+/*
 // VCH datos accident-stats
 app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
     const result = VCH;
@@ -319,6 +319,7 @@ app.get(BASE_API + "/accidents-stats", (req, res) => {
     res.send(console.log(Array.isArray(datos))); // Comprueba si es de verdad un array
     (console.log(typeof(datos))); // Comprueba si es de verdad un objeto
 });
+
 //POST a todos los datos
 app.post(BASE_API + "/accidents-stats/",(req,res)=>{ 
     let datos=VCH  
@@ -350,7 +351,6 @@ app.delete(BASE_API + "/accidents-stats", (req, res) => {
     res.sendStatus(204); // 204 No Content (indica que se procesó, pero sin respuesta)
 });
 
-
 //GET de un dato especifico
 app.get(BASE_API + "/accidents-stats/:province", (req, res) => {
     let paramprovince = Number(req.params.province); // Convertir a número
@@ -358,7 +358,7 @@ app.get(BASE_API + "/accidents-stats/:province", (req, res) => {
 
     let a = datos.find(a => a.province === paramprovince);
     // Si no se encuentra, devolver 404
-    if (!a) {
+    if (a==[]) {
         return res.sendStatus(404);
     }
     // Enviar la sanción encontrada
@@ -404,3 +404,4 @@ app.delete(BASE_API + "/accidents-stats/:province", (req, res) => {
     res.sendStatus(200);
 });
 
+*/
