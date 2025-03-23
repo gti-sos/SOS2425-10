@@ -352,7 +352,7 @@ app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
 // Agregar un nuevo registro
 app.post(BASE_API + "/accidents-stats", (req, res) => {
     const newRecord = req.body;
-    if (!newRecord.year || !newRecord.province || !newRecord.total_victims || !newRecord.accident_id|| !newRecord.month || !newRecord.weekday|| !newRecord.hour || !newRecord.municipality || !newRecord.zone || !newRecord.grouped_zone || !newRecord.road || !newRecord.km || !newRecord.direction_f1 || !newRecord.road_ownership || !newRecord.road_type || !newRecord.accident_type  ) {
+    if (!newRecord.year || !newRecord.province || !newRecord.total_victims || !newRecord.accident_id|| !newRecord.month || !newRecord.weekday|| !newRecord.hour || !newRecord.municipality_code || !newRecord.zone || !newRecord.grouped_zone || !newRecord.road || !newRecord.km || !newRecord.direction_1f || !newRecord.road_ownership || !newRecord.road_type || !newRecord.accident_type) {
         return res.status(400).json({ error: "Missing required fields" });
     }
     if (d.find(d => d.year === newRecord.year && d.province === newRecord.province && d.accident_id===newRecord.accident_id)) {
