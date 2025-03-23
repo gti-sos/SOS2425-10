@@ -2,7 +2,7 @@ const express = require("express");
 const app = express()
 const PORT = process.env.PORT || 16079
 
-const IOM = require('./index-IOM')
+let IOM = require('./index-IOM')
 const JAM = require('./index-JAM')
 const VCH = require('./index-VCH')
 
@@ -92,10 +92,92 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
     console.log("POST to /radars-stats");
 
     let newRadar= request.body;
+
+    //Verificamos si ya existe un radar en la misma carretera y punto kilometrico
+    let exists = IOM.some(radar =>
+        radar.way === newRadar.way && radar.kilometerPoint === newRadar.kilometerPoint
+    );
+    if (exists){
+        return response.status(409).send({error: "El radar ya existe"});
+    }
     IOM.push(newRadar);
     response.sendStatus(201)
 });
 
+//DELETE
+
+app.delete(BASE_API + "/radars-stats", (request, response) => {
+    console.log("DELETE to /radars-stats");
+    IOM = []; // Resetear datos
+    response.sendStatus(200);
+});
+// PUT
+
+app.put(BASE_API+"/radars-stats",(request,response)=>{
+    console.log("PUT to radars-stats");
+    response.sendStatus(405);
+})
+
+//Recursos Concretos
+
+//GET
+app.get(BASE_API+"/radars-stats/:way",(request,response)=>{
+    let way = request.params.way;
+    let exists = IOM.some(r => r.way===way);
+    if (!exists){
+        response.sendStatus(404);
+    }
+    response.send(JSON.stringify(IOM.filter(r=>r.way=== way)))
+    
+})
+
+//PUT
+
+app.put(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
+    let way = request.params.way;
+    let km = parseFloat(request.params.kilometerPoint);
+
+
+
+
+    let change = request.body;
+    let index = IOM.findIndex(r=> r.way ===way && km === r.kilometerPoint );
+    console.log(index);
+    if (index===-1){
+        response.sendStatus(404);
+    }
+    else if(change.way){
+
+    }
+    else {
+        IOM[index]={...IOM[index], ... change};
+        response.send(JSON.stringify(IOM[index]))
+    }
+    
+
+})
+
+//DELETE 
+app.delete(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
+    let way = request.params.way;
+    let km = parseFloat(request.params.kilometerPoint);
+    let exists = IOM.some(r => r.way===way && r.kilometerPoint === km); 
+    if (!exists){
+        response.sendStatus(404);
+    }
+    else{
+        IOM = IOM.filter(r => !(r.way === way && r.kilometerPoint === km));
+
+        response.send(JSON.stringify(IOM));
+    }
+})
+
+//POST
+
+app.post(BASE_API+"/radars-stats/:way/",(request,response)=>{
+    console.log("POST to radars-stats/way");
+    response.sendStatus(405);
+})
 
 // API Jesús Aznar Montero - Registrations Stats
 let registrationsData = JAM; // Usar datos correctamente
