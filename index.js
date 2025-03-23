@@ -92,7 +92,7 @@ app.get(BASE_API+"/radars-stats/loadInitialData",(request,response)=>{
         IOM.push(...myArray) // Los puntos suspensivos sirven para añadirlos de 1 en 1
     }
         
-        response.send(JSON.stringify(myNullArray));
+        response.send(JSON.stringify(IOM));
         
     
 
