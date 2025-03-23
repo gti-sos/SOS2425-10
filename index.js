@@ -114,11 +114,10 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
 
 //DELETE
 
-app.delete(BASE_API+"/radars-stats",(request,response)=>{
-    console.log("DELETE to /radars-stats")
-    IOM.length=0;
+app.delete(BASE_API + "/radars-stats", (request, response) => {
+    console.log("DELETE to /radars-stats");
+    IOM = []; // Resetear datos
     response.sendStatus(200);
-    
 });
 // PUT
 
@@ -153,7 +152,10 @@ app.put(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
     let index = IOM.findIndex(r=> r.way ===way && km === r.kilometerPoint );
     console.log(index);
     if (index===-1){
-        response.sendStatus(400);
+        response.sendStatus(404);
+    }
+    else if(change.way){
+
     }
     else {
         IOM[index]={...IOM[index], ... change};
