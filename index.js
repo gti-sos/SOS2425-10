@@ -253,7 +253,7 @@ app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
 // Agregar un nuevo registro
 app.post(BASE_API + "/registrations-stats", (req, res) => {
     const newRecord = req.body;
-    if (!newRecord.year || !newRecord.province || !newRecord.total_general) {
+    if (!newRecord.year || !newRecord.province || !newRecord.total_general || !newRecord.total_general_nacional || !newRecord.total_general_auction || !newRecord.total_general_import) {
         return res.status(400).json({ error: "Missing required fields" });
     }
     if (registrationsData.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
@@ -261,6 +261,10 @@ app.post(BASE_API + "/registrations-stats", (req, res) => {
     }
     registrationsData.push(newRecord);
     res.status(201).json({ message: "Record added successfully" });
+});
+app.post(BASE_API + "/registrations-stats/:year",(req,res)=>{    
+    
+    res.sendStatus(405);
 });
 
 // Modificar un registro existente
@@ -274,6 +278,12 @@ app.put(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
     }
     registrationsData[index] = { ...registrationsData[index], ...req.body };
     res.status(200).json({ message: "Record updated successfully" });
+});
+
+//FALLO DE PUT a todos los datos
+app.put(BASE_API + "/registrations-stats/",(req,res)=>{    
+    
+    res.sendStatus(405);
 });
 
 // Eliminar un registro existente
@@ -362,6 +372,11 @@ app.post(BASE_API + "/accidents-stats", (req, res) => {
     res.status(201).json({ message: "Record added successfully" });
 });
 
+app.post(BASE_API + "/accidents-stats/:year",(req,res)=>{    
+    
+    res.sendStatus(405);
+});
+
 // Modificar un registro existente
 app.put(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
     const year = parseInt(req.params.year);
@@ -373,6 +388,11 @@ app.put(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
     }
     d[index] = { ...d[index], ...req.body };
     res.status(200).json({ message: "Record updated successfully" });
+});
+//FALLO DE PUT a todos los datos
+app.put(BASE_API + "/accidents-stats/",(req,res)=>{    
+    
+    res.sendStatus(405);
 });
 
 // Eliminar un registro existente
