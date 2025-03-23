@@ -225,21 +225,21 @@ app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
 
     // Filtrar por rango de años (from y to)
     if (from !== undefined) {
-        datosFiltrados = datosFiltrados.filter(stat => stat.year >= Number(from));
+        data = data.filter(stat => stat.year >= Number(from));
     }
     if (to !== undefined) {
-        datosFiltrados = datosFiltrados.filter(stat => stat.year <= Number(to));
+        data = data.filter(stat => stat.year <= Number(to));
     }
 
     // Filtrar por un año específico
     if (year !== undefined) {
-        datosFiltrados = datosFiltrados.filter(stat => stat.year === Number(year));
+        data = data.filter(stat => stat.year === Number(year));
     }
 
     // Filtrar por provincia (sin importar mayúsculas/minúsculas ni espacios)
     if (province !== undefined) {
         const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
-        datosFiltrados = datosFiltrados.filter(stat => normalizeProvince(stat.province) === normalizeProvince(province));
+        data = data.filter(stat => normalizeProvince(stat.province) === normalizeProvince(province));
     }
 
 //---------
@@ -292,99 +292,6 @@ app.delete(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
 
 //--------------------------------------------------&&&&&&&&&&&
 // API VICTOR - accidents-stats
-
-// Obtener registros por año y provincia
-app.get(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
-    let datos=VCH
-    const year = parseInt(req.params.year);
-    let province = req.params.province.toLowerCase(); // Convertir a minúsculas para evitar errores de mayúsculas
-
-    // Normalizar nombres de provincia eliminando barras y espacios
-    const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
-
-    const data = datos.filter(d => 
-        d.year === year && normalizeProvince(d.province) === normalizeProvince(province)
-    );
-
-    if (data == []) {
-        return res.status(404).json({ error: "No data found for the given year and province" });
-    }
-    res.status(200).json(data);
-});
-
-//-----
-app.get(BASE_API + "/accidents-stats", (req, res) => {
-    let datosFiltrados = VCH;
-    let { from, to, year, province } = req.query;
-
-    // Filtrar por rango de años (from y to)
-    if (from !== undefined) {
-        datosFiltrados = datosFiltrados.filter(stat => stat.year >= Number(from));
-    }
-    if (to !== undefined) {
-        datosFiltrados = datosFiltrados.filter(stat => stat.year <= Number(to));
-    }
-
-    // Filtrar por un año específico
-    if (year !== undefined) {
-        datosFiltrados = datosFiltrados.filter(stat => stat.year === Number(year));
-    }
-
-    // Filtrar por provincia (sin importar mayúsculas/minúsculas ni espacios)
-    if (province !== undefined) {
-        const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
-        datosFiltrados = datosFiltrados.filter(stat => normalizeProvince(stat.province) === normalizeProvince(province));
-    }
-
-    if (!datosFiltradosx) {
-        return res.sendStatus(404);
-    }
-    // Enviar la encontrada
-    res.send(JSON.stringify(a,null,2))
-    res.status(200);
-});
-
-
-/*
-// Agregar un nuevo registro
-app.post(BASE_API + "/accidents-stats", (req, res) => {
-    const newRecord = req.body;
-    if (!newRecord.year || !newRecord.province || !newRecord.total_victims || !newRecord.accident_id|| !newRecord.month || !newRecord.weekday|| !newRecord.hour || !newRecord.municipality || !newRecord.zone || !newRecord.grouped_zone || !newRecord.road || !newRecord.km || !newRecord.direction_f1 || !newRecord.road_ownership || !newRecord.road_type || !newRecord.accident_type  ) {
-        return res.status(400).json({ error: "Missing required fields" });
-    }
-    if (datos.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
-        return res.status(409).json({ error: "Record already exists" });
-    }
-    datos.push(newRecord);
-    res.status(201).json({ message: "Record added successfully" });
-});
-
-// Modificar un registro existente
-app.put(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
-    const year = parseInt(req.params.year);
-    const province = req.params.province;
-    const index = datos.findIndex(d => d.year === year && d.province === province);
-    if (index === -1) return res.status(404).json({ error: "Record not found" });
-    if (req.body.year !== year || req.body.province !== province) {
-        return res.status(400).json({ error: "Year and province in body must match URL parameters" });
-    }
-    datos[index] = { ...datos[index], ...req.body };
-    res.status(200).json({ message: "Record updated successfully" });
-});
-
-// Eliminar un registro existente
-app.delete(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
-    const year = parseInt(req.params.year);
-    const province = req.params.province;
-    const index = datos.findIndex(d => d.year === year && d.province === province);
-    if (index === -1) return res.status(404).json({ error: "Record not found" });
-    datos.splice(index, 1);
-    res.status(200).json({ message: "Record deleted successfully" });
-});
-
-//---------
-/*
-// VCH datos accident-stats
 app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
     const result = VCH;
     datos = result;
@@ -438,6 +345,102 @@ app.get(BASE_API + "/accidents-stats", (req, res) => {
     res.send(console.log(Array.isArray(datos))); // Comprueba si es de verdad un array
     (console.log(typeof(datos))); // Comprueba si es de verdad un objeto
 });
+
+
+
+
+// Obtener registros por año y provincia
+app.get(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
+    let datos=VCH
+    const year = parseInt(req.params.year);
+    let province = req.params.province.toLowerCase(); // Convertir a minúsculas para evitar errores de mayúsculas
+
+    // Normalizar nombres de provincia eliminando barras y espacios
+    const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
+
+    const data = datos.filter(d => 
+        d.year === year && normalizeProvince(d.province) === normalizeProvince(province)
+    );
+
+    if (data == []) {
+        return res.status(404).json({ error: "No data found for the given year and province" });
+    }
+    res.status(200).json(data);
+});
+
+//-----
+app.get(BASE_API + "/accidents-stats", (req, res) => {
+    let datosFiltrados = VCH;
+    let { from, to, year, province } = req.query;
+
+    // Filtrar por rango de años (from y to)
+    if (from !== undefined) {
+        datosFiltrados = datosFiltrados.filter(stat => stat.year >= Number(from));
+    }
+    if (to !== undefined) {
+        datosFiltrados = datosFiltrados.filter(stat => stat.year <= Number(to));
+    }
+
+    // Filtrar por un año específico
+    if (year !== undefined) {
+        datosFiltrados = datosFiltrados.filter(stat => stat.year === Number(year));
+    }
+
+    // Filtrar por provincia (sin importar mayúsculas/minúsculas ni espacios)
+    if (province !== undefined) {
+        const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
+        datosFiltrados = datosFiltrados.filter(stat => normalizeProvince(stat.province) === normalizeProvince(province));
+    }
+
+    if (!datosFiltrados) {
+        return res.sendStatus(404);
+    }
+    // Enviar la encontrada
+    res.send(JSON.stringify(a,null,2))
+    res.status(200);
+});
+
+
+
+// Agregar un nuevo registro
+app.post(BASE_API + "/accidents-stats", (req, res) => {
+    const newRecord = req.body;
+    if (!newRecord.year || !newRecord.province || !newRecord.total_victims || !newRecord.accident_id|| !newRecord.month || !newRecord.weekday|| !newRecord.hour || !newRecord.municipality || !newRecord.zone || !newRecord.grouped_zone || !newRecord.road || !newRecord.km || !newRecord.direction_f1 || !newRecord.road_ownership || !newRecord.road_type || !newRecord.accident_type  ) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+    if (datos.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
+        return res.status(409).json({ error: "Record already exists" });
+    }
+    datos.push(newRecord);
+    res.status(201).json({ message: "Record added successfully" });
+});
+
+// Modificar un registro existente
+app.put(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
+    const year = parseInt(req.params.year);
+    const province = req.params.province;
+    const index = datos.findIndex(d => d.year === year && d.province === province);
+    if (index === -1) return res.status(404).json({ error: "Record not found" });
+    if (req.body.year !== year || req.body.province !== province) {
+        return res.status(400).json({ error: "Year and province in body must match URL parameters" });
+    }
+    datos[index] = { ...datos[index], ...req.body };
+    res.status(200).json({ message: "Record updated successfully" });
+});
+
+// Eliminar un registro existente
+app.delete(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
+    const year = parseInt(req.params.year);
+    const province = req.params.province;
+    const index = datos.findIndex(d => d.year === year && d.province === province);
+    if (index === -1) return res.status(404).json({ error: "Record not found" });
+    datos.splice(index, 1);
+    res.status(200).json({ message: "Record deleted successfully" });
+});
+
+//---------
+
+
 
 //POST a todos los datos
 app.post(BASE_API + "/accidents-stats/",(req,res)=>{ 
@@ -523,4 +526,3 @@ app.delete(BASE_API + "/accidents-stats/:province", (req, res) => {
     res.sendStatus(200);
 });
 
-*/
