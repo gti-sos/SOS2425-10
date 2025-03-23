@@ -126,6 +126,31 @@ app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
         d.year === year && normalizeProvince(d.province) === normalizeProvince(province)
     );
 
+//----------
+    let { from, to } = req.query;
+
+    // Filtrar por rango de años (from y to)
+    if (from !== undefined) {
+        datosFiltrados = datosFiltrados.filter(stat => stat.year >= Number(from));
+    }
+    if (to !== undefined) {
+        datosFiltrados = datosFiltrados.filter(stat => stat.year <= Number(to));
+    }
+
+    // Filtrar por un año específico
+    if (year !== undefined) {
+        datosFiltrados = datosFiltrados.filter(stat => stat.year === Number(year));
+    }
+
+    // Filtrar por provincia (sin importar mayúsculas/minúsculas ni espacios)
+    if (province !== undefined) {
+        const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
+        datosFiltrados = datosFiltrados.filter(stat => normalizeProvince(stat.province) === normalizeProvince(province));
+    }
+
+//---------
+
+
     if (data.length === 0) {
         return res.status(404).json({ error: "No data found for the given year and province" });
     }
@@ -135,7 +160,7 @@ app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
 // Agregar un nuevo registro
 app.post(BASE_API + "/registrations-stats", (req, res) => {
     const newRecord = req.body;
-    if (!newRecord.year || !newRecord.province || !newRecord.total_general) {
+    if (!newRecord.year || !newRecord.province || !newRecord.total_general || !newRecord.total_general_national || !newRecord.total_general_auction || !newRecord.total_general_import ) {
         return res.status(400).json({ error: "Missing required fields" });
     }
     if (registrationsData.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
@@ -226,7 +251,7 @@ app.get(BASE_API + "/accidents-stats", (req, res) => {
 });
 
 
-
+/*
 // Agregar un nuevo registro
 app.post(BASE_API + "/accidents-stats", (req, res) => {
     const newRecord = req.body;
