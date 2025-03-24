@@ -202,6 +202,9 @@ app.put(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
 
 
     let change = request.body;
+    if (change.way !== way || parseFloat(change.kilometerPoint) !== km) {
+        return response.status(400).send({ error: "El ID en el cuerpo no coincide con el de la URL" });
+    }
     let index = IOM.findIndex(r=> r.way ===way && km === r.kilometerPoint );
     console.log(index);
     if (index===-1){
