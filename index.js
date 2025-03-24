@@ -72,26 +72,37 @@ app.get("/samples/VCH", (req, res) => {
 
 app.get(BASE_API + "/radars-stats", (request, response) => {
     console.log("Nuevo GET a /radars-stats");
-    const { way, year  } = request.query;
-    console.log("Parámetro recibido:", {way, year}); // ✅ Verifica si está llegando el parámetro
+
+    const { way, year, from, to } = request.query;
+    console.log("Parámetro recibido:", { way, year, from, to });
+
     let filteredData = IOM;
-    // Si se recibe el parámetro 'way', filtrar por la carretera
+
+    // Filtrar por 'way' si se proporciona
     if (way) {
-        filteredData = filteredData.filter(r=> r.way && r.way.toLocaleLowerCase() === way.toLocaleLowerCase()); // Si no se recibe 'way', devuelve todos los datos
-    }
-    // Si se recibe el parámetro 'year', filtrar por el año
-    if (year){
-        filteredData = filteredData.filter(r=> r.year === parseInt(year));
+        filteredData = filteredData.filter(r => r.way && r.way.toLowerCase() === way.toLowerCase());
     }
 
-    console.log("Resultados filtrados:", filteredData); // ✅ Verifica qué datos se están filtrando
+    // Filtrar por 'year' si se proporciona
+    if (year) {
+        filteredData = filteredData.filter(r => r.year === parseInt(year));
+    }
 
+    // Filtrar por rango de años 'from' y 'to' si se proporcionan
+    if (from && to) {
+        const fromYear = parseInt(from);
+        const toYear = parseInt(to);
+        filteredData = filteredData.filter(r => r.year >= fromYear && r.year <= toYear);
+    }
+
+    console.log("Resultados filtrados:", filteredData); 
     if (filteredData.length === 0) {
         return response.status(404).send({ error: `No se encontraron radares en la carretera '${way}'` });
     }
-
-    return response.json(filteredData); // Devuelve los datos filtrados
+    // ✅ Si no hay resultados, devolver un array vacío []
+    return response.json(filteredData);
 });
+
 
 let myArray = [
     { autonomousCommunity: "Madrid (Comunidad de)", province: "Madrid", way: "M-40", kilometerPoint: 20.2, complaint: 118149, year: 2023, speedEstimation: 80, averageSpeedFined: 95 },
