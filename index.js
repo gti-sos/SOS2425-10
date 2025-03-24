@@ -253,10 +253,10 @@ app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
 // Agregar un nuevo registro
 app.post(BASE_API + "/registrations-stats", (req, res) => {
     const newRecord = req.body;
-    if (!newRecord.year || !newRecord.province || !newRecord.total_general || !newRecord.total_general_nacional || !newRecord.total_general_auction || !newRecord.total_general_import) {
+    if (!newRecord.year || !newRecord.province || !newRecord.total_general || !newRecord.total_general_national || !newRecord.total_general_auction || !newRecord.total_general_import) {
         return res.status(400).json({ error: "Missing required fields" });
     }
-    if (registrationsData.find(d => d.year === newRecord.year && d.province === newRecord.province)) {
+    if (registrationsData.find(d => d.year === newRecord.year && d.province === newRecord.province && d.total_general_auction===newRecord.total_general_auction)) {
         return res.status(409).json({ error: "Record already exists" });
     }
     registrationsData.push(newRecord);
