@@ -134,7 +134,9 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
     console.log("POST to /radars-stats");
 
     let newRadar= request.body;
-
+    if (!newRadar.year || !newRadar.province || !newRadar.way || !newRecord.kilometerPoint || !newRecord.complaint || !newRecord.autonomousCommunity || !newRecord.speedEstimation || !newRecord.averageSpeedFined) {
+        return response.status(400).json({ error: "Missing required fields" });
+    }
     //Verificamos si ya existe un radar en la misma carretera y punto kilometrico
     let exists = IOM.some(radar =>
         radar.way === newRadar.way && radar.kilometerPoint === newRadar.kilometerPoint
@@ -409,7 +411,13 @@ app.delete(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
     registrationsData.splice(index, 1);
     res.status(200).json({ message: "Record deleted successfully" });
 });
+//DELETE
 
+app.delete(BASE_API + "/registrations-stats", (request, response) => {
+    console.log("DELETE to /registrations-stats");
+    registrationsData = []; // Resetear datos
+    response.sendStatus(200);
+});
 
 
 
@@ -419,7 +427,11 @@ app.delete(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
 // API VICTOR - accidents-stats
 
 let d = VCH; // Usar datos correctamente
-
+app.delete(BASE_API + "/accidents-stats", (request, response) => {
+    console.log("DELETE to /accidents-stats");
+    d = []; // Resetear datos
+    response.sendStatus(200);
+});
 // Obtener todos los registros con filtros (GET con ?year=, ?from=&to=, ?province=)
 app.get(BASE_API + "/accidents-stats", (req, res) => {
     let datosFiltrados = d;
