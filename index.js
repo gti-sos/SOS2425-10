@@ -363,7 +363,7 @@ app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
 });
 
 // Agregar un nuevo registro
-/*app.post(BASE_API + "/registrations-stats", (req, res) => {
+app.post(BASE_API + "/registrations-stats", (req, res) => {
     const newRecord = req.body;
     if (!newRecord.year || !newRecord.province || !newRecord.total_general || !newRecord.total_general_national || !newRecord.total_general_auction || !newRecord.total_general_import) {
         return res.status(400).json({ error: "Missing required fields" });
@@ -373,23 +373,7 @@ app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
     }
     registrationsData.push(newRecord);
     res.status(201).json({ message: "Record added successfully" });
-});*/
-//----------------
-app.post(BASE_API+"/registrations-stats", (request,response)=>{
-    const newRecord = req.body;
-
-    //Verificamos si ya existe un radar en la misma carretera y punto kilometrico
-    let exists = registrationsData.some(registrations =>
-        registrations.year === newRecord.year && registrations.province === newRecord.province
-    );
-    if (exists){
-        return response.status(409).send({error: "ya existe"});
-    }
-    registrationsData.push(newRecord);
-    res.status(201).json({ message: "Record added successfully" });
 });
-
-//------------
 
 
 app.post(BASE_API + "/registrations-stats/:year",(req,res)=>{    
