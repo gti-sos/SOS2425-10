@@ -353,7 +353,7 @@ app.get(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
 // Cargar datos iniciales
 app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
     if (d.length === 0) {
-        d.push(...JAM.slice(0, 10));
+        d.push(...VCH.slice(0, 10));
         return res.status(201).json({ message: "Initial data loaded", data: d });
     }
     res.status(200).json({ message: "Data already initialized", data: d});
