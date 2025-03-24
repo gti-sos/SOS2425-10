@@ -303,6 +303,28 @@ app.get(BASE_API + "/registrations-stats", (req, res) => {
     return res.status(200).json(datosFiltrados);
 });
 
+// Obtener registros por provincia y rango de años
+app.get(BASE_API + "/registrations-stats/:province", (req, res) => {
+    const provinceParam = req.params.province.toLowerCase();
+    const { from, to } = req.query;
+
+    const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
+
+    let filteredData = registrationsData.filter(d =>
+        normalizeProvince(d.province) === normalizeProvince(provinceParam)
+    );
+
+    if (from !== undefined) {
+        filteredData = filteredData.filter(stat => stat.year >= Number(from));
+    }
+    if (to !== undefined) {
+        filteredData = filteredData.filter(stat => stat.year <= Number(to));
+    }
+
+    res.status(200).json(filteredData);
+});
+
+
 // Obtener registros por año y provincia
 app.get(BASE_API + "/registrations-stats/:year/:province", (req, res) => {
     const year = parseInt(req.params.year);
@@ -411,6 +433,28 @@ app.get(BASE_API + "/accidents-stats", (req, res) => {
 
     return res.status(200).json(datosFiltrados);
 });
+
+// Obtener registros por provincia y rango de años
+app.get(BASE_API + "/accidents-stats/:province", (req, res) => {
+    const provinceParam = req.params.province.toLowerCase();
+    const { from, to } = req.query;
+
+    const normalizeProvince = (p) => p.toLowerCase().replace(/\s/g, "").replace(/\//g, "");
+
+    let filteredData = VCH.filter(d =>
+        normalizeProvince(d.province) === normalizeProvince(provinceParam)
+    );
+
+    if (from !== undefined) {
+        filteredData = filteredData.filter(stat => stat.year >= Number(from));
+    }
+    if (to !== undefined) {
+        filteredData = filteredData.filter(stat => stat.year <= Number(to));
+    }
+
+    res.status(200).json(filteredData);
+});
+
 
 // Obtener registros por año y provincia
 app.get(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
