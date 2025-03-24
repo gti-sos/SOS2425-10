@@ -363,7 +363,7 @@ app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {
 });
 
 // Agregar un nuevo registro
-app.post(BASE_API + "/registrations-stats", (req, res) => {
+/*app.post(BASE_API + "/registrations-stats", (req, res) => {
     const newRecord = req.body;
     if (!newRecord.year || !newRecord.province || !newRecord.total_general || !newRecord.total_general_national || !newRecord.total_general_auction || !newRecord.total_general_import) {
         return res.status(400).json({ error: "Missing required fields" });
@@ -373,7 +373,42 @@ app.post(BASE_API + "/registrations-stats", (req, res) => {
     }
     registrationsData.push(newRecord);
     res.status(201).json({ message: "Record added successfully" });
+});*/
+//----------------
+
+// Agregar un nuevo registro
+app.post(BASE_API + "/registrations-stats", (req, res) => {
+    const newRecord = req.body;
+
+    // Validar que todos los campos estén presentes (aunque valgan 0)
+    if (
+        newRecord.year === undefined ||
+        newRecord.province === undefined ||
+        newRecord.total_general === undefined ||
+        newRecord.total_general_national === undefined ||
+        newRecord.total_general_auction === undefined ||
+        newRecord.total_general_import === undefined
+    ) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    // Comprobar si ya existe un registro con mismo año y provincia
+    const exists = registrationsData.find(d =>
+        d.year === newRecord.year &&
+        d.province === newRecord.province
+    );
+
+    if (exists) {
+        return res.status(409).json({ error: "Record already exists" });
+    }
+
+    // Agregar el nuevo registro
+    registrationsData.push(newRecord);
+    res.status(201).json({ message: "Record added successfully" });
 });
+//------------
+
+
 app.post(BASE_API + "/registrations-stats/:year",(req,res)=>{    
     
     res.sendStatus(405);
