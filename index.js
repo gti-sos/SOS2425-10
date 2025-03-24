@@ -134,7 +134,9 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
     console.log("POST to /radars-stats");
 
     let newRadar= request.body;
-
+    if (!newRadar.year || !newRadar.province || !newRadar.way || !newRecord.kilometerPoint || !newRecord.complaint || !newRecord.autonomousCommunity || !newRecord.speedEstimation || !newRecord.averageSpeedFined) {
+        return response.status(400).json({ error: "Missing required fields" });
+    }
     //Verificamos si ya existe un radar en la misma carretera y punto kilometrico
     let exists = IOM.some(radar =>
         radar.way === newRadar.way && radar.kilometerPoint === newRadar.kilometerPoint
