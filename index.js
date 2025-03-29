@@ -1,10 +1,17 @@
-const express = require("express");
+import { loadBackEnd } from "./src/back/radars-stats/index.js";
+
+import express  from "express";
 const app = express()
 const PORT = process.env.PORT || 16079
 
-let IOM = require('./index-IOM')
-const JAM = require('./index-JAM')
-const VCH = require('./index-VCH')
+import {IOM}  from "./index-IOM.js";
+import {JAM}  from "./index-JAM.js";
+import {VCH}  from "./index-VCH.js";
+
+import dataStore from "nedb";
+
+// const JAM = require('./index-JAM')
+// const VCH = require('./index-VCH')
 
 const BASE_API="/api/v1";
 
@@ -25,7 +32,7 @@ app.listen(PORT,()=>{
 })
 
 //Ignacio Ortiz Moreno
-
+loadBackEnd(app);
 // Filtrar por comunidad 
 let filtered = IOM.filter((v)=> v.autonomousCommunity === "Andalucía")
 
@@ -117,6 +124,8 @@ let myArray = [
     { autonomousCommunity: "Andalucía", province: "Sevilla", way: "A-92", kilometerPoint: 83.8, complaint: 33849, year: 2023, speedEstimation: 120, averageSpeedFined: 135 },
     { autonomousCommunity: "Madrid (Comunidad de)", province: "Madrid", way: "A-4", kilometerPoint: 12.4, complaint: 25778, year: 2022, speedEstimation: 120, averageSpeedFined: 135 }
   ];
+
+ 
 app.get(BASE_API+"/radars-stats/loadInitialData",(request,response)=>{
     if (IOM.length ===0){
         IOM.push(...myArray) // Los puntos suspensivos sirven para añadirlos de 1 en 1
