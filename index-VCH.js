@@ -1,4 +1,4 @@
-let myData = [
+let VCH = [
     {accident_id: 1, year: 2023, month: 1, weekday: 1, hour: 7, province: "Álava", municipality_code: "Álava", zone: 1, grouped_zone: 1, road: "A-1", km: 357, direction_1f: 2, road_ownership: 3, road_type: 3, accident_type: 12, total_victims: 1},
     {accident_id: 890, year: 2023, month: 11, weekday: 7, hour: 12, province: "Albacete", municipality_code: "Albacete", zone: 1, grouped_zone: 1, road: "ARROYO DE", km: 0.7, direction_1f: 2, road_ownership: 4, road_type: 10, accident_type: 18, total_victims: 1},
     {accident_id: 1641, year: 2023, month: 8, weekday: 4, hour: 11, province: "Álava", municipality_code: "Álava", zone: 1, grouped_zone: 1, road: "CV-700", km: 55.058, direction_1f: 2, road_ownership: 2, road_type: 6, accident_type: 3, total_victims: 1},
@@ -12,11 +12,11 @@ let myData = [
 ]
 
 // Filtrado por tipo de accidente 
-let filtered = myData.filter((x)=> x.accident_type == 10)
+let filtered = VCH.filter((x)=> x.accident_type == 10)
 
 //Media de fallecidos en accidentes ocurridos en Albacete
 
-let albaceteAccidents = myData.filter(accident => accident.province === "Albacete");
+let albaceteAccidents = VCH.filter(accident => accident.province === "Albacete");
 let totalVictims = albaceteAccidents.reduce((sum, accident) => sum + accident.total_victims, 0);
 let averageVictims = albaceteAccidents.length > 0 ? totalVictims / albaceteAccidents.length : 0;
 
@@ -27,4 +27,4 @@ console.log("filtrado por tipo de accidente: ", filtered);
 
 console.log("Media de total_victims en Albacete:", averageVictims);
 
-module.exports = myData
+export {VCH};
