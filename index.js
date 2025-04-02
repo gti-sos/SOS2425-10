@@ -1,10 +1,17 @@
-const express = require("express");
+import { loadBackEnd } from "./src/back/radars-stats/index.js";
+
+import express  from "express";
 const app = express()
 const PORT = process.env.PORT || 16079
 
-let IOM = require('./index-IOM')
-const JAM = require('./index-JAM')
-const VCH = require('./index-VCH')
+import {IOM}  from "./index-IOM.js";
+import {JAM}  from "./index-JAM.js";
+import {VCH}  from "./index-VCH.js";
+
+import dataStore from "nedb";
+
+// const JAM = require('./index-JAM')
+// const VCH = require('./index-VCH')
 
 const BASE_API="/api/v1";
 
@@ -25,7 +32,7 @@ app.listen(PORT,()=>{
 })
 
 //Ignacio Ortiz Moreno
-
+loadBackEnd(app);
 // Filtrar por comunidad 
 let filtered = IOM.filter((v)=> v.autonomousCommunity === "Andalucía")
 
@@ -117,6 +124,8 @@ let myArray = [
     { autonomousCommunity: "Andalucía", province: "Sevilla", way: "A-92", kilometerPoint: 83.8, complaint: 33849, year: 2023, speedEstimation: 120, averageSpeedFined: 135 },
     { autonomousCommunity: "Madrid (Comunidad de)", province: "Madrid", way: "A-4", kilometerPoint: 12.4, complaint: 25778, year: 2022, speedEstimation: 120, averageSpeedFined: 135 }
   ];
+
+ 
 app.get(BASE_API+"/radars-stats/loadInitialData",(request,response)=>{
     if (IOM.length ===0){
         IOM.push(...myArray) // Los puntos suspensivos sirven para añadirlos de 1 en 1
@@ -134,7 +143,7 @@ app.post(BASE_API+"/radars-stats", (request,response)=>{
     console.log("POST to /radars-stats");
 
     let newRadar= request.body;
-    if (!newRadar.year || !newRadar.province || !newRadar.way || !newRecord.kilometerPoint || !newRecord.complaint || !newRecord.autonomousCommunity || !newRecord.speedEstimation || !newRecord.averageSpeedFined) {
+    if (!newRadar.year || !newRadar.province || !newRadar.way || !newRadar.kilometerPoint || !newRadar.complaint || !newRadar.autonomousCommunity || !newRadar.speedEstimation || !newRadar.averageSpeedFined) {
         return response.status(400).json({ error: "Missing required fields" });
     }
     //Verificamos si ya existe un radar en la misma carretera y punto kilometrico
@@ -427,11 +436,24 @@ app.delete(BASE_API + "/registrations-stats", (request, response) => {
 // API VICTOR - accidents-stats
 
 let d = VCH; // Usar datos correctamente
+
 app.delete(BASE_API + "/accidents-stats", (request, response) => {
     console.log("DELETE to /accidents-stats");
     d = []; // Resetear datos
     response.sendStatus(200);
 });
+
+
+app.get(BASE_API+"/accidents-stats/loadInitialData",(request,response)=>{
+    if (VCH.length ===0){
+        VCH.push(...d) // Los puntos suspensivos sirven para añadirlos de 1 en 1
+    }
+        
+        response.send(JSON.stringify(VCH));
+        
+    
+
+})
 // Obtener todos los registros con filtros (GET con ?year=, ?from=&to=, ?province=)
 app.get(BASE_API + "/accidents-stats", (req, res) => {
     let datosFiltrados = d;
@@ -497,7 +519,7 @@ app.get(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
     }
     res.status(200).json(data);
 });
-
+/*
 // Cargar datos iniciales
 app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
     if (d.length === 0) {
@@ -505,7 +527,7 @@ app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
         return res.status(201).json({ message: "Initial data loaded", data: d });
     }
     res.status(200).json({ message: "Data already initialized", data: d});
-});
+});*/
 
 // Agregar un nuevo registro
 app.post(BASE_API + "/accidents-stats", (req, res) => {
@@ -525,7 +547,36 @@ app.post(BASE_API + "/accidents-stats/:year",(req,res)=>{
     res.sendStatus(405);
 });
 
-// Modificar un registro existente
+
+
+
+
+app.put(BASE_API+"/accidents-stats/:year/:province",(request,response)=>{
+    let year = request.params.year;
+    let province = request.params.province;
+
+
+
+
+    let change = request.body;
+    if (change.year !== year || change.province !== province) {
+        return response.status(400).send({ error: "El ID en el cuerpo no coincide con el de la URL" });
+    }
+    let index = VCH.findIndex(r=> r.year ===year && province === r.province );
+    console.log(index);
+    if (index===-1){
+        response.sendStatus(404);
+    }
+    else {
+        VCH[index]={...VCH[index], ... change};
+        response.send(JSON.stringify(VCH[index]))
+    }
+    
+
+})
+// Modificar un registro existente/
+// *
+/*
 app.put(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
     const year = parseInt(req.params.year);
     const province = req.params.province;
@@ -541,14 +592,15 @@ app.put(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
 app.put(BASE_API + "/accidents-stats/",(req,res)=>{    
     
     res.sendStatus(405);
-});
+});/*/
+
 
 // Eliminar un registro existente
 app.delete(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
     const year = parseInt(req.params.year);
     const province = req.params.province;
-    const index = registrationsData.findIndex(d => d.year === year && d.province === province);
+    const index = d.findIndex(d => d.year === year && d.province === province);
     if (index === -1) return res.status(404).json({ error: "Record not found" });
-    registrationsData.splice(index, 1);
+    d.splice(index, 1);
     res.status(200).json({ message: "Record deleted successfully" });
 });
