@@ -1,0 +1,15 @@
+{
+	"id": "1dbf8006-a15d-4e9a-829e-9780a9e0a2bf",
+	"name": "radarLocal",
+	"values": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:16079",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-04-02T08:29:42.278Z",
+	"_postman_exported_using": "Postman/11.39.3-250401-2336"
+}

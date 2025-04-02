@@ -1,0 +1,15 @@
+{
+	"id": "69fd8eca-1893-4f51-9585-a44baa90198d",
+	"name": "radarOnline",
+	"values": [
+		{
+			"key": "BASE_URL",
+			"value": "https://sos2425-10.onrender.com",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-04-02T08:29:47.634Z",
+	"_postman_exported_using": "Postman/11.39.3-250401-2336"
+}

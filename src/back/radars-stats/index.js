@@ -1,4 +1,9 @@
+import { request } from "express";
 import { IOM } from "../../../index-IOM.js";
+import dataStore from "nedb";
+
+let db = new dataStore();
+
 const BASE_API="/api/v1";
 let myArray = [
     { autonomousCommunity: "Madrid (Comunidad de)", province: "Madrid", way: "M-40", kilometerPoint: 20.2, complaint: 118149, year: 2023, speedEstimation: 80, averageSpeedFined: 95 },
@@ -13,40 +18,56 @@ let myArray = [
     { autonomousCommunity: "Andalucía", province: "Sevilla", way: "A-92", kilometerPoint: 83.8, complaint: 33849, year: 2023, speedEstimation: 120, averageSpeedFined: 135 },
     { autonomousCommunity: "Madrid (Comunidad de)", province: "Madrid", way: "A-4", kilometerPoint: 12.4, complaint: 25778, year: 2022, speedEstimation: 120, averageSpeedFined: 135 }
   ];
+db.find({},(err,radars)=>{
+    if (radars.length <1){
+        db.insert(myArray);
+    }
+})
 function loadBackEnd(app){
     app.get(BASE_API + "/radars-stats", (request, response) => {
-        console.log("Nuevo GET a /radars-stats");
+        // console.log("Nuevo GET a /radars-stats");
     
-        const { way, year, from, to } = request.query;
-        console.log("Parámetro recibido:", { way, year, from, to });
+        // const { way, year, from, to } = request.query;
+        // console.log("Parámetro recibido:", { way, year, from, to });
     
-        let filteredData = IOM;
+        // let filteredData = IOM;
     
-        // Filtrar por 'way' si se proporciona
-        if (way) {
-            filteredData = filteredData.filter(r => r.way && r.way.toLowerCase() === way.toLowerCase());
-        }
+        // // Filtrar por 'way' si se proporciona
+        // if (way) {
+        //     filteredData = filteredData.filter(r => r.way && r.way.toLowerCase() === way.toLowerCase());
+        // }
     
-        // Filtrar por 'year' si se proporciona
-        if (year) {
-            filteredData = filteredData.filter(r => r.year === parseInt(year));
-        }
+        // // Filtrar por 'year' si se proporciona
+        // if (year) {
+        //     filteredData = filteredData.filter(r => r.year === parseInt(year));
+        // }
     
-        // Filtrar por rango de años 'from' y 'to' si se proporcionan
-        if (from && to) {
-            const fromYear = parseInt(from);
-            const toYear = parseInt(to);
-            filteredData = filteredData.filter(r => r.year >= fromYear && r.year <= toYear);
-        }
+        // // Filtrar por rango de años 'from' y 'to' si se proporcionan
+        // if (from && to) {
+        //     const fromYear = parseInt(from);
+        //     const toYear = parseInt(to);
+        //     filteredData = filteredData.filter(r => r.year >= fromYear && r.year <= toYear);
+        // }
     
-        console.log("Resultados filtrados:", filteredData); 
-        if (filteredData.length === 0) {
-            return response.status(404).send({ error: `No se encontraron radares en la carretera '${way}'` });
-        }
-        // ✅ Si no hay resultados, devolver un array vacío []
-        return response.json(filteredData);
+        // console.log("Resultados filtrados:", filteredData); 
+        // if (filteredData.length === 0) {
+        //     return response.status(404).send({ error: `No se encontraron radares en la carretera '${way}'` });
+        // }
+        // // ✅ Si no hay resultados, devolver un array vacío []
+        // return response.json(filteredData);
+        console.log("Nuevo GET a bd /radars-stats");
+        db.find({},(err,radars)=>{
+            response.send(JSON.stringify(radars.map((r)=>{
+                delete r._id;
+                return r
+            }),null,2));
+        })
     });
     
+    app.get(BASE_API+"/radars-stats/docs",(request,response)=>{
+        response.redirect("https://documenter.getpostman.com/view/42127435/2sB2cSfNow");
+
+    })
     
     
     app.get(BASE_API+"/radars-stats/loadInitialData",(request,response)=>{
@@ -63,21 +84,25 @@ function loadBackEnd(app){
     //POST
     
     app.post(BASE_API+"/radars-stats", (request,response)=>{
-        console.log("POST to /radars-stats");
+        // console.log("POST to /radars-stats");
     
+        // let newRadar= request.body;
+        // if (!newRadar.year || !newRadar.province || !newRadar.way || !newRadar.kilometerPoint || !newRadar.complaint || !newRadar.autonomousCommunity || !newRadar.speedEstimation || !newRadar.averageSpeedFined) {
+        //     return response.status(400).json({ error: "Missing required fields" });
+        // }
+        // //Verificamos si ya existe un radar en la misma carretera y punto kilometrico
+        // let exists = IOM.some(radar =>
+        //     radar.way === newRadar.way && radar.kilometerPoint === newRadar.kilometerPoint
+        // );
+        // if (exists){
+        //     return response.status(409).send({error: "El radar ya existe"});
+        // }
+        // IOM.push(newRadar);
+        // response.sendStatus(201)
+        console.log("POST to bd /radars-stats");
         let newRadar= request.body;
-        if (!newRadar.year || !newRadar.province || !newRadar.way || !newRadar.kilometerPoint || !newRadar.complaint || !newRadar.autonomousCommunity || !newRadar.speedEstimation || !newRadar.averageSpeedFined) {
-            return response.status(400).json({ error: "Missing required fields" });
-        }
-        //Verificamos si ya existe un radar en la misma carretera y punto kilometrico
-        let exists = IOM.some(radar =>
-            radar.way === newRadar.way && radar.kilometerPoint === newRadar.kilometerPoint
-        );
-        if (exists){
-            return response.status(409).send({error: "El radar ya existe"});
-        }
-        IOM.push(newRadar);
-        response.sendStatus(201)
+        db.insert(newRadar);
+        response.sendStatus(201);
     });
     
     //DELETE
@@ -165,17 +190,31 @@ function loadBackEnd(app){
     
     //DELETE 
     app.delete(BASE_API+"/radars-stats/:way/:kilometerPoint",(request,response)=>{
+        // let way = request.params.way;
+        // let km = parseFloat(request.params.kilometerPoint);
+        // let exists = IOM.some(r => r.way===way && r.kilometerPoint === km); 
+        // if (!exists){
+        //     response.sendStatus(404);
+        // }
+        // else{
+        //     IOM = IOM.filter(r => !(r.way === way && r.kilometerPoint === km));
+    
+        //     response.send(JSON.stringify(IOM));
+        // }
         let way = request.params.way;
         let km = parseFloat(request.params.kilometerPoint);
-        let exists = IOM.some(r => r.way===way && r.kilometerPoint === km); 
-        if (!exists){
-            response.sendStatus(404);
-        }
-        else{
-            IOM = IOM.filter(r => !(r.way === way && r.kilometerPoint === km));
-    
-            response.send(JSON.stringify(IOM));
-        }
+        db.remove({"way": way, "kilometerPoint": km},{},(err,numRemoved)=>{
+            if(err){
+                response.status(500).send("Error code 01");
+            }else{
+                if(numRemoved>=1){
+                    response.sendStatus(200);
+                }else{
+                    response.sendStatus(404);
+                }
+            }
+        });
+        
     })
     
     //POST
