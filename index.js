@@ -574,25 +574,7 @@ app.put(BASE_API+"/accidents-stats/:year/:province",(request,response)=>{
     
 
 })
-// Modificar un registro existente/
-// *
-/*
-app.put(BASE_API + "/accidents-stats/:year/:province", (req, res) => {
-    const year = parseInt(req.params.year);
-    const province = req.params.province;
-    const index = d.findIndex(d => d.year === year && d.province === province);
-    if (index === -1) return res.status(404).json({ error: "Record not found" });
-    if (req.body.year !== year || req.body.province !== province) {
-        return res.status(400).json({ error: "Year and province in body must match URL parameters" });
-    }
-    d[index] = { ...d[index], ...req.body };
-    res.status(200).json({ message: "Record updated successfully" });
-});
-//FALLO DE PUT a todos los datos
-app.put(BASE_API + "/accidents-stats/",(req,res)=>{    
-    
-    res.sendStatus(405);
-});/*/
+
 
 
 // Eliminar un registro existente
