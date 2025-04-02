@@ -22,6 +22,8 @@ app.use(express.json());
 app.get("/",(request,response)=>{
     response.send(`Servidor del <a href="/about">grupo 10</a><br>
         <a href="/samples/IOM">IOM</a><br>
+        <a href="/src/back/accidents-stats/index.js">API Víctor Cabrera Hurtado</a><br>
+        <a href="/src/back/registrations-stats/index.js">API Jesús Aznar Montero</a><br>
         `)
 })
 
