@@ -34,7 +34,7 @@ const database = new dataStore();
       
       // APIs de JAM
       app.get(BASE_API + "/registrations-stats/docs", (req, res) => {
-          res.redirect("rellenar"); 
+          res.redirect("https://documenter.getpostman.com/view/42224504/2sB2cSgPL6"); 
       });
   
       app.get(BASE_API + "/registrations-stats/loadInitialData", (req, res) => {

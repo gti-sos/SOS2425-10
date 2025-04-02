@@ -32,7 +32,7 @@ export function loadBackendVCH(app){
     
     // APIs de VCH
     app.get(BASE_API + "/accidents-stats/docs", (req, res) => {
-        res.redirect("rellenar"); 
+        res.redirect("https://documenter.getpostman.com/view/42339863/2sB2cSgPL5"); 
     });
 
     app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
