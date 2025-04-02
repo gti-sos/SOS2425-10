@@ -9,5 +9,4 @@ jobs:
       - name: Install dependences
         run: npm install
       - name: Run tests
-        run: npm test
-        
+        run: npm test-radar
