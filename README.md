@@ -7,6 +7,6 @@
 - **Repository**: [gti-sos/SOS2425-10](https://github.com/gti-sos/SOS2425-10)
 - **URL**: https://sos2425-10.onrender.com
 -  **APIs**:
-    - https://sos2425-10.onrender.com/api/v1/radars-stats (developed by Ignacio Ortiz Moreno)
-    - https://sos2425-10.onrender.com/api/v1/registrations-stats (developed by Jesús Anzar Montero)
-    - https://sos2425-10.onrender.com/api/v1/accidents-stats (developed by Víctor José Cabrera Hurtado)
+    - https://sos2425-10.onrender.com/api/v1/radars-stats/docs (developed by Ignacio Ortiz Moreno)
+    - https://sos2425-10.onrender.com/api/v1/registrations-stats/docs (developed by Jesús Anzar Montero)
+    - https://sos2425-10.onrender.com/api/v1/accidents-stats/docs (developed by Víctor José Cabrera Hurtado)
