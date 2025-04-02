@@ -1,4 +1,4 @@
-datos = [
+let JAM = [
     { year: 2018, province: "Álava", total_general_national: 1445, total_general_import: 8791, total_general_auction: 0, total_general: 10236},
     { year: 2018, province: "Albacete", total_general_national: 786, total_general_import: 8743, total_general_auction: 1, total_general: 9530 },
     { year: 2018, province: "Alicante", total_general_national: 8004, total_general_import: 91734, total_general_auction: 5, total_general: 99743 },
@@ -15,11 +15,11 @@ datos = [
 
 // Filtrar por provincia
 const provinciaSeleccionada = "Alicante/Alacant";
-const datosProvincia = datos.filter(d => d.province === provinciaSeleccionada);
+const datosProvincia = JAM.filter(d => d.province === provinciaSeleccionada);
 
 // Calcular la media del total_general
 const media = datosProvincia.reduce((acc, d) => acc + d.total_general, 0) / datosProvincia.length;
 
 console.log(`La media de 'total_general' para la provincia de ${provinciaSeleccionada} es: ${media.toFixed(2)}`);
 
-module.exports=datos;
+export {JAM};

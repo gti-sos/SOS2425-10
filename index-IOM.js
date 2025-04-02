@@ -1,4 +1,4 @@
-let myArray = [
+let IOM = [
     { autonomousCommunity: "Madrid (Comunidad de)", province: "Madrid", way: "M-40", kilometerPoint: 20.2, complaint: 118149, year: 2023, speedEstimation: 80, averageSpeedFined: 95 },
     { autonomousCommunity: "Andalucía", province: "Málaga", way: "A-7", kilometerPoint: 968.2, complaint: 66869, year: 2023, speedEstimation: 120, averageSpeedFined: 135 },
     { autonomousCommunity: "Navarra (Comunidad Foral de)", province: "Navarra", way: "A-15", kilometerPoint: 127.6, complaint: 49677, year: 2023, speedEstimation: 120, averageSpeedFined: 135 },
@@ -19,7 +19,7 @@ function log(m){
 }
 
 // Filtrar por comunidad 
-let filtered = myArray.filter((v)=> v.autonomousCommunity === "Andalucía")
+let filtered = IOM.filter((v)=> v.autonomousCommunity === "Andalucía")
 
 //Suma de velocidad media
 
@@ -34,8 +34,8 @@ let average = sum / filtered.length
 log(`La media de velocidad en Andalucía es: ${average} km/h <br>
         <a href="/">Volver atrás</a>`)
 
-module.exports = myArray
 
+export {IOM};
 //API v1
 
   
