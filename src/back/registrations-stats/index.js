@@ -1,25 +1,10 @@
-// import { request } from "express";
-// import { JAM } from "../../../index-JAM.js";
-// import dataStore from "nedb";
 
-// let db = new dataStore();
-
-// const BASE_API="/api/v1";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from 'url';
+import { JAM } from "../../../index-JAM.js";
 import dataStore from "nedb";
 const database = new dataStore();
 
-
   
- 
-  
-  
-  
-  
-  
-  function loadInitialData(){
+  function loadInitialDataJAM(){
     let JAM = [
         { year: 2018, province: "Álava", total_general_national: 1445, total_general_import: 8791, total_general_auction: 0, total_general: 10236},
         { year: 2018, province: "Albacete", total_general_national: 786, total_general_import: 8743, total_general_auction: 1, total_general: 9530 },
@@ -45,7 +30,7 @@ const database = new dataStore();
       }
   })
   
-  function loadBackendJAM(app){
+ export function loadBackendJAM(app){
       
       // APIs de JAM
       app.get(BASE_API + "/registrations-stats/docs", (req, res) => {
@@ -62,7 +47,7 @@ const database = new dataStore();
                   return res.status(400).json({ message: "Ya tiene datos" });
               }
   
-              const initialData = loadInitialDataDLC();
+              const initialData = loadInitialDataJAM();
               database.insert(initialData, (err, newDocs) => {
                   if (err) {
                       return res.status(500).send("Error al insertar los datos.");
@@ -82,7 +67,7 @@ const database = new dataStore();
       });
   
       // GET todos los datos con paginación
-  app.get(BASE_API + "/registrations-stats", (req, res) => {
+     app.get(BASE_API + "/registrations-stats", (req, res) => {
       let { total_general_national, province, year, from, to, limit, offset } = req.query;
   
       let query = {};
@@ -122,9 +107,7 @@ const database = new dataStore();
   
           res.send(JSON.stringify(sanitized));
       });
-  });
-  
-  
+    });
       //POST a todos los datos
       app.post(BASE_API + "/registrations-stats", (req, res) => {
           const { total_general_national, province, year, total_general_import, total_general_auction,total_general } = req.body;
@@ -247,7 +230,7 @@ const database = new dataStore();
       });
   }
   
-  export {loadBackendJAM,JAM,loadInitialData};
+export {JAM,loadInitialDataJAM};
 //--------------------------------------------------&&&&&&&&&&&
 // API JESUS - registrations-stats
 

@@ -1,13 +1,5 @@
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from 'url';
+import { VCH } from "../../../index-VCH.js";
 import dataStore from "nedb";
-
-// let db = new dataStore();
-
-// const BASE_API="/api/v1";
-
-
 
 const database = new dataStore();
 
@@ -36,7 +28,7 @@ database.insert(VCH, (err, newDocs) => {
     }
 })
 
-function loadBackendVCH(app){
+export function loadBackendVCH(app){
     
     // APIs de VCH
     app.get(BASE_API + "/accidents-stats/docs", (req, res) => {
@@ -53,7 +45,7 @@ function loadBackendVCH(app){
                 return res.status(400).json({ message: "Ya tiene datos" });
             }
 
-            const initialData = loadInitialDataDLC();
+            const initialData = loadInitialDataVCH();
             database.insert(initialData, (err, newDocs) => {
                 if (err) {
                     return res.status(500).send("Error al insertar los datos.");
@@ -243,7 +235,7 @@ app.post(BASE_API + "/accidents-stats/reset", (req, res) => {
     });
 }
 
-export {loadBackendVCH,VCH,loadInitialDataVCH};
+export {VCH,loadInitialDataVCH};
 
 // //--------------------------------------------------&&&&&&&&&&&
 // // API VICTOR - accidents-stats
