@@ -25,7 +25,7 @@ let JAM = [
 let d = JAM; // Usar datos correctamente
 
 app.delete(BASE_API + "/-stats", (request, response) => {
-    console.log("DELETE to /VCH-stats");
+    console.log("DELETE to /JAM-stats");
     d = []; // Resetear datos
     response.sendStatus(200);
 });
