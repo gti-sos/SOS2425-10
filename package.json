@@ -6,7 +6,19 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+
+    "test-local-radar": "npx newman run tests/back/radars-stats/radars-stats-tests.json -e tests/back/radars-stats/radarLocal-env.json",
+    "test-online-radar": "npx newman run tests/back/radars-stats/radars-stats-tests.json -e tests/back/radars-stats/radarOnline-env.json",
+    "test-server-radar-local":"start-server-and-test start http://localhost:16079 test-local-radar",
+    "test-radar": "npm run test-server-radar-local",
+    "testJAM-local": "npx newman run tests/back/registrations-stats/api-test-JAM.json -e tests/back/registrations-stats/local-registrations.json",
+    "testJAM-online": "npx newman run tests/back/registrations-stats/api-test-JAM.json -e tests/back/registrations-stats/online-registrations.json",
+    "testVCH-local": "npx newman run tests/back/accidents-stats/api-test-VCH.json -e tests/back/accidents-stats/local-accidents.json",
+    "testVCH-online": "npx newman run tests/back/accidents-stats/api-test-VCH.json -e tests/back/accidents-stats/online-accidents.json",
+    "test-local-JAM":"start-server-and-test start http://localhost:16079 testJAM-local",
+    "test-local-VCH":"start-server-and-test start http://localhost:16079 testVCH-local",
+    "test-registrations-stats": "npm run test-local-JAM",
+    "test-accidents-stats": "npm run test-local-VCH"
   },
   "repository": {
     "type": "git",

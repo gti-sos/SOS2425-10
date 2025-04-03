@@ -1,0 +1,345 @@
+{
+	"info": {
+		"_postman_id": "f99e3f14-bdbf-466f-83ca-0d4dca769324",
+		"name": "l05",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42224504"
+	},
+	"item": [
+		{
+			"name": "registrations-stats",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filtro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/1340",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"registrations-stats",
+						"1340"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filtro no encontrado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats/0",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loadInitialData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats/loadInitialData",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recurso nuevo 201",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2018,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1445,\r\n        \"total_general_import\": 8791,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 10236\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"registrations-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existente 409",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"year\": 2018,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1445,\r\n        \"total_general_import\": 8791,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 10236\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borra todo",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar recurso 200",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/2",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"registrations-stats",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"year\": 2019,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1340,\r\n        \"total_general_import\": 7,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 9597\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats/1",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"year\": 2019,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1340,\r\n        \"total_general_import\": 7,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 9597\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/1",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"registrations-stats",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2019,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1340,\r\n        \"total_general_import\": 8257,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 4\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/1340",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"registrations-stats",
+						"1340"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"year\": 2019,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1340,\r\n        \"total_general_import\": 8257,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 9597\r\n    }\r\n    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/1",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"registrations-stats",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
