@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "bdfa6bcd-fcc8-4c80-b418-8df4ff25ce26",
+		"name": "L06",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42339863"
+	},
+	"item": [
+		{
+			"name": "loadInitialData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/accidents-stats/LoadInitialData",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"LoadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET FILTRADO",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/1641",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"1641"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accident_id\": 1641,\r\n        \"year\": 2021,\r\n        \"month\": 8,\r\n        \"province\": \"Álava\",\r\n        \"municipality_code\": \"Álava\",\r\n        \"road\": \"CV-700\",\r\n        \"km\": 55.058,\r\n        \"direction_1f\": 2,\r\n        \"accident_type\": 3,\r\n        \"total_victims\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/1644",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"1644"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT 405",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accident_id\": 1641,\r\n        \"year\": 2021,\r\n        \"month\": 8,\r\n        \"province\": \"Ála\",\r\n        \"municipality_code\": \"Álava\",\r\n        \"road\": \"CV-700\",\r\n        \"km\": 55.058,\r\n        \"direction_1f\": 2,\r\n        \"accident_type\": 3,\r\n        \"total_victims\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT 200 OK",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accident_id\": 1641,\r\n        \"year\": 2021,\r\n        \"month\": 8,\r\n        \"province\": \"Ála\",\r\n        \"municipality_code\": \"Álava\",\r\n        \"road\": \"CV-700\",\r\n        \"km\": 55.058,\r\n        \"direction_1f\": 2,\r\n        \"accident_type\": 3,\r\n        \"total_victims\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/1641",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"1641"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post 405",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accident_id\": 1,\r\n        \"year\": 2020,\r\n        \"month\": 1,\r\n        \"weekday\": 1,\r\n        \"hour\": 7,\r\n        \"province\": \"Albacete\",\r\n        \"municipality_code\": \"Álava\",\r\n        \"zone\": 1,\r\n        \"grouped_zone\": 1,\r\n        \"road\": \"A-1\",\r\n        \"km\": 357,\r\n        \"direction_1f\": 2,\r\n        \"road_ownership\": 3,\r\n        \"road_type\": 3,\r\n        \"accident_type\": 12,\r\n        \"total_victims\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/132",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"132"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "not found 404",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/14",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post 409",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accident_id\": 1641,\r\n        \"year\": 2023,\r\n        \"month\": 8,\r\n        \"province\": \"Álava\",\r\n        \"municipality_code\": \"Álava\",\r\n        \"road\": \"CV-700\",\r\n        \"km\": 55.058,\r\n        \"direction_1f\": 2,\r\n        \"accident_type\": 3,\r\n        \"total_victims\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/accidents-stats",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "missing fields",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accident_id\": 1,\r\n        \"year\": 2023,\r\n        \"month\": 1,\r\n        \"province\": \"Álava\",\r\n        \"municipality_code\": \"Álava\",\r\n        \"road\": \"A-1\",\r\n        \"km\": 357,\r\n        \"direction_1f\": 2,\r\n        \"accident_type\": 12\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/accidents-stats",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/1641",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"1641"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete todo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
