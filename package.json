@@ -10,7 +10,7 @@
     "test-local-radar": "npx newman run tests/back/radars-stats/radars-stats-tests.json -e tests/back/radars-stats/radarLocal-env.json",
     "test-online-radar": "npx newman run tests/back/radars-stats/radars-stats-tests.json -e tests/back/radars-stats/radarOnline-env.json",
     "test-server-radar-local":"start-server-and-test start http://localhost:16079 test-local-radar",
-    "test-radar": "npm run test-server-radar-local"
+    "test-radar": "npm run test-server-radar-local",
     "testJAM-local": "npx newman run tests/back/registrations-stats/api-test-JAM.json -e tests/back/registrations-stats/local-registrations.json",
     "testJAM-online": "npx newman run tests/back/registrations-stats/api-test-JAM.json -e tests/back/registrations-stats/online-registrations.json",
     "testVCH-local": "npx newman run tests/back/accidents-stats/api-test-VCH.json -e tests/back/accidents-stats/local-accidents.json",
