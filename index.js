@@ -34,23 +34,8 @@ app.listen(PORT,()=>{
     console.log(`Server running on ${PORT}`)
 })
 
-//Ignacio Ortiz Moreno
  loadBackEnd(app);
-// // Filtrar por comunidad 
-// let filtered = IOM.filter((v)=> v.autonomousCommunity === "Andalucía")
 
-// //Suma de velocidad media
-
-// let sum = filtered.reduce((acc,value) => acc + value.averageSpeedFined,0)
-
-// // Media de velocidad en Andalucía 
-
-// let average = sum / filtered.length
-
-// app.get('/samples/IOM', (request,response)=> {
-//     response.send(`La media de velocidad en Andalucía es: ${average} km/h <br>
-//         <a href="/">Volver atrás</a>`)
-// })
 
 
 loadBackendJAM(app);
