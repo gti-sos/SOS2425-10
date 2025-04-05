@@ -18,7 +18,9 @@
     "test-local-JAM":"start-server-and-test start http://localhost:16079 testJAM-local",
     "test-local-VCH":"start-server-and-test start http://localhost:16079 testVCH-local",
     "test-registrations-stats": "npm run test-local-JAM",
-    "test-accidents-stats": "npm run test-local-VCH"
+    "test-accidents-stats": "npm run test-local-VCH",
+
+    "test": "npm run test-radar && npm run test-registrations-stats && npm run test-accidents-stats"
   },
   "repository": {
     "type": "git",
