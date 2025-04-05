@@ -80,7 +80,7 @@ app.get(BASE_API + "/accidents-stats", (req, res) => {
         query.municipality_code = new RegExp("^" + municipality_code + "$", "i");
     }
     if (km) {
-        query.km = Number(year);
+        query.km = Number(km);
     }
     if (year) {
         query.year = Number(year);
