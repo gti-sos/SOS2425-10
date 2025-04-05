@@ -68,16 +68,27 @@ const database = new dataStore();
   
       // GET todos los datos con paginación
      app.get(BASE_API + "/registrations-stats", (req, res) => {
-      let { total_general_national, province, year, from, to, limit, offset } = req.query;
+      let { total_general_national, province, year,total_general_import,total_general_auction,total_general, from, to, limit, offset } = req.query;
   
       let query = {};
   
       if (province) {
           query.province = new RegExp("^" + province + "$", "i");
       }
+      
       if (year) {
           query.year = Number(year);
+      }  
+      if (total_general_import) {
+        query.total_general_import = Number(total_general_import);
+      }  
+      if (total_general_auction) {
+        query.total_general_auction = Number(total_general_auction);
       }
+      if (total_general) {
+        query.total_general = Number(total_general);
+    } 
+
       if (total_general_national) {
           query.total_general_national = Number(total_general_national);
       }

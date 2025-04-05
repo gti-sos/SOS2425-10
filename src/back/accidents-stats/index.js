@@ -66,18 +66,36 @@ export function loadBackendVCH(app){
 
     // GET todos los datos con paginación
 app.get(BASE_API + "/accidents-stats", (req, res) => {
-    let { accident_id, province, municipality_code, year, from, to, limit, offset } = req.query;
+    let { accident_id, month, province, municipality_code, year, road,km, direction_1f,accident_type,total_victims, from, to, limit, offset } = req.query;
 
     let query = {};
 
     if (province) {
         query.province = new RegExp("^" + province + "$", "i");
     }
+    if (road) {
+        query.road = new RegExp("^" + road + "$", "i");
+    }
     if (municipality_code) {
         query.municipality_code = new RegExp("^" + municipality_code + "$", "i");
     }
+    if (km) {
+        query.km = Number(year);
+    }
     if (year) {
         query.year = Number(year);
+    }
+    if (month) {
+        query.month = Number(month);
+    }
+    if (direction_1f) {
+        query.direction_1f = Number(direction_1f);
+    }
+    if (total_victims) {
+        query.total_victims = Number(total_victims);
+    }
+    if (accident_type) {
+        query.accident_type = Number(accident_type);
     }
     if (accident_id) {
         query.accident_id = Number(accident_id);
