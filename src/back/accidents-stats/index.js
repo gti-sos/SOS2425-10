@@ -251,6 +251,56 @@ app.post(BASE_API + "/accidents-stats/reset", (req, res) => {
             
         });
     });
+    app.get(BASE_API + "/accidents-stats/:province/:year", (req, res) => {
+        const year = Number(req.params.year);
+        const province = req.params.province;
+    
+        database.find({ 
+            year: year, 
+            province: new RegExp("^" + province + "$", "i") 
+        }, (err, docs) => {
+            if (err) return res.status(500).send("Error al acceder a la base de datos.");
+            if (!docs || docs.length === 0) return res.sendStatus(404);
+    
+            const sanitized = docs.map(({ _id, ...rest }) => rest);
+            res.status(200).json(sanitized);
+        });
+    });
+    app.put(BASE_API + "/accidents-stats/:province/:year", (req, res) => {
+        const year = Number(req.params.year);
+        const province = req.params.province;
+        const updatedData = req.body;
+    
+        if (updatedData.year !== year || updatedData.province !== province) {
+            return res.status(400).json({ error: "Year and province in body must match URL parameters." });
+        }
+    
+        database.update(
+            { year: year, province: new RegExp("^" + province + "$", "i") },
+            { $set: updatedData },
+            { multi: true },
+            (err, numReplaced) => {
+                if (err) return res.status(500).send("Error al actualizar.");
+                if (numReplaced === 0) return res.sendStatus(404);
+                res.status(200).json({ message: "Updated successfully", modified: numReplaced });
+            }
+        );
+    });
+    app.delete(BASE_API + "/accidents-stats/:province/:year", (req, res) => {
+        const year = Number(req.params.year);
+        const province = req.params.province;
+    
+        database.remove(
+            { year: year, province: new RegExp("^" + province + "$", "i") },
+            { multi: true },
+            (err, numRemoved) => {
+                if (err) return res.status(500).send("Error al eliminar el recurso.");
+                if (numRemoved === 0) return res.sendStatus(404);
+                res.status(200).json({ message: "Deleted successfully", removed: numRemoved });
+            }
+        );
+    });
+    
 }
 
 export {VCH,loadInitialDataVCH};
