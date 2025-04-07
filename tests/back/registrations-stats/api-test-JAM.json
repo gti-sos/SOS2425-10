@@ -183,7 +183,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"year\": 2018,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1445,\r\n        \"total_general_import\": 8791,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 10236\r\n    }",
+					"raw": "{\r\n        \"year\": 2018,\r\n        \"province\": \"Madrid\",\r\n        \"total_general_national\": 3,\r\n        \"total_general_import\": 8791,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 10236\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -259,19 +259,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.sendRequest({\r",
-							"    url: 'https://sos2425-10.onrender.com/api/v1/registrations-stats/2',\r",
-							"    method: 'DELETE',\r",
-							"    header: {\r",
-							"        // include headers if required\r",
-							"    },\r",
-							"    body: {\r",
-							"        // include request body if required\r",
-							"    }\r",
-							"}, function (err, res) {\r",
-							"    pm.test(\"Status code is 200\", function () {\r",
-							"        pm.expect(res).to.have.status(200);\r",
-							"    });\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							""
 						],
@@ -286,8 +275,17 @@
 				},
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/2",
+					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/3",
 					"protocol": "https",
 					"host": [
 						"sos2425-10",
@@ -298,7 +296,7 @@
 						"api",
 						"v1",
 						"registrations-stats",
-						"2"
+						"3"
 					]
 				}
 			},
