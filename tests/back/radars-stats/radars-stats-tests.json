@@ -91,6 +91,94 @@
 			"response": []
 		},
 		{
+			"name": "GET Balearessss (Illes) ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/radars-stats/EI-600/100.6",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"radars-stats",
+						"EI-600",
+						"100.6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT bd Balearessss (Illes)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"autonomousCommunity\": \"Balearessss (Illes)\",\r\n        \"province\": \"Balears (Illes)\",\r\n        \"way\": \"EI-600\",\r\n        \"kilometerPoint\": 100.6,\r\n        \"complaint\": 44985,\r\n        \"year\": 2019,\r\n        \"speedEstimation\": 90,\r\n        \"averageSpeedFined\": 105\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/radars-stats/EI-600/100.6",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"radars-stats",
+						"EI-600",
+						"100.6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "DELETE bd Balearessss (Illes)",
 			"event": [
 				{
@@ -133,6 +221,224 @@
 						"radars-stats",
 						"EI-600",
 						"100.6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST error 400 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"autonomousCommunity\": \"Balearessss (Illes)\",\r\n        \"province\": \"Balears (Illes)\",\r\n        \"way\": \"EI-600\",\r\n        \"kilometerPoint\": 100.6,\r\n        \"complaint\": 44985,\r\n        \"speedEstimation\": 90,\r\n        \"averageSpeedFined\": 105\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/radars-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"radars-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Error /radars-stats/A-7",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/radars-stats/A-7/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"radars-stats",
+						"A-7",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT error  radars-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/radars-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"radars-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Radars-stars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/radars-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"radars-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"There is data\", function(){\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.have.lengthOf(11);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/radars-stats/loadInitialData",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"radars-stats",
+						"loadInitialData"
 					]
 				}
 			},
