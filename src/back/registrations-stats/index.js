@@ -16,7 +16,6 @@ let JAM = [
     { year: 2020, province: "Alicante", total_general_national: 3240, total_general_import: 50442, total_general_auction: 1, total_general: 53683 },
     { year: 2020, province: "Almería", total_general_national: 749, total_general_import: 10563, total_general_auction: 0, total_general: 11312 }
 ];
-return JAM
   function loadInitialDataJAM(){
     let JAM = [
         { year: 2018, province: "Álava", total_general_national: 1445, total_general_import: 8791, total_general_auction: 0, total_general: 10236},
