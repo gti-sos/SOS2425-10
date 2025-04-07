@@ -1,5 +1,4 @@
 import { request } from "express";
-import { IOM } from "../../../index-IOM.js";
 import dataStore from "nedb";
 
 let db = new dataStore();
@@ -337,29 +336,7 @@ function loadBackEnd(app){
     })
     
     
-    //ENDPOINTS
     
-    app.get(BASE_API + "/radars-stats", (req, res) => {
-        const { way } = req.query;
-        
-        console.log("Parámetro recibido:", way); // ✅ Verifica si está llegando el parámetro
-    
-        if (!way) {
-            return res.json(IOM);
-        }
-    
-        const filteredData = IOM.filter(entry => 
-            entry.way && entry.way.toLowerCase() === way.toLowerCase()
-        );
-    
-        console.log("Resultados filtrados:", filteredData); // ✅ Verifica qué datos se están filtrando
-    
-        if (filteredData.length === 0) {
-            return res.status(404).send({ error: `No se encontraron radares en la carretera '${way}'` });
-        }
-    
-        res.json(filteredData);
-    });
 }
 
 export {loadBackEnd};
