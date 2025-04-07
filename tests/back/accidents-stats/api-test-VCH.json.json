@@ -8,16 +8,29 @@
 	"item": [
 		{
 			"name": "loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2425-10.onrender.com/api/v1/accidents-stats/LoadInitialData",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/LoadInitialData",
 					"host": [
-						"sos2425-10",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -31,6 +44,21 @@
 		},
 		{
 			"name": "get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -38,14 +66,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/accidents-stats",
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"accidents-stats"
+						"accidents-stats",
+						""
 					]
 				}
 			},
@@ -53,6 +82,21 @@
 		},
 		{
 			"name": "GET FILTRADO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -76,6 +120,21 @@
 		},
 		{
 			"name": "400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -108,6 +167,21 @@
 		},
 		{
 			"name": "PUT 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 405\", function(){\r",
+							"    pm.response.to.have.status(405);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -140,6 +214,21 @@
 		},
 		{
 			"name": "PUT 200 OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -148,7 +237,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"accident_id\": 1641,\r\n        \"year\": 2021,\r\n        \"month\": 8,\r\n        \"province\": \"Ála\",\r\n        \"municipality_code\": \"Álava\",\r\n        \"road\": \"CV-700\",\r\n        \"km\": 55.058,\r\n        \"direction_1f\": 2,\r\n        \"accident_type\": 3,\r\n        \"total_victims\": 1\r\n    }",
+					"raw": "{\r\n        \"accident_id\": 890,\r\n        \"year\": 2023,\r\n        \"month\": 11,\r\n        \"province\": \"Albacete\",\r\n        \"municipality_code\": \"Albacete\",\r\n        \"road\": \"ARROYO DE\",\r\n        \"km\": 0.7,\r\n        \"direction_1f\": 2,\r\n        \"accident_type\": 18,\r\n        \"total_victims\": 1\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -156,7 +245,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/accidents-stats/1641",
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/890",
 					"host": [
 						"{{BASE_URL}}"
 					],
@@ -164,7 +253,55 @@
 						"api",
 						"v1",
 						"accidents-stats",
-						"1641"
+						"890"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /province/year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accident_id\": 890,\r\n        \"year\": 2023,\r\n        \"month\": 11,\r\n        \"province\": \"Albacete\",\r\n        \"municipality_code\": \"Albacete\",\r\n        \"road\": \"ARROYO DE\",\r\n        \"km\": 0.7,\r\n        \"direction_1f\": 2,\r\n        \"accident_type\": 18,\r\n        \"total_victims\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/Albacete/2023",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"Albacete",
+						"2023"
 					]
 				}
 			},
@@ -172,6 +309,21 @@
 		},
 		{
 			"name": "post 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 405\", function(){\r",
+							"    pm.response.to.have.status(405);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -201,6 +353,21 @@
 		},
 		{
 			"name": "not found 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -221,6 +388,21 @@
 		},
 		{
 			"name": "post 409",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 409\", function(){\r",
+							"    pm.response.to.have.status(409);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -252,6 +434,21 @@
 		},
 		{
 			"name": "missing fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -283,6 +480,21 @@
 		},
 		{
 			"name": "delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -302,7 +514,58 @@
 			"response": []
 		},
 		{
+			"name": "delete /province/year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/Albacete/2023",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"Albacete",
+						"2023"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "delete todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
