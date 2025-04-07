@@ -20,7 +20,7 @@
     "test-registrations-stats": "npm run test-local-JAM",
     "test-accidents-stats": "npm run test-local-VCH",
 
-    "test": "npm run test-radar-stats && npm run test-registrations-stats && npm run test-accidents-stats"
+    "test": "npm run test-radars-stats && npm run test-registrations-stats && npm run test-accidents-stats"
   },
   "repository": {
     "type": "git",
