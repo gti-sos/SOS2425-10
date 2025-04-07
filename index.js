@@ -21,11 +21,12 @@ app.use("/about",express.static("./public"));
 app.use(express.json());
 app.get("/",(request,response)=>{
     response.send(`Servidor del <a href="/about">grupo 10</a><br>
-        <a href="/samples/IOM">IOM</a><br>
         <a href="https://sos2425-10.onrender.com/api/v1/accidents-stats">API Víctor Cabrera Hurtado</a><br>
         <a href="https://sos2425-10.onrender.com/api/v1/registrations-stats">API Jesús Aznar Montero</a><br>
+        <a href="https://sos2425-10.onrender.com/api/v1/radars-stats">API Ignacio Ortiz Moreno</a><br>
         <a href="https://sos2425-10.onrender.com/api/v1/accidents-stats/docs">DOCS Víctor Cabrera Hurtado</a><br>
         <a href="https://sos2425-10.onrender.com/api/v1/registrations-stats/docs">DOCS Jesús Aznar Montero</a><br>
+        <a href="https://sos2425-10.onrender.com/api/v1/radars-stats/docs">DOCS Ignacio Ortiz Moreno</a><br>
         `)
 })
 
