@@ -1,13 +1,28 @@
 {
 	"info": {
-		"_postman_id": "f99e3f14-bdbf-466f-83ca-0d4dca769324",
-		"name": "l05",
+		"_postman_id": "ce1a1bfd-d073-4390-994a-ca13686d7609",
+		"name": "l06",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42224504"
 	},
 	"item": [
 		{
 			"name": "registrations-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -38,6 +53,21 @@
 		},
 		{
 			"name": "filtro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -61,6 +91,21 @@
 		},
 		{
 			"name": "filtro no encontrado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -79,19 +124,38 @@
 			"response": []
 		},
 		{
-			"name": "loadInitialData",
+			"name": "Get /province/year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}api/v1/registrations-stats/loadInitialData",
+					"raw": "{{BASE_URL}}api/v1/registrations-stats/Alicante/2018",
 					"host": [
 						"{{BASE_URL}}api"
 					],
 					"path": [
 						"v1",
 						"registrations-stats",
-						"loadInitialData"
+						"Alicante",
+						"2018"
 					]
 				}
 			},
@@ -99,6 +163,21 @@
 		},
 		{
 			"name": "recurso nuevo 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -130,6 +209,21 @@
 		},
 		{
 			"name": "existente 409",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -159,28 +253,33 @@
 			"response": []
 		},
 		{
-			"name": "borra todo",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{BASE_URL}}api/v1/registrations-stats",
-					"host": [
-						"{{BASE_URL}}api"
-					],
-					"path": [
-						"v1",
-						"registrations-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "borrar recurso 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url: 'https://sos2425-10.onrender.com/api/v1/registrations-stats/2',\r",
+							"    method: 'DELETE',\r",
+							"    header: {\r",
+							"        // include headers if required\r",
+							"    },\r",
+							"    body: {\r",
+							"        // include request body if required\r",
+							"    }\r",
+							"}, function (err, res) {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.expect(res).to.have.status(200);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -207,6 +306,22 @@
 		},
 		{
 			"name": "400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 400\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -238,6 +353,21 @@
 		},
 		{
 			"name": "405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -246,7 +376,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "\r\n    {\r\n        \"year\": 2019,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1340,\r\n        \"total_general_import\": 7,\r\n        \"total_general_auction\": 0,\r\n        \"total_general\": 9597\r\n    }",
+					"raw": "\r\n    {\r\n        \"year\": 2019,\r\n        \"province\": \"Álava\",\r\n        \"total_general_national\": 1340,\r\n        \"total_general_import\": 7,\r\n        \"total_general_auction\": 4,\r\n        \"total_general\": 9597\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -254,7 +384,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/1",
+					"raw": "https://sos2425-10.onrender.com/api/v1/registrations-stats/",
 					"protocol": "https",
 					"host": [
 						"sos2425-10",
@@ -265,7 +395,7 @@
 						"api",
 						"v1",
 						"registrations-stats",
-						"1"
+						""
 					]
 				}
 			},
@@ -273,6 +403,21 @@
 		},
 		{
 			"name": "200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -307,7 +452,69 @@
 			"response": []
 		},
 		{
+			"name": "put /province/year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\r\n        \"year\": 2018,\r\n        \"province\": \"Alicante\",\r\n        \"total_general_national\": 8004,\r\n        \"total_general_import\": 91734,\r\n        \"total_general_auction\": 5,\r\n        \"total_general\": 5\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats/Alicante/2018",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats",
+						"Alicante",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -336,6 +543,118 @@
 						"v1",
 						"registrations-stats",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "province/year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats/Alicante/2018",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats",
+						"Alicante",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borra todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"There is data\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.have.lengthOf(12);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}api/v1/registrations-stats/loadInitialData",
+					"host": [
+						"{{BASE_URL}}api"
+					],
+					"path": [
+						"v1",
+						"registrations-stats",
+						"loadInitialData"
 					]
 				}
 			},
