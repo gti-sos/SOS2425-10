@@ -64,7 +64,7 @@ export function loadBackendVCH(app){
         });
     });
 
-    // GET todos los datos con paginación
+    // GET todos los datos con paginacion
 app.get(BASE_API + "/accidents-stats", (req, res) => {
     let { accident_id, month, province, municipality_code, year, road,km, direction_1f,accident_type,total_victims, from, to, limit, offset } = req.query;
 
