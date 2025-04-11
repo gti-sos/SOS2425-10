@@ -3,6 +3,7 @@ import { loadBackendVCH } from "./src/back/accidents-stats/index.js";
 import { loadBackendJAM } from "./src/back/registrations-stats/index.js";
 import express  from "express";
 import { handler } from "./src/front/build/handler.js";
+import  cors  from "cors";
 import path from "path";
 const app = express()
 const PORT = process.env.PORT || 16079
@@ -15,14 +16,16 @@ import dataStore from "nedb";
 
 const BASE_API="/api/v1";
 
-app.use("/about",express.static("./public"));
+//app.use("/about",express.static("./public"));
+
+app.use(express.json());
+app.use(cors());
 
 loadBackEnd(app);
 loadBackendJAM(app);
 loadBackendVCH(app);
 
 app.use(handler);
-app.use(express.json());
 app.get("/",(request,response)=>{
     response.send(`Servidor del <a href="/about">grupo 10</a><br>
         <a href="https://sos2425-10.onrender.com/api/v1/accidents-stats">API Víctor Cabrera Hurtado</a><br>
