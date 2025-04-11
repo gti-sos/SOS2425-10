@@ -1,4 +1,3 @@
-
 <h2> Accidents Stats Table</h2>
 
 
@@ -8,6 +7,7 @@
     
     let API = "http://localhost:16079/api/v1/accidents-stats";
     import { onMount } from "svelte";
+    import { Button } from '@sveltestrap/sveltestrap';
     let VCH= []
     let result= "";
     let resultStatus="";
@@ -33,6 +33,8 @@
     onMount(async () =>{
         getAccidentsStats();
     })
+
+    
 </script>
 
 <table>
@@ -90,3 +92,6 @@
     </tbody>
 </table>
 
+
+
+<Button color="Danger">PULSAME PERRO</Button>
