@@ -23,6 +23,7 @@ db.find({},(err,radars)=>{
     }
 })
 function loadBackEnd(app){
+
     app.get(BASE_API + "/radars-stats", (request, response) => {
         console.log("Nuevo GET a bd /radars-stats");
     
@@ -91,6 +92,7 @@ function loadBackEnd(app){
                 return response.json(filteredRadars);
             });
     });
+    
     
     
     app.get(BASE_API+"/radars-stats/docs",(request,response)=>{
@@ -300,7 +302,6 @@ function loadBackEnd(app){
         console.log("POST to radars-stats/way");
         response.sendStatus(405);
     })
-    
     
     
 }
