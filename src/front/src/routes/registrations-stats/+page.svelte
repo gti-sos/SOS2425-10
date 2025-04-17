@@ -15,6 +15,12 @@
     let JAM= []
     let result= "";
     let resultStatus="";
+    let newYear="";
+    let newProvince="";
+    let newTotal_general_national="";
+    let newTotal_general_import="";
+    let newTotal_general_auction="";
+    let newTotal_general="";
 
     async function getRegistrationsStats(){
         resultStatus= result="";
@@ -27,6 +33,64 @@
             
             JAM=data;
             console.log(`Reponse received:\n ${JSON.stringify(JAM, null,2)}`)
+
+
+        }catch(error){
+            console.log(`ERROR getting data from ${API}: ${error}`);
+        }
+    }
+    async function deleteRegistration(total_general_national){
+        resultStatus = result = "";
+        try {
+            const res = await fetch(API+"/"+total_general_national,{method:"DELETE"});
+  
+            const status = await res.status;
+            resultStatus = status;
+
+            if(status == 200){
+                console.log(`Registration ${total_general_national} deleted`);
+                getRegistrationsStats();
+            } else {
+                console.log(`ERROR deleting registration ${total_general_national}: status received\n${status}`);
+            }
+
+
+        } catch (error){
+            console.log(`ERROR:  GET from ${API}: ${error}`);
+        }
+
+
+    }
+    
+    async function createRegistration(){
+        resultStatus= result="";
+        try{
+            const res = await fetch(API,{
+                method:"POST",
+                headers:{
+                    "Content-Type" : "application/json"
+                },
+                body:JSON.stringify({
+                    year:newYear,
+                    province:newProvince,
+                    total_general_national:newTotal_general_national,
+                    total_general_import:newTotal_general_import,
+                    total_general_auction:newTotal_general_auction,
+                    total_general:newTotal_general,
+                
+                })
+            
+            });
+        
+            const status = await res.status;
+            resultStatus= status;
+            if (status == 201){
+                console.log(`Registration created`);
+                getRegistrationsStats();
+            }
+            else{
+                console.log(`Error creating registration:\n ${status}`);
+            }
 
 
         }catch(error){
@@ -54,6 +118,31 @@
     </thead>
 
     <tbody>
+        <tr>
+            <td>
+                <input bind:value={newYear}>  
+            </td>
+            <td>
+                <input bind:value={newProvince}>
+            </td>
+            <td>
+                <input bind:value={newTotal_general_national}> 
+            </td>
+            
+            <td>
+                <input bind:value={newTotal_general_import}> 
+            </td>
+            <td>
+                <input bind:value={newTotal_general_auction}> 
+            </td>
+            <td>
+                <input bind:value={newTotal_general}> 
+            </td>
+            
+            <td>
+                <Button color="secondary" on:click={createRegistration}>Create Registration </Button>  
+            </td>
+        </tr>
         {#each JAM as dato}
         <tr>
             <td>
@@ -74,6 +163,9 @@
             <td>
                 {dato.total_general}
             </td>
+            <td>
+                <Button color="danger" on:click={() => {deleteRegistration(dato.total_general_national)}}>Delete</Button>
+            </td>
             
 
         </tr>
@@ -81,6 +173,3 @@
     </tbody>
 </Table>
 
-
-
-<Button color="danger">PULSAME </Button>
