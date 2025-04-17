@@ -6,4 +6,5 @@
 </p>
 <p>
 Estadísticas:
-<a href="/accidents-stats">accidents-stats</a></p>
+<a href="/accidents-stats">accidents-stats</a>
+<a href="/registrations-stats">registrations-stats</a></p>

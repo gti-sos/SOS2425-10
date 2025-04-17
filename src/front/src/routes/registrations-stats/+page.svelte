@@ -1,23 +1,22 @@
-<h2> Accidents Stats Table</h2>
+<h2> Registrations Stats Table</h2>
 
 
 <script>
 // @ts-nocheck
     import { dev } from "$app/environment";
+    
     let PROD_HOST = "";
     let DEVEL_HOST = "http://localhost:16079";
-    let API = "/api/v1/accidents-stats";
-
+    let API = "/api/v1/registrations-stats";
     if (dev)
         API= DEVEL_HOST + API;
     import { onMount } from "svelte";
     import { Button, Table } from '@sveltestrap/sveltestrap';
-
-    let VCH= []
+    let JAM= []
     let result= "";
     let resultStatus="";
 
-    async function getAccidentsStats(){
+    async function getRegistrationsStats(){
         resultStatus= result="";
         try{
             const res = await fetch(API,{method:"GET"});
@@ -26,8 +25,8 @@
             result= JSON.stringify(data,null,2)
             
             
-            VCH=data;
-            console.log(`Reponse received:\n ${JSON.stringify(VCH, null,2)}`)
+            JAM=data;
+            console.log(`Reponse received:\n ${JSON.stringify(JAM, null,2)}`)
 
 
         }catch(error){
@@ -36,7 +35,7 @@
     }
 
     onMount(async () =>{
-        getAccidentsStats();
+        getRegistrationsStats();
     })
 
     
@@ -45,52 +44,37 @@
 <Table>
     <thead>
         <tr>
-            <th>accident_id</th>
             <th>year</th>
-            <th>month</th>
             <th>province</th>
-            <th>municipality_code</th>
-            <th>road</th>
-            <th>km</th>
-            <th>direction_1f</th>
-            <th>accident_type</th>
-            <th>total_victims</th>
+            <th>total_general_national</th>
+            <th>total_general_import</th>
+            <th>total_general_auction</th>
+            <th>total_general</th>
         </tr>
     </thead>
 
     <tbody>
-        {#each VCH as dato}
+        {#each JAM as dato}
         <tr>
             <td>
-                {dato.accident_id}
-            </td>
-            <td>
                 {dato.year}
-            </td>
-            <td>
-                {dato.month}
             </td>
             <td>
                 {dato.province}
             </td>
             <td>
-                {dato.municipality_code}
+                {dato.total_general_national}
             </td>
             <td>
-                {dato.road}
+                {dato.total_general_import}
             </td>
             <td>
-                {dato.km}
+                {dato.total_general_auction}
             </td>
             <td>
-                {dato.direction_1f}
+                {dato.total_general}
             </td>
-            <td>
-                {dato.accident_type}
-            </td>
-            <td>
-                {dato.total_victims}
-            </td>
+            
 
         </tr>
         {/each}
