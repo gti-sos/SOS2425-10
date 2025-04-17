@@ -10,6 +10,14 @@
     let radars = [];
     let result = "";
     let resultStatus = "";
+    let newRadarCommunity;
+    let newRadarProvince;
+    let newRadarWay;
+    let newRadarKilometerPoint;
+    let newRadarComplaint;
+    let newRadarYear;
+    let newRadarSpeedEstimation;
+    let newRadarAverageSpeedFined;
     async function  getRadars(){
         resultStatus = result = "";
         
@@ -22,6 +30,64 @@
             
             radars = data;
             console.log(`Response received:\n ${JSON.stringify(radars,null,2)}`);
+            
+        } catch (error){
+            console.log(`ERROR: GET from ${API}: ${error}`);
+        }
+    }
+
+    async function  deleteRadar(way,kilometerPoint){
+        resultStatus = result = "";
+        
+
+        try {
+            const res = await fetch(API+"/"+way+"/"+kilometerPoint,{method:"DELETE"});
+            
+            const status =  await res.status;
+            resultStatus =status
+            result = JSON.stringify(data,null,2);
+            if (status== 200){
+                console.log(`Radar ${way,kilometerPoint} deleted `);
+                getRadars();
+            }else{
+                console.log(`ERROR deleting radar ${way,kilometerPoint}:\n ${status}`);
+            }
+            
+        } catch (error){
+            console.log(`ERROR: GET from ${API}: ${error}`);
+        }
+    }
+    async function  createRadar(){
+        resultStatus = result = "";
+        
+
+        try {
+            const res = await fetch(API,{
+                method:"POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body:JSON.stringify({
+                    autonomousCommunity: newRadarCommunity,
+                    province: newRadarProvince,
+                    way: newRadarWay,
+                    kilometerPoint: newRadarKilometerPoint,
+                    complaint: newRadarComplaint,
+                    year: newRadarYear,
+                    speedEstimation: newRadarSpeedEstimation,
+                    averageSpeedFined: newRadarAverageSpeedFined
+                })
+            });
+            const status =  await res.status;
+            resultStatus =status
+            result = JSON.stringify(data,null,2);
+            if (status== 201){
+                console.log(`Radar created `);
+                getRadars();
+            }else{
+                console.log(`ERROR creating radar received:\n ${status}`);
+            }
+            
             
         } catch (error){
             console.log(`ERROR: GET from ${API}: ${error}`);
@@ -53,6 +119,35 @@
     </thead>
 
     <tbody>
+        <tr>
+            <td>
+                <input bind:value={newRadarCommunity}>
+            </td>
+            <td>
+                <input bind:value={newRadarProvince}>
+            </td>
+            <td>
+                <input bind:value={newRadarWay}>
+            </td>
+            <td>
+                <input bind:value={newRadarKilometerPoint}>
+            </td>
+            <td>
+                <input bind:value={newRadarComplaint}>
+            </td>
+            <td>
+                <input bind:value={newRadarYear}>
+            </td>
+            <td>
+                <input bind:value={newRadarSpeedEstimation}>
+            </td>
+            <td>
+                <input bind:value={newRadarAverageSpeedFined}>
+            </td>
+            <td>
+                <Button color="primary" on:click={createRadar}>Create</Button>
+            </td>
+        </tr>
         {#each radars as radar}
             <tr>
                 <td>
@@ -80,11 +175,10 @@
                     {radar.averageSpeedFined}
                 </td>
                 <td>
-
+                    <Button color="danger" on:click={() => deleteRadar(radar.way,radar.kilometerPoint)}>Delete</Button>
                 </td>
             </tr>
         {/each}
     </tbody>
 
 </Table>
-<Button color="primary">Primary</Button>
