@@ -19,7 +19,11 @@
     "test-registrations-stats": "npm run test-local-JAM",
     "test-accidents-stats": "npm run test-local-VCH",
     "test": "npm run test-radars-stats && npm run test-registrations-stats && npm run test-accidents-stats",
+<<<<<<< HEAD
     "build": "cd src/front; npm install; npm run build"
+=======
+    "build": "cd src/front; npm install;  npm run build"
+>>>>>>> L07-VCH
   },
   "repository": {
     "type": "git",
