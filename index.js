@@ -1,7 +1,7 @@
 import { loadBackEnd } from "./src/back/radars-stats/index.js";
 import { loadBackendVCH } from "./src/back/accidents-stats/index.js";
 import { loadBackendJAM } from "./src/back/registrations-stats/index.js";
-import  {handler} from "./front/build/handler.js";
+import  {handler} from "./src/front/build/handler.js";
 import express  from "express";
 import cors from "cors";
 import path from "path";
