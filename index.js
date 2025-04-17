@@ -42,4 +42,4 @@ app.listen(PORT,()=>{
 loadBackendJAM(app);
 loadBackendVCH(app);
 
-app.use(handler.handler);
+app.use(handler);
