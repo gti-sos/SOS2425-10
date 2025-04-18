@@ -27,6 +27,12 @@
     let newTotal_general_import="";
     let newTotal_general_auction="";
     let newTotal_general="";
+    let from = '';
+    let to = '';
+    let filterYear = '';
+    let filterProvince = '';
+    let filterNational = '';
+    
 
     async function getRegistrationsStats(){
         resultStatus= result="";

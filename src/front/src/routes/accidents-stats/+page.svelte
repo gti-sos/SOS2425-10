@@ -210,6 +210,7 @@
                 {dato.total_victims}
             </td>
             <td>
+                <Button color="warning" on:click={() => goToEdit(stat.year, stat.province)}>Edit</Button>
                 <Button color="danger" on:click={() => {deleteAccident(dato.accident_id)}}>Delete</Button>
             </td>
 
