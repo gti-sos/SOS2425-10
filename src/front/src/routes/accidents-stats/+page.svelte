@@ -1,3 +1,9 @@
+<svelte:head>
+    <title>
+        ACCIDENTS STATS
+    </title>
+</svelte:head>
+
 <h2> Accidents Stats Table</h2>
 
 

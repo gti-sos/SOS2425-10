@@ -1,3 +1,9 @@
+<svelte:head>
+    <title>
+        REGISTRATIONS STATS
+    </title>
+</svelte:head>
+
 <h2> Registrations Stats Table</h2>
 
 
@@ -41,7 +47,9 @@
     }
     async function deleteRegistration(total_general_national){
         resultStatus = result = "";
+        getRegistrationsStats();
         try {
+            
             const res = await fetch(API+"/"+total_general_national,{method:"DELETE"});
   
             const status = await res.status;
