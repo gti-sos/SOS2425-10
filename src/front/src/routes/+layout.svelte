@@ -1,14 +1,12 @@
 
 <script>
-    import Footer from "./Footer.svelte";
     import Header from "./Header.svelte";
-    let name = "Victor";
-    let name2 = "Jesús";
+    import Footer from "./Footer.svelte";
+    let name = 'Ignacio'
 </script>
+
 <Header></Header>
-
 <hr>
-
     <slot></slot>
 <hr>
 <Footer></Footer>

@@ -1,11 +1,13 @@
-
-<h1>My APP</h1>
+<h1>My App</h1>
 
 <p>
-<a href="/">Inicio</a>
-<a href="/about">About</a>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
 </p>
 <p>
-Estadísticas:
-<a href="/accidents-stats">accidents-stats</a>
-<a href="/registrations-stats">registrations-stats</a></p>
+    Estadísticas:
+    <a href="/accidents-stats">Accidents Stats</a>
+    <a href="/registrations-stats">Registrations Stats</a>
+    <a href="/radars-stats">Radars Stats</a>
+</p>
+
