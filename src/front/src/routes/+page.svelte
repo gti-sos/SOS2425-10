@@ -8,13 +8,13 @@ Bienvenido a la página desarrollada por: VCH, IOM y JAM
 
 <p>
 API'S:
-<a href="/api/v1/accidents-stats"> API accidents-stats</a>
-<a href="/api/v1/registrations-stats"> API registrations-stats</a></p>
+<a href="/api/v1/accidents-stats"> API accidents stats</a>
+<a href="/api/v1/registrations-stats"> API registrations stats</a></p>
 
 <p>
 DOCS:
-<a href="/api/v1/accidents-stats/docs"> DOCS accidents-stats</a>
-<a href="/api/v1/registrations-stats/docs"> DOCS registrations-stats</a></p>
+<a href="/api/v1/accidents-stats/docs"> DOCS accidents stats</a>
+<a href="/api/v1/registrations-stats/docs"> DOCS registrations stats</a></p>
 
 
 

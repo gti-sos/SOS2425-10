@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 16079
 
 
 import dataStore from "nedb";
+import { loadBackendVCH_v1 } from "./src/back/accidents-stats/index_v1.js";
 
 // const JAM = require('./index-JAM')
 // const VCH = require('./index-VCH')
@@ -24,6 +25,8 @@ app.use(cors());
 loadBackEnd(app);
 loadBackendJAM(app);
 loadBackendVCH(app);
+loadBackendVCH_v1(app);
+
 
 app.use(handler);
 app.get("/",(request,response)=>{

@@ -13,7 +13,7 @@
     
     let PROD_HOST = "";
     let DEVEL_HOST = "http://localhost:16079";
-    let API = "/api/v1/accidents-stats";
+    let API = "/api/v2/accidents-stats";
 
     if (dev)
         API= DEVEL_HOST + API;
@@ -130,7 +130,7 @@
                     "Content-Type" : "application/json"
                 },
                 body:JSON.stringify({
-                    accident_id:newAccidentId,
+                    accident_id:Number(newAccidentId),
                     year:newYear,
                     month:newMonth,
                     province:newProvince,
@@ -261,7 +261,7 @@
                 <input bind:value={newTotal_victims}> 
             </td>
             <td>
-                <Button color="secondary" on:click={createAccident}>Create Accident </Button>  
+                <Button color="secondary" on:click={createAccident}>Crear Accidente</Button>  
             </td>
         </tr>
         {#each VCH as dato}
@@ -299,8 +299,8 @@
                 {dato.total_victims}
             </td>
             <td>
-                <Button color="warning" on:click={() => goToEdit(dato.accident_id)}>Edit</Button>
-                <Button color="danger" on:click={() => {deleteAccident(dato.accident_id)}}>Delete</Button>
+                <Button color="warning" on:click={() => goToEdit(dato.accident_id)}>Editar</Button>
+                <Button color="danger" on:click={() => {deleteAccident(dato.accident_id)}}>Borrar</Button>
             </td>
 
         </tr>
