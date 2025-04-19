@@ -29,7 +29,7 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "{{BASE_URL}}/api/v1/accidents-stats/"
+				"url": "{{BASE_URL}}/api/v2/accidents-stats/"
 			},
 			"response": []
 		},
@@ -290,7 +290,7 @@
 						}
 					}
 				},
-				"url": "https://sos2425-10.onrender.com/api/v2/accidents-stats"
+				"url": "{{BASE_URL}}/api/v2/accidents-stats"
 			},
 			"response": []
 		},
