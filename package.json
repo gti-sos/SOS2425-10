@@ -19,11 +19,7 @@
     "test-registrations-stats": "npm run test-local-JAM",
     "test-accidents-stats": "npm run test-local-VCH",
     "test": "npm run test-radars-stats && npm run test-registrations-stats && npm run test-accidents-stats",
-<<<<<<< HEAD
     "build": "cd src/front; npm install; npm run build"
-=======
-    "build": "cd src/front; npm install;  npm run build"
->>>>>>> L07-VCH
   },
   "repository": {
     "type": "git",
@@ -43,6 +39,8 @@
     "nedb": "^1.8.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.1",
     "start-server-and-test": "^2.0.11"
   }
 }
