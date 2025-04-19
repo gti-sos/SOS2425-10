@@ -10,6 +10,7 @@
 <script>
 // @ts-nocheck
     import { dev } from "$app/environment";
+    
     let PROD_HOST = "";
     let DEVEL_HOST = "http://localhost:16079";
     let API = "/api/v1/accidents-stats";
@@ -32,8 +33,29 @@
     let newDirection_1f="";
     let newAccidentType="";
     let newTotal_victims="";
+    let error="";
 
-    async function getAccidentsStats(){
+    let stats = [];
+    let filters = {
+    accident_id: '',
+    province: '',
+    municipality_code: '',
+    road: '',
+    km: '',
+    year: '',
+    month: '',
+    direction_1f: '',
+    accident_type: '',
+    total_victims: '',
+    from: '',
+    to: ''
+    };
+    import { goto } from '$app/navigation';
+
+    function goToEdit(accidentId) {
+        goto(`/accidents-stats/edit/${accidentId}`);
+    }       
+    /*async function getAccidentsStats(){
         resultStatus= result="";
         try{
             const res = await fetch(API,{method:"GET"});
@@ -49,7 +71,33 @@
         }catch(error){
             console.log(`ERROR getting data from ${API}: ${error}`);
         }
+    }*/
+
+    async function getAccidentsStats(){
+        resultStatus= result="";
+        try{
+            const params = new URLSearchParams();
+            for (const key in filters) {
+                if (filters[key] !== '') {
+                    params.append(key, filters[key]);
+                }
+            }
+            
+            const res = await fetch(`${API}?${params.toString()}`,{method:"GET"});
+            console.log("🔍 status:", res.status); 
+            const data = await res.json();
+            console.log("📦 Resultado:", data); 
+            result= JSON.stringify(data,null,2)
+            VCH=data;
+            console.log(`Response received:\n ${JSON.stringify(VCH, null,2)}`);
+        }catch(error){
+            console.log(`ERROR getting data from ${API}: ${error}`);
+        }
     }
+
+
+
+
     async function deleteAccident(accident_id){
         resultStatus = result = "";
         try {
@@ -113,6 +161,29 @@
         }
     }
 
+
+    async function deleteAllAccidents() {
+        const res = await fetch(API, { method: "DELETE" });
+        if (res.status === 200) {
+            await getAccidentsStats();
+        }
+    }       
+
+    async function loadInitialData() {
+        const res = await fetch(`${API}/loadInitialData`);
+        const status = res.status;
+
+        if (status === 201 || status === 200) {
+            console.log("Datos cargados correctamente");
+            await getAccidentsStats();
+        } else if (status === 400) {
+            console.log("Los datos ya estaban cargados");
+        } else {
+            const errorText = await res.text();
+            console.error("Error:", status, errorText);
+        }
+    }
+    
     
 
     onMount(async () =>{
@@ -122,7 +193,25 @@
     
 </script>
 
+<div>
+    <h4>Filtros</h4>
+    <input placeholder="accident_id" bind:value={filters.accident_id}>
+    <input placeholder="province" bind:value={filters.province}>
+    <input placeholder="municipality_code" bind:value={filters.municipality_code}>
+    <input placeholder="road" bind:value={filters.road}>
+    <input placeholder="km" bind:value={filters.km}>
+    <input placeholder="year" bind:value={filters.year}>
+    <input placeholder="month" bind:value={filters.month}>
+    <input placeholder="direction_1f" bind:value={filters.direction_1f}>
+    <input placeholder="accident_type" bind:value={filters.accident_type}>
+    <input placeholder="total_victims" bind:value={filters.total_victims}>
+    <input placeholder="from (year)" bind:value={filters.from}>
+    <input placeholder="to (year)" bind:value={filters.to}>
+    <Button on:click={getAccidentsStats}>Buscar</Button>
+</div>
 <Table>
+
+
     <thead>
         <tr>
             <th>accident_id</th>
@@ -210,12 +299,16 @@
                 {dato.total_victims}
             </td>
             <td>
-                <Button color="warning" on:click={() => goToEdit(stat.year, stat.province)}>Edit</Button>
+                <Button color="warning" on:click={() => goToEdit(dato.accident_id)}>Edit</Button>
                 <Button color="danger" on:click={() => {deleteAccident(dato.accident_id)}}>Delete</Button>
             </td>
 
         </tr>
         {/each}
+        <tr><td>
+            <Button color="danger" on:click={() => {deleteAllAccidents()}}>Borrar todos</Button>
+            <Button color="secondary" on:click={() => {loadInitialData()}}>Cargar datos iniciales</Button>
+        </td></tr>
     </tbody>
 </Table>
 

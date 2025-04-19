@@ -1,3 +1,4 @@
+
 <h1>My APP</h1>
 
 <p>
@@ -8,4 +9,3 @@
 Estadísticas:
 <a href="/accidents-stats">accidents-stats</a>
 <a href="/registrations-stats">registrations-stats</a></p>
-

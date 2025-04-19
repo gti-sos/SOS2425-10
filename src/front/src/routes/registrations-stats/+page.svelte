@@ -112,6 +112,29 @@
         }
     }
 
+    async function deleteAllRegistrations() {
+        const res = await fetch(API, { method: "DELETE" });
+        if (res.status === 200) {
+            await getRegistrationsStats();
+        }
+    }   
+
+    async function loadInitialData() {
+        const res = await fetch(`${API}/loadInitialData`);
+        const status = res.status;
+
+        if (status === 201 || status === 200) {
+            console.log("Datos cargados correctamente");
+            await getRegistrationsStats();
+        } else if (status === 400) {
+            console.log("Los datos ya estaban cargados");
+        } else {
+            const errorText = await res.text();
+            console.error("Error:", status, errorText);
+        }
+    }
+    
+
     onMount(async () =>{
         getRegistrationsStats();
     })
@@ -184,6 +207,10 @@
 
         </tr>
         {/each}
+        <tr><td>
+            <Button color="danger" on:click={() => {deleteAllRegistrations()}}>Borrar todos</Button>
+            <Button color="secondary" on:click={() => {loadInitialData()}}>Cargar datos iniciales</Button>
+        </td></tr>
     </tbody>
 </Table>
 
