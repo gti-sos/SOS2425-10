@@ -38,7 +38,7 @@ database.insert(VCH, (err, newDocs) => {
         return res.status(500).send("Error al insertar los datos.");
     }
 })
-
+//---
 export function loadBackendVCH(app){
     
     // APIs de VCH
