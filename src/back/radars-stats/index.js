@@ -157,6 +157,7 @@ function loadBackEnd(app){
                     console.error("Error al insertar en la BD:", err);
                     return response.status(500).json({error: "Error al insertar el radar"})
                 }
+                console.log("Radar insertado con éxito:", insertedRadar);
                 return response.status(201).json(insertedRadar)
             })
         })

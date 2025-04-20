@@ -46,7 +46,8 @@
         
 
         try {
-            const res = await fetch(`${API}/${way}/${kilometerPoint}`,{method:"DELETE"});
+            const res = await fetch(`${API}/${encodeURIComponent(way)}/${encodeURIComponent(kilometerPoint)}`, { method: "DELETE" });
+
             
             const status =  await res.status;
             resultStatus =status
@@ -76,7 +77,7 @@
                     autonomousCommunity: newRadarCommunity,
                     province: newRadarProvince,
                     way: newRadarWay,
-                    kilometerPoint: newRadarKilometerPoint,
+                    kilometerPoint: parseFloat(newRadarKilometerPoint),
                     complaint: newRadarComplaint,
                     year: newRadarYear,
                     speedEstimation: newRadarSpeedEstimation,
