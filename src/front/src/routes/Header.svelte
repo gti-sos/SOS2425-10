@@ -2,7 +2,7 @@
 <h1>My App</h1>
 
 <p>
-    <a href="/">Home</a>
+    <a href="/">Inicio</a>
     <a href="/about">About</a>
     <a href="/radars-stats">radars-stats</a>
 </p>
