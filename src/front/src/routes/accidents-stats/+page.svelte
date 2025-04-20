@@ -68,6 +68,7 @@ async function getAccidentsStats() {
     mostrarMensaje("❌ Error al obtener los accidentes", "error");
   }
 }
+//---
 
 async function deleteAccident(accident_id) {
   resultStatus = result = "";
