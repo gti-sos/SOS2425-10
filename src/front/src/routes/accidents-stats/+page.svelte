@@ -149,12 +149,121 @@ onMount(async () => {
 });
 </script>
 
-<h2>Accidents Stats Table</h2>
-
 <div>
-  <h4>Filtros</h4>
-  <input placeholder="accident_id" bind:value={filters.accident_id}>
-  <input placeholder="province" bind:value={filters.province}>
-  <input placeholder="municipality_code" bind:value={filters.municipality_code}>
-  <input placeholder="road" bind:value={filters.road}>
-  <input placeholder="km" bind:value={filters.k
+    <h4>Filtros</h4>
+    <input placeholder="accident_id" bind:value={filters.accident_id}>
+    <input placeholder="province" bind:value={filters.province}>
+    <input placeholder="municipality_code" bind:value={filters.municipality_code}>
+    <input placeholder="road" bind:value={filters.road}>
+    <input placeholder="km" bind:value={filters.km}>
+    <input placeholder="year" bind:value={filters.year}>
+    <input placeholder="month" bind:value={filters.month}>
+    <input placeholder="direction_1f" bind:value={filters.direction_1f}>
+    <input placeholder="accident_type" bind:value={filters.accident_type}>
+    <input placeholder="total_victims" bind:value={filters.total_victims}>
+    <input placeholder="from (year)" bind:value={filters.from}>
+    <input placeholder="to (year)" bind:value={filters.to}>
+    <Button on:click={getAccidentsStats}>Buscar</Button>
+</div>
+<Table>
+
+
+    <thead>
+        <tr>
+            <th>accident_id</th>
+            <th>year</th>
+            <th>month</th>
+            <th>province</th>
+            <th>municipality_code</th>
+            <th>road</th>
+            <th>km</th>
+            <th>direction_1f</th>
+            <th>accident_type</th>
+            <th>total_victims</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                <input bind:value={newAccidentId}> 
+            </td>
+            <td>
+                <input bind:value={newYear}> 
+            </td>
+            <td>
+                <input bind:value={newMonth}> 
+            </td>
+            <td>
+                <input bind:value={newProvince}> 
+            </td>
+            <td>
+                <input bind:value={newMunicipality_code}> 
+            </td>
+            
+            <td>
+                <input bind:value={newRoad}> 
+            </td>
+            <td>
+                <input bind:value={newKm}> 
+            </td>
+            <td>
+                <input bind:value={newDirection_1f}> 
+            </td>
+            <td>
+                <input bind:value={newAccidentType}> 
+            </td>
+            <td>
+                <input bind:value={newTotal_victims}> 
+            </td>
+            <td>
+                <Button color="secondary" on:click={createAccident}>Crear Accidente</Button>  
+            </td>
+        </tr>
+        {#each VCH as dato}
+
+
+        <tr>
+            <td>
+                {dato.accident_id}
+            </td>
+            <td>
+                {dato.year}
+            </td>
+            <td>
+                {dato.month}
+            </td>
+            <td>
+                {dato.province}
+            </td>
+            <td>
+                {dato.municipality_code}
+            </td>
+            <td>
+                {dato.road}
+            </td>
+            <td>
+                {dato.km}
+            </td>
+            <td>
+                {dato.direction_1f}
+            </td>
+            <td>
+                {dato.accident_type}
+            </td>
+            <td>
+                {dato.total_victims}
+            </td>
+            <td>
+                <Button color="warning" on:click={() => goToEdit(dato.accident_id)}>Editar</Button>
+                <Button color="danger" on:click={() => {deleteAccident(dato.accident_id)}}>Borrar</Button>
+            </td>
+
+        </tr>
+        {/each}
+        <tr><td>
+            <Button color="danger" on:click={() => {deleteAllAccidents()}}>Borrar todos</Button>
+            <Button color="secondary" on:click={() => {loadInitialData()}}>Cargar datos iniciales</Button>
+        </td></tr>
+    </tbody>
+</Table>
