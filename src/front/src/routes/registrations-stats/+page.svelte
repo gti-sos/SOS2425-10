@@ -66,10 +66,26 @@ async function getRegistrationsStats() {
         }
 
         const res = await fetch(`${API}?${params.toString()}`, { method: "GET" });
-        const data = await res.json();
-        JAM = data;
+        const status = res.status;
+
+        if (status === 200) {
+            const data = await res.json();
+            JAM = data;
+            if (JAM.length === 0) {
+                mostrarMensaje("⚠️ No se encontraron registros con esos filtros", "error");
+            } else {
+                mostrarMensaje("✅ Búsqueda realizada correctamente", "ok");
+            }
+        } else if (status === 400) {
+            mostrarMensaje("⚠️ Error en los parámetros de búsqueda. Revisa los valores introducidos.", "error");
+        } else if (status === 404) {
+            mostrarMensaje("❌ No se encontró ningún registro con los criterios introducidos", "error");
+        } else {
+            mostrarMensaje(`❌ Error inesperado al buscar: código ${status}`, "error");
+        }
+
     } catch (error) {
-        mostrarMensaje("❌ Error al obtener los registros", "error");
+        mostrarMensaje("❌ Error de conexión al realizar la búsqueda", "error");
     }
 }
 
