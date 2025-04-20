@@ -14,7 +14,7 @@ let VCH = [
     {accident_id: 11007, year: 2023, month: 1, province: "Islas Baleares", municipality_code: "Islas Baleares", road: "B-150", km: 1.6, direction_1f: 4, accident_type: 3, total_victims: 1},
     {accident_id: 28711, year: 2023, month: 7, province: "Barcelona", municipality_code: "Hospitalet de Llobregat", road: "CAMINO", km: 0.3, direction_1f: 2, accident_type: 10, total_victims: 1}
 ];
-function loadInitialDataVCH(){
+function loadInitialDataVCHv1(){
     let VCH = [
         {accident_id: 1, year: 2023, month: 1, province: "Álava", municipality_code: "Álava", road: "A-1", km: 357, direction_1f: 2, accident_type: 12, total_victims: 1},
         {accident_id: 890, year: 2023, month: 11, province: "Albacete", municipality_code: "Albacete", road: "ARROYO DE", km: 0.7, direction_1f: 2, accident_type: 18, total_victims: 1},
@@ -31,19 +31,19 @@ function loadInitialDataVCH(){
     return VCH
 }
 
-const BASE_API = "/api/v2"
+const BASE_API = "/api/v1"
 
 database.insert(VCH, (err, newDocs) => {
     if (err) {
         return res.status(500).send("Error al insertar los datos.");
     }
 })
-//----
-export function loadBackendVCH(app){
+
+export function loadBackendVCH_v1(app){
     
     // APIs de VCH
     app.get(BASE_API + "/accidents-stats/docs", (req, res) => {
-        res.redirect("https://documenter.getpostman.com/view/42339863/2sB2cd5yBF"); 
+        res.redirect("https://documenter.getpostman.com/view/42339863/2sB2cSgPL5"); 
     });
 
     app.get(BASE_API + "/accidents-stats/loadInitialData", (req, res) => {
@@ -246,19 +246,20 @@ app.post(BASE_API + "/accidents-stats/reset", (req, res) => {
 
     //DELETE de un dato especifico
     app.delete(BASE_API + "/accidents-stats/:accident_id", (req, res) => {
-        const paramId = req.params.accident_id;
+        const paramAccident_id = Number(req.params.accident_id);
     
-        database.remove({ accident_id: { $in: [paramId, Number(paramId)] } }, {}, (err, numRemoved) => {
+        database.remove({ accident_id: paramAccident_id }, {}, (err, numRemoved) => {
             if (err) {
                 res.status(500).send("Error al eliminar el recurso.");
-                console.error(`ERROR: ${err}`);
-            } else {
+                console.error(`ERROR: ${err}`)
+            }else{
                 if (numRemoved === 0) {
                     res.sendStatus(404); // No encontrado
-                } else {
+                }else{
                     res.sendStatus(200); // OK
-                }
-            }
+                }               
+            }    
+            
         });
     });
     app.get(BASE_API + "/accidents-stats/:province/:year", (req, res) => {
@@ -313,4 +314,4 @@ app.post(BASE_API + "/accidents-stats/reset", (req, res) => {
     
 }
 
-export {VCH,loadInitialDataVCH};
+export {VCH,loadInitialDataVCHv1};

@@ -30,10 +30,4 @@ Bienvenido a la página desarrollada por: VCH, IOM y JAM
     <p><a href="https://github.com/IgnacioOrtizMoreno"> Ignacio Ortiz Moreno </a> : radars-stats </p>
 
 <p>Mi primera página Svelte desarrollada con Node.js (v2)</p>
-<!-- 
-<svelte:head>
-    <title>Grupo-10</title>
-</svelte:head>
-
-BIenvenido a la pagina del grupo SOS2425-10 v1 -->
 

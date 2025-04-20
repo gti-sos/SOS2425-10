@@ -1,11 +1,43 @@
 {
 	"info": {
-		"_postman_id": "7352387b-1695-45cd-9fe8-5937f82d16da",
-		"name": "L08 v2",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_postman_id": "bdfa6bcd-fcc8-4c80-b418-8df4ff25ce26",
+		"name": "L06",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42339863"
 	},
 	"item": [
+		{
+			"name": "loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/LoadInitialData",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"LoadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "get",
 			"event": [
@@ -29,7 +61,18 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -56,7 +99,18 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/1641"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/1641",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"1641"
+					]
+				}
 			},
 			"response": []
 		},
@@ -92,7 +146,18 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/1644"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/1644",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"1644"
+					]
+				}
 			},
 			"response": []
 		},
@@ -128,7 +193,18 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -164,7 +240,18 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/890"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/890",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"890"
+					]
+				}
 			},
 			"response": []
 		},
@@ -200,7 +287,19 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/Albacete/2023"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/Albacete/2023",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"Albacete",
+						"2023"
+					]
+				}
 			},
 			"response": []
 		},
@@ -233,7 +332,18 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/132"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/132",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"132"
+					]
+				}
 			},
 			"response": []
 		},
@@ -257,7 +367,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/14"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/14",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"14"
+					]
+				}
 			},
 			"response": []
 		},
@@ -290,7 +411,20 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/api/v2/accidents-stats"
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/accidents-stats",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats"
+					]
+				}
 			},
 			"response": []
 		},
@@ -323,7 +457,20 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/api/v2/accidents-stats"
+				"url": {
+					"raw": "https://sos2425-10.onrender.com/api/v1/accidents-stats",
+					"protocol": "https",
+					"host": [
+						"sos2425-10",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats"
+					]
+				}
 			},
 			"response": []
 		},
@@ -347,7 +494,18 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/1641"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/1641",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"1641"
+					]
+				}
 			},
 			"response": []
 		},
@@ -371,7 +529,19 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/Albacete/2023"
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats/Albacete/2023",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats",
+						"Albacete",
+						"2023"
+					]
+				}
 			},
 			"response": []
 		},
@@ -395,32 +565,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{BASE_URL}}/api/v2/accidents-stats"
-			},
-			"response": []
-		},
-		{
-			"name": "loadInitialData",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status is 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/accidents-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accidents-stats"
+					]
 				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "{{BASE_URL}}/api/v2/accidents-stats/LoadInitialData"
 			},
 			"response": []
 		}
