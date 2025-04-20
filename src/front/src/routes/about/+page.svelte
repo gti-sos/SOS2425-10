@@ -1,4 +1,6 @@
 <script>
-    import {dev} from "$app/environment";
+    import { dev } from "$app/environment";
 </script>
-Done by IOM (Development={dev});
+
+
+pagina de prueba (Development = { dev })
