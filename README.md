@@ -9,4 +9,5 @@
 -  **APIs**:
     - https://sos2425-10.onrender.com/api/v1/radars-stats/docs (developed by Ignacio Ortiz Moreno)
     - https://sos2425-10.onrender.com/api/v1/registrations-stats/docs (developed by Jesús Anzar Montero)
-    - https://sos2425-10.onrender.com/api/v1/accidents-stats/docs (developed by Víctor José Cabrera Hurtado)
+    - v2: https://sos2425-10.onrender.com/api/v2/accidents-stats/docs (developed by Víctor José Cabrera Hurtado)
+    - v1: https://sos2425-10.onrender.com/api/v1/accidents-stats/docs (developed by Víctor José Cabrera Hurtado)
