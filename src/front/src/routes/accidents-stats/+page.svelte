@@ -157,26 +157,26 @@ onMount(async () => {
 
 <div>
     <h4>Filtros</h4>
-    <input placeholder="accident_id" bind:value={filters.accident_id}>
-    <input placeholder="province" bind:value={filters.province}>
-    <input placeholder="municipality_code" bind:value={filters.municipality_code}>
-    <input placeholder="road" bind:value={filters.road}>
-    <input placeholder="km" bind:value={filters.km}>
-    <input placeholder="year" bind:value={filters.year}>
-    <input placeholder="month" bind:value={filters.month}>
-    <input placeholder="direction_1f" bind:value={filters.direction_1f}>
-    <input placeholder="accident_type" bind:value={filters.accident_type}>
-    <input placeholder="total_victims" bind:value={filters.total_victims}>
-    <input placeholder="from (year)" bind:value={filters.from}>
-    <input placeholder="to (year)" bind:value={filters.to}>
+    <input placeholder="ID ACCIDENTE" bind:value={filters.accident_id}>
+    <input placeholder="PROVINCIA" bind:value={filters.province}>
+    <input placeholder="MUNICIPIO" bind:value={filters.municipality_code}>
+    <input placeholder="TRAMO/CAMINO" bind:value={filters.road}>
+    <input placeholder="KM" bind:value={filters.km}>
+    <input placeholder="AÑO" bind:value={filters.year}>
+    <input placeholder="MES" bind:value={filters.month}>
+    <input placeholder="DIRECION 1F" bind:value={filters.direction_1f}>
+    <input placeholder="TIPO ACCIDENTE" bind:value={filters.accident_type}>
+    <input placeholder="TOTAL VICTIMAS" bind:value={filters.total_victims}>
+    <input placeholder="DESDE (AÑO)" bind:value={filters.from}>
+    <input placeholder="HASTA (AÑO)" bind:value={filters.to}>
     <Button on:click={getAccidentsStats}>Buscar</Button>
 </div>
 
 <Table>
 <thead>
   <tr>
-    <th>accident_id</th><th>year</th><th>month</th><th>province</th><th>municipality_code</th>
-    <th>road</th><th>km</th><th>direction_1f</th><th>accident_type</th><th>total_victims</th>
+    <th>ID ACCIDENTE</th><th>AÑO</th><th>MES</th><th>PROVINCIA</th><th>MUNICIPIO</th>
+    <th>TRAMO/CAMINO</th><th>KM</th><th>DIRECCIÓN 1f</th><th>TIPO ACCIDENTE</th><th>TOTAL VICTIMAS</th>
   </tr>
 </thead>
 <tbody>
