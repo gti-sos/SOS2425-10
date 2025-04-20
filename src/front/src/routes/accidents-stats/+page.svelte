@@ -104,31 +104,49 @@ async function deleteAccident(accident_id) {
 
 async function createAccident() {
   resultStatus = result = "";
+
+  // Validar que todos los campos están completos
+  if (
+    !newAccidentId || !newYear  || !newMonth ||  !newProvince  ||
+    !newMunicipality_code  || !newRoad  || !newKm  || !newDirection_1f  ||
+    !newAccidentType || !newTotal_victims
+  ) {
+    mostrarMensaje("⚠️ Todos los campos son obligatorios. Por favor, complétalos.", "error");
+    return;
+  }
+
   try {
     const res = await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         accident_id: Number(newAccidentId),
-        year: newYear, month: newMonth, province: newProvince,
-        municipality_code: newMunicipality_code, road: newRoad, km: newKm,
-        direction_1f: newDirection_1f, accident_type: newAccidentType,
+        year: newYear,
+        month: newMonth,
+        province: newProvince,
+        municipality_code: newMunicipality_code,
+        road: newRoad,
+        km: newKm,
+        direction_1f: newDirection_1f,
+        accident_type: newAccidentType,
         total_victims: newTotal_victims
       })
     });
 
     const status = await res.status;
     resultStatus = status;
+
     if (status === 201) {
       mostrarMensaje("✅ Accidente creado correctamente", "ok");
       getAccidentsStats();
     } else if (status === 400) {
-      mostrarMensaje("⚠️ Faltan datos obligatorios", "error");
+      mostrarMensaje("⚠️ Datos inválidos o faltantes. Revisa los campos.", "error");
     } else if (status === 409) {
       mostrarMensaje("⚠️ Ya existe un accidente con ese ID", "error");
     } else {
       mostrarMensaje("❌ Error al crear el accidente", "error");
     }
+
   } catch (error) {
     mostrarMensaje("❌ Error de conexión al crear accidente", "error");
   }

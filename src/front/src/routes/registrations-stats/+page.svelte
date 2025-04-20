@@ -109,38 +109,50 @@ async function deleteRegistration(total_general_national) {
 }
 
 async function createRegistration() {
-    resultStatus = result = "";
-    try {
-        const res = await fetch(API, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                year: Number(newYear),
-                province: newProvince,
-                total_general_national: Number(newTotal_general_national),
-                total_general_import: Number(newTotal_general_import),
-                total_general_auction: Number(newTotal_general_auction),
-                total_general: Number(newTotal_general)
-            })
-        });
+  resultStatus = result = "";
 
-        const status = await res.status;
-        resultStatus = status;
-        if (status === 201) {
-            mostrarMensaje("✅ Registro creado correctamente", "ok");
-            getRegistrationsStats();
-        } else if (status === 400) {
-            mostrarMensaje("⚠️ Faltan datos obligatorios", "error");
-        } else if (status === 409) {
-            mostrarMensaje("⚠️ Ya existe un registro con ese identificador", "error");
-        } else {
-            mostrarMensaje("❌ Error al crear el registro", "error");
-        }
-    } catch (error) {
-        mostrarMensaje("❌ Error de conexión al intentar crear registro", "error");
+  // Validación: comprobar que todos los campos están rellenos
+  if (
+    !newYear || !newProvince  ||!newTotal_general_national|| 
+    !newTotal_general_import || !newTotal_general_auction || !newTotal_general
+  ) {
+    mostrarMensaje("⚠️ Todos los campos son obligatorios. Por favor, complétalos.", "error");
+    return;
+  }
+
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        year: Number(newYear),
+        province: newProvince,
+        total_general_national: Number(newTotal_general_national),
+        total_general_import: Number(newTotal_general_import),
+        total_general_auction: Number(newTotal_general_auction),
+        total_general: Number(newTotal_general)
+      })
+    });
+
+    const status = await res.status;
+    resultStatus = status;
+
+    if (status === 201) {
+      mostrarMensaje("✅ Registro creado correctamente", "ok");
+      getRegistrationsStats();
+    } else if (status === 400) {
+      mostrarMensaje("⚠️ Datos inválidos o faltantes. Revisa los campos.", "error");
+    } else if (status === 409) {
+      mostrarMensaje("⚠️ Ya existe un registro con ese identificador", "error");
+    } else {
+      mostrarMensaje("❌ Error al crear el registro", "error");
     }
+
+  } catch (error) {
+    mostrarMensaje("❌ Error de conexión al intentar crear registro", "error");
+  }
 }
 
 async function deleteAllRegistrations() {
