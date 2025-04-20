@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Radars-stats</title>
+</svelte:head>
+
 <script>
     //@ts-nocheck
     import {dev} from "$app/environment";
@@ -7,6 +11,7 @@
         API = DEVEL_HOST +API
     import {onMount} from "svelte";
     import { Button, Table } from '@sveltestrap/sveltestrap';
+	import { title } from "process";
     let radars = [];
     let result = "";
     let resultStatus = "";
@@ -41,11 +46,11 @@
         
 
         try {
-            const res = await fetch(API+"/"+way+"/"+kilometerPoint,{method:"DELETE"});
+            const res = await fetch(`${API}/${way}/${kilometerPoint}`,{method:"DELETE"});
             
             const status =  await res.status;
             resultStatus =status
-            result = JSON.stringify(data,null,2);
+            
             if (status== 200){
                 console.log(`Radar ${way,kilometerPoint} deleted `);
                 getRadars();
@@ -80,7 +85,7 @@
             });
             const status =  await res.status;
             resultStatus =status
-            result = JSON.stringify(data,null,2);
+            
             if (status== 201){
                 console.log(`Radar created `);
                 getRadars();
