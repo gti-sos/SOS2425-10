@@ -4,7 +4,7 @@
     </title>
 </svelte:head>
 
-<h2> Registrations Stats Table</h2>
+<h2> Tabla de Matriculaciones</h2>
 
 <script>
 // @ts-nocheck
@@ -40,6 +40,15 @@ let filters = {
     to: ''
 };
 
+let mensajeUsuario = "";
+let tipoMensaje = ""; // "ok" o "error"
+
+function mostrarMensaje(texto, tipo = "ok") {
+    mensajeUsuario = texto;
+    tipoMensaje = tipo;
+    setTimeout(() => mensajeUsuario = "", 3000);
+}
+
 function goToEdit(nationalId) {
     goto(`/registrations-stats/edit/${nationalId}`);
 }
@@ -58,7 +67,7 @@ async function getRegistrationsStats() {
         const data = await res.json();
         JAM = data;
     } catch (error) {
-        console.log(`ERROR getting data from ${API}: ${error}`);
+        mostrarMensaje("❌ Error al obtener los registros", "error");
     }
 }
 
@@ -69,13 +78,15 @@ async function deleteRegistration(total_general_national) {
         const status = await res.status;
         resultStatus = status;
         if (status === 200) {
-            console.log(`Registration ${total_general_national} deleted`);
+            mostrarMensaje(`✅ Registro con código ${total_general_national} eliminado correctamente`, "ok");
             getRegistrationsStats();
+        } else if (status === 404) {
+            mostrarMensaje(`❌ No se encontró el registro con código ${total_general_national}`, "error");
         } else {
-            console.log(`ERROR deleting registration ${total_general_national}: status received\n${status}`);
+            mostrarMensaje("❌ Error al eliminar el registro", "error");
         }
     } catch (error) {
-        console.log(`ERROR: DELETE from ${API}: ${error}`);
+        mostrarMensaje("❌ Error de conexión al intentar eliminar", "error");
     }
 }
 
@@ -100,20 +111,27 @@ async function createRegistration() {
         const status = await res.status;
         resultStatus = status;
         if (status === 201) {
-            console.log(`Registration created`);
+            mostrarMensaje("✅ Registro creado correctamente", "ok");
             getRegistrationsStats();
+        } else if (status === 400) {
+            mostrarMensaje("⚠️ Faltan datos obligatorios", "error");
+        } else if (status === 409) {
+            mostrarMensaje("⚠️ Ya existe un registro con ese identificador", "error");
         } else {
-            console.log(`Error creating registration:\n ${status}`);
+            mostrarMensaje("❌ Error al crear el registro", "error");
         }
     } catch (error) {
-        console.log(`ERROR getting data from ${API}: ${error}`);
+        mostrarMensaje("❌ Error de conexión al intentar crear registro", "error");
     }
 }
 
 async function deleteAllRegistrations() {
     const res = await fetch(API, { method: "DELETE" });
     if (res.status === 200) {
+        mostrarMensaje("✅ Todos los registros han sido eliminados", "ok");
         await getRegistrationsStats();
+    } else {
+        mostrarMensaje("❌ Error al eliminar todos los registros", "error");
     }
 }
 
@@ -121,13 +139,12 @@ async function loadInitialData() {
     const res = await fetch(`${API}/loadInitialData`);
     const status = res.status;
     if (status === 201 || status === 200) {
-        console.log("Datos cargados correctamente");
+        mostrarMensaje("✅ Datos iniciales cargados correctamente", "ok");
         await getRegistrationsStats();
     } else if (status === 400) {
-        console.log("Los datos ya estaban cargados");
+        mostrarMensaje("⚠️ Los datos ya estaban cargados", "error");
     } else {
-        const errorText = await res.text();
-        console.error("Error:", status, errorText);
+        mostrarMensaje("❌ Error al cargar los datos iniciales", "error");
     }
 }
 
@@ -136,28 +153,34 @@ onMount(async () => {
 });
 </script>
 
+{#if mensajeUsuario}
+  <div class={tipoMensaje === 'ok' ? 'mensaje-ok' : 'mensaje-error'}>
+    {mensajeUsuario}
+  </div>
+{/if}
+
 <div>
-    <h4>Filtros</h4>
-    <input placeholder="year" bind:value={filters.year}>
-    <input placeholder="province" bind:value={filters.province}>
-    <input placeholder="total_general_national" bind:value={filters.total_general_national}>
-    <input placeholder="total_general_import" bind:value={filters.total_general_import}>
-    <input placeholder="total_general_auction" bind:value={filters.total_general_auction}>
-    <input placeholder="total_general" bind:value={filters.total_general}>
-    <input placeholder="from (year)" bind:value={filters.from}>
-    <input placeholder="to (year)" bind:value={filters.to}>
+    <h4>Buscar registros</h4>
+    <input placeholder="Año" bind:value={filters.year}>
+    <input placeholder="Provincia" bind:value={filters.province}>
+    <input placeholder="Total nacional" bind:value={filters.total_general_national}>
+    <input placeholder="Total importado" bind:value={filters.total_general_import}>
+    <input placeholder="Total subasta" bind:value={filters.total_general_auction}>
+    <input placeholder="Total general" bind:value={filters.total_general}>
+    <input placeholder="Desde (año)" bind:value={filters.from}>
+    <input placeholder="Hasta (año)" bind:value={filters.to}>
     <Button on:click={getRegistrationsStats}>Buscar</Button>
 </div>
 
 <Table>
     <thead>
         <tr>
-            <th>year</th>
-            <th>province</th>
-            <th>total_general_national</th>
-            <th>total_general_import</th>
-            <th>total_general_auction</th>
-            <th>total_general</th>
+            <th>Año</th>
+            <th>Provincia</th>
+            <th>Total Nacional</th>
+            <th>Total Importado</th>
+            <th>Total Subasta</th>
+            <th>Total General</th>
         </tr>
     </thead>
 
@@ -197,3 +220,23 @@ onMount(async () => {
         </tr>
     </tbody>
 </Table>
+
+<style>
+  .mensaje-ok {
+    background-color: #d4edda;
+    border: 1px solid #28a745;
+    color: #155724;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+
+  .mensaje-error {
+    background-color: #f8d7da;
+    border: 1px solid #dc3545;
+    color: #721c24;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+</style>
