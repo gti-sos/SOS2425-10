@@ -12,8 +12,11 @@ jobs:
         run: npm run build
       - name: Run tests
         run: npm run test
-      - name: Rn server for e2e tests
-        run: npm start & 
+
+
+      - name: Run server for e2e tests
+        run: npm start &
+        
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
@@ -25,6 +28,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
       - name: Deploy to Render
         uses: johnbeynon/render-deploy-action@v0.0.8
         with: 
