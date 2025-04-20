@@ -1,9 +1,12 @@
 <svelte:head>
     <title>
-        REGISTRATIONS STATS
+      ACCIDENTS STATS
     </title>
-</svelte:head><script>
+</svelte:head>
 
+<h2> Accidents Stats Table</h2>
+
+<script>
 
 // @ts-nocheck
 import { dev } from "$app/environment";
