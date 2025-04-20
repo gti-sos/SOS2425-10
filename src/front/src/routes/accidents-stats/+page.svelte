@@ -1,4 +1,10 @@
-<script>
+<svelte:head>
+    <title>
+        REGISTRATIONS STATS
+    </title>
+</svelte:head><script>
+
+
 // @ts-nocheck
 import { dev } from "$app/environment";
 import { onMount } from "svelte";
