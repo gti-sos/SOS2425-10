@@ -4,7 +4,7 @@
     </title>
 </svelte:head>
 
-<h2> Accidents Stats Table</h2>
+<h2> Tabla Accidentes</h2>
 
 <script>
 // @ts-nocheck
@@ -43,7 +43,7 @@ function mostrarMensaje(texto, tipo = "ok") {
 
 let filters = {
   accident_id: '', province: '', municipality_code: '', road: '', km: '',
-  year: '', month: '', direction_1f: '', accident_type: '', total_victims: '', from: '', to: ''
+  year: '', month: '', direction_1f: '', accident_type: '', total_victims: '', from: '', to: '', limit:'',offset:''
 };
 
 function goToEdit(accidentId) {
@@ -169,6 +169,8 @@ onMount(async () => {
     <input placeholder="TOTAL VICTIMAS" bind:value={filters.total_victims}>
     <input placeholder="DESDE (AÑO)" bind:value={filters.from}>
     <input placeholder="HASTA (AÑO)" bind:value={filters.to}>
+    <input placeholder="Límite (limit)" bind:value={filters.limit}>
+    <input placeholder="Desplazamiento (offset)" bind:value={filters.offset}>
     <Button on:click={getAccidentsStats}>Buscar</Button>
 </div>
 

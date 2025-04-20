@@ -37,7 +37,9 @@ let filters = {
     total_general_auction: '',
     total_general: '',
     from: '',
-    to: ''
+    to: '',
+    limit:'',
+    offset:''
 };
 
 let mensajeUsuario = "";
@@ -169,6 +171,8 @@ onMount(async () => {
     <input placeholder="Total general" bind:value={filters.total_general}>
     <input placeholder="Desde (año)" bind:value={filters.from}>
     <input placeholder="Hasta (año)" bind:value={filters.to}>
+    <input placeholder="Límite (limit)" bind:value={filters.limit}>
+    <input placeholder="Desplazamiento (offset)" bind:value={filters.offset}>
     <Button on:click={getRegistrationsStats}>Buscar</Button>
 </div>
 
