@@ -8,7 +8,7 @@
 </p>
 <p>
     Estadísticas:
-    <a href="/accidents-stats">Accidents Stats</a>
-    <a href="/registrations-stats">Registrations Stats</a>
+    <a href="/accidents-stats">accidents-stats</a>
+    <a href="/registrations-stats">registrations-stats</a>
     <a href="/radars-stats">Radars Stats</a>
 </p>
