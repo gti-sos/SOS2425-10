@@ -142,19 +142,7 @@
 
 <h2>Radars List</h2>
 
-<!-- Filtros de búsqueda -->
-<div>
-    <h4>Filtros de Búsqueda</h4>
-    <input bind:value={filterCommunity} placeholder="Autonomous Community" />
-    <input bind:value={filterProvince} placeholder="Province" />
-    <input bind:value={filterWay} placeholder="Way" />
-    <input bind:value={filterKilometerPoint} placeholder="Kilometer Point" />
-    <input bind:value={filterComplaint} placeholder="Complaint" type="number" />
-    <input bind:value={filterYear} placeholder="Year" type="number" />
-    <input bind:value={filterSpeedEstimation} placeholder="Speed Estimation" type="number" />
-    <input bind:value={filterAverageSpeedFined} placeholder="Average Speed Fined" type="number" />
-    <Button color="primary" on:click={getRadars}>Buscar</Button>
-</div>
+
 
 <!-- Mensaje de estado -->
 {#if statusMessage}
@@ -212,5 +200,19 @@
                 <Button color="secondary" on:click={loadInitialData}>Load Initial Data</Button>
             </td>
         </tr>
+        
     </tbody>
 </Table>
+<!-- Filtros de búsqueda -->
+<div>
+    <h4>Filtros de Búsqueda</h4>
+    <input bind:value={filterCommunity} placeholder="Autonomous Community" />
+    <input bind:value={filterProvince} placeholder="Province" />
+    <input bind:value={filterWay} placeholder="Way" />
+    <input bind:value={filterKilometerPoint} placeholder="Kilometer Point" />
+    <input bind:value={filterComplaint} placeholder="Complaint" type="number" />
+    <input bind:value={filterYear} placeholder="Year" type="number" />
+    <input bind:value={filterSpeedEstimation} placeholder="Speed Estimation" type="number" />
+    <input bind:value={filterAverageSpeedFined} placeholder="Average Speed Fined" type="number" />
+    <Button color="primary" on:click={getRadars}>Buscar</Button>
+</div>
