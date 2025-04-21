@@ -66,11 +66,7 @@ async function getAccidentsStats() {
     if (status === 200) {
       const data = await res.json();
       VCH = data;
-      if (VCH.length === 0) {
-        mostrarMensaje("⚠️ No se encontraron accidentes con esos filtros", "error");
-      } else {
-        mostrarMensaje("✅ Búsqueda realizada correctamente", "ok");
-      }
+      
     } else if (status === 400) {
       mostrarMensaje("⚠️ Error en los filtros. Revisa los valores introducidos.", "error");
     } else if (status === 404) {
@@ -83,6 +79,17 @@ async function getAccidentsStats() {
   }
 }
 //---
+async function funcionFiltro() {
+  getAccidentsStats()
+  if (VCH.length === 0) {
+    mostrarMensaje("⚠️ No se encontraron accidentes con esos filtros", "error");
+  } else {
+    mostrarMensaje("✅ Búsqueda realizada correctamente", "ok");
+      }
+
+
+}
+
 
 async function deleteAccident(accident_id) {
   resultStatus = result = "";
@@ -155,7 +162,12 @@ async function createAccident() {
 async function deleteAllAccidents() {
   const res = await fetch(API, { method: "DELETE" });
   if (res.status === 200) {
-    mostrarMensaje("✅ Todos los accidentes han sido eliminados", "ok");
+    if (VCH.length === 0){
+      mostrarMensaje("❌ Los datos ya estan borrados", "ok");
+    }else if(!(VCH.length === 0)){
+      mostrarMensaje("✅ Todos los accidentes han sido eliminados", "ok");
+    }
+      
     await getAccidentsStats();
   } else {
     mostrarMensaje("❌ Error al eliminar todos los accidentes", "error");
@@ -203,7 +215,7 @@ onMount(async () => {
     <input placeholder="HASTA (AÑO)" bind:value={filters.to}>
     <input placeholder="Límite (limit)" bind:value={filters.limit}>
     <input placeholder="Desplazamiento (offset)" bind:value={filters.offset}>
-    <Button on:click={getAccidentsStats}>Buscar</Button>
+    <Button on:click={funcionFiltro}>Buscar</Button>
 </div>
 
 <Table>

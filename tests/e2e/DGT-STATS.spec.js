@@ -44,12 +44,12 @@ test('create and delete registrations', async ({ page }) => {
   // Click the get started link.
   await page.getByRole('link', { name: 'registrations-stats' }).click();
 
-  await page.getByRole('textbox').nth(8).fill(testYear);
-  await page.getByRole('textbox').nth(9).fill(testProvince);
-  await page.getByRole('textbox').nth(10).fill(testTotal_general_national);
-  await page.getByRole('textbox').nth(11).fill(testTotal_general_import);
-  await page.getByRole('textbox').nth(12).fill(testTotal_general_auction);
-  await page.getByRole('textbox').nth(13).fill(testTotal_general);
+  await page.getByRole('textbox').nth(10).fill(testYear);
+  await page.getByRole('textbox').nth(11).fill(testProvince);
+  await page.getByRole('textbox').nth(12).fill(testTotal_general_national);
+  await page.getByRole('textbox').nth(13).fill(testTotal_general_import);
+  await page.getByRole('textbox').nth(14).fill(testTotal_general_auction);
+  await page.getByRole('textbox').nth(15).fill(testTotal_general);
 
   await page.getByRole('button', {name: "Crear Registro"}).click();
   const registrationRow = page.locator('tr', { hasText: testTotal_general_national });
@@ -79,16 +79,16 @@ test('create and delete accident', async ({ page }) => {
   // Click the get started link.
   await page.getByRole('link', { name: 'accidents-stats' }).click();
 
-  await page.getByRole('textbox').nth(12).fill(testaccidentId);
-  await page.getByRole('textbox').nth(13).fill(testyear);
-  await page.getByRole('textbox').nth(14).fill(testmonth);
-  await page.getByRole('textbox').nth(15).fill(testprovince);
-  await page.getByRole('textbox').nth(16).fill(testmunicipality_code);
-  await page.getByRole('textbox').nth(17).fill(testroad);
-  await page.getByRole('textbox').nth(18).fill(testkm);
-  await page.getByRole('textbox').nth(19).fill(testdirection_1f);
-  await page.getByRole('textbox').nth(20).fill(testaccidentType);
-  await page.getByRole('textbox').nth(21).fill(testtotal_victims);
+  await page.getByRole('textbox').nth(14).fill(testaccidentId);
+  await page.getByRole('textbox').nth(15).fill(testyear);
+  await page.getByRole('textbox').nth(16).fill(testmonth);
+  await page.getByRole('textbox').nth(17).fill(testprovince);
+  await page.getByRole('textbox').nth(18).fill(testmunicipality_code);
+  await page.getByRole('textbox').nth(19).fill(testroad);
+  await page.getByRole('textbox').nth(20).fill(testkm);
+  await page.getByRole('textbox').nth(21).fill(testdirection_1f);
+  await page.getByRole('textbox').nth(22).fill(testaccidentType);
+  await page.getByRole('textbox').nth(23).fill(testtotal_victims);
 
 
 

@@ -25,7 +25,15 @@
       }
   });
   
-  async function updateAccident() {
+    async function updateAccident() {
+        /*if (
+        !newAccidentId || !newYear  || newMonth===null ||  !newProvince  ||
+        !newMunicipality_code  || newRoad===null  || newKm===null || newDirection_1f===null  ||
+        newAccidentType===null || newTotal_victims===null) {
+            errorMessage = "⚠️ Todos los campos deben de ser rellenados.";
+            successMessage = "";
+            return;
+        }*/
       const res = await fetch(`${API}/${id}`, {
           method: "PUT",
           headers: {
@@ -44,6 +52,8 @@
           errorMessage = `❌ No se encontró un accidente con ID: ${id}`;
       } else if (res.status === 400) {
           errorMessage = "⚠️ Datos incorrectos, por favor revisa los valores.";
+      } else if (res.status === 409) {
+        errorMessage = "⚠️ Ya existe un registro con estos datos.";
       } else {
           errorMessage = "❌ Ocurrió un error al actualizar el accidente.";
       }
@@ -97,35 +107,14 @@
   {/if}
   
   <style>
-      form {
-          margin-bottom: 1rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-      }
-  
-      input {
-          padding: 0.4rem;
-          border-radius: 4px;
-          border: 1px solid #ccc;
-      }
-  
-      button {
-          margin-top: 1rem;
-          padding: 0.5rem;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-      }
-  
-      .success-message {
-          color: green;
-          font-weight: bold;
-      }
-  
-      .error-message {
-          color: red;
-          font-weight: bold;
-      }
+    .success-message {
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .error-message {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+    }
   </style>
