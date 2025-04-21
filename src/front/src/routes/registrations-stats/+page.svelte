@@ -71,12 +71,7 @@ async function getRegistrationsStats() {
         if (status === 200) {
             const data = await res.json();
             JAM = data;
-            if (JAM.length === 0) {
-                mostrarMensaje("⚠️ No se encontraron registros con esos filtros", "error");
-            } else {
-                mostrarMensaje("✅ Búsqueda realizada correctamente", "ok");
-            }
-        } else if (status === 400) {
+        }  else if (status === 400) {
             mostrarMensaje("⚠️ Error en los parámetros de búsqueda. Revisa los valores introducidos.", "error");
         } else if (status === 404) {
             mostrarMensaje("❌ No se encontró ningún registro con los criterios introducidos", "error");
