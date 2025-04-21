@@ -81,46 +81,41 @@
     //     }
     // }
     async function getRadars() {
-    resultStatus = result = "";
-    try {
-        const queryParams = new URLSearchParams({
-            autonomousCommunity: filterCommunity,
-            province: filterProvince,
-            way: filterWay,
-            kilometerPoint: filterKilometerPoint,
-            complaint: filterComplaint,
-            year: filterYear,
-            speedEstimation: filterSpeedEstimation,
-            averageSpeedFined: filterAverageSpeedFined,
-        });
+        resultStatus = result = "";
+        try {
+            const queryParams = new URLSearchParams({
+                autonomousCommunity: filterCommunity,
+                province: filterProvince,
+                way: filterWay,
+                kilometerPoint: filterKilometerPoint,
+                complaint: filterComplaint,
+                year: filterYear,
+                speedEstimation: filterSpeedEstimation,
+                averageSpeedFined: filterAverageSpeedFined,
+            });
 
-        const res = await fetch(`${API}?${queryParams}`, { method: "GET" });
+            const res = await fetch(`${API}?${queryParams}`, { method: "GET" });
 
-        // Si la respuesta no es 200, asignar mensaje de error
-        if (res.status !== 200) {
-            statusMessage = "No hay radares con ese filtro";
-            setTimeout(() => {
-                statusMessage = "";
-            }, 2000);
-        } else {
+            // Si la respuesta no es 200, asignar mensaje de error
+            if (res.status === 404) { statusMessage = "No se encontraron radares, o han sido eliminados"
+             setTimeout(() => {
+                    statusMessage = ""
+                }, 2000);}
+            if (res.status === 200) {statusMessage = "Aplicado Correctamente"
+                setTimeout(() => {
+                        statusMessage = ""
+                    }, 2000);
+                }
             const data = await res.json();
             radars = data;
 
-            // Si hay radares, mostrar mensaje de éxito
-            if (radars.length > 0) {
-                statusMessage = "Radares Mostrados";
-                setTimeout(() => {
-                    statusMessage = "";
-                }, 2000);
-            } else {
-                noResultsMessage = "No se encontraron radares con los filtros aplicados.";
-            }
+                
 
-            console.log(`Response received:\n ${JSON.stringify(radars, null, 2)}`);
-        }
-    } catch (error) {
-        console.log(`ERROR: GET from ${API}: ${error}`);
-        statusMessage = "Hubo un problema al obtener los radars. Por favor, intenta de nuevo.";
+            //     console.log(`Response received:\n ${JSON.stringify(radars, null, 2)}`);
+            // }
+        } catch (error) {
+            console.log(`ERROR: GET from ${API}: ${error}`);
+            statusMessage = "Hubo un problema al obtener los radars. Por favor, intenta de nuevo.";
     }
 }
 
@@ -176,14 +171,27 @@
     }
 
     async function deleteAllRadars() {
-        const res = await fetch(API, { method: "DELETE" });
-        if (res.status === 200) {
-            statusMessage = "¡Todos los radars han sido eliminados!";
-            await getRadars();
-        } else {
-            statusMessage = "Hubo un problema al intentar eliminar todos los radars.";
-        }
+    const res = await fetch(API, { method: "DELETE" });
+    
+    if (res.status === 200) {
+        statusMessage = "¡Todos los radars han sido eliminados!";
+        setTimeout(() => {
+            statusMessage = "";
+        }, 2000);
+    } else if (res.status === 404) {
+        statusMessage = "No se encontraron radares para eliminar.";
+        setTimeout(() => {
+            statusMessage = "";
+        }, 2000);
+    } else {
+        statusMessage = "Hubo un problema al intentar eliminar todos los radares.";
+        setTimeout(() => {
+            statusMessage = "";
+        }, 2000);
     }
+    await getRadars();
+}
+
 
     async function loadInitialData() {
         const res = await fetch(`${API}/loadInitialData`);
