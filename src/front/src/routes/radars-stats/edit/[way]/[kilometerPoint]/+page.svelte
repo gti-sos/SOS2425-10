@@ -2,9 +2,12 @@
     // Lógica del componente en SvelteKit
     //@ts-nocheck
     import { onMount } from "svelte";
+    import { dev } from "$app/environment";
     import { goto } from "$app/navigation"; // Usamos `goto` de SvelteKit para la navegación
     import { page } from '$app/stores'; // Usamos $page para obtener los parámetros de la URL
-
+    let DEVEL_HOST = "http://localhost:16079";
+    let API = "/api/v1/radars-stats";
+    if (dev) API = DEVEL_HOST + API;
     let radar = null;
     let way = '';
     let kilometerPoint = '';
@@ -19,7 +22,7 @@
 
     // Cargar el radar cuando el componente se monte
     onMount(async () => {
-        const res = await fetch(`/api/v1/radars-stats/${encodeURIComponent(way)}/${encodeURIComponent(kilometerPoint)}`);
+        const res = await fetch(`${API}/${encodeURIComponent(way)}/${encodeURIComponent(kilometerPoint)}`);
         console.log(res.body);
         if (res.ok) {
             radar = await res.json();

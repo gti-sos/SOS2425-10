@@ -176,6 +176,20 @@
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td><input bind:value={newRadarCommunity}></td>
+            <td><input bind:value={newRadarProvince}></td>
+            <td><input bind:value={newRadarWay}></td>
+            <td><input bind:value={newRadarKilometerPoint}></td>
+            <td><input bind:value={newRadarComplaint}></td>
+            <td><input bind:value={newRadarYear}></td>
+            <td><input bind:value={newRadarSpeedEstimation}></td>
+            <td><input bind:value={newRadarAverageSpeedFined}></td>
+            
+            <td>
+              <Button color="secondary" on:click={createRadar}>Crear Radar</Button>
+            </td>
+          </tr>
         {#each radars as radar}
         <tr>
             <td>{radar.autonomousCommunity}</td>
