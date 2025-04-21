@@ -31,31 +31,99 @@
 
     // Mensaje de estado de operación
     let statusMessage = "";
+    let noResultsMessage = "";
 
     // Función para obtener los radars con los filtros
-    async function getRadars() {
-        resultStatus = result = "";
-        try {
-            const queryParams = new URLSearchParams({
-                autonomousCommunity: filterCommunity,
-                province: filterProvince,
-                way: filterWay,
-                kilometerPoint: filterKilometerPoint,
-                complaint: filterComplaint,
-                year: filterYear,
-                speedEstimation: filterSpeedEstimation,
-                averageSpeedFined: filterAverageSpeedFined,
-            });
+    // async function getRadars() {
+    //     resultStatus = result = "";
+    //     try {
+    //         const queryParams = new URLSearchParams({
+    //             autonomousCommunity: filterCommunity,
+    //             province: filterProvince,
+    //             way: filterWay,
+    //             kilometerPoint: filterKilometerPoint,
+    //             complaint: filterComplaint,
+    //             year: filterYear,
+    //             speedEstimation: filterSpeedEstimation,
+    //             averageSpeedFined: filterAverageSpeedFined,
+    //         });
 
-            const res = await fetch(`${API}?${queryParams}`, { method: "GET" });
+    //         const res = await fetch(`${API}?${queryParams}`, { method: "GET" });
+    //         const data = await res.json();
+    //         radars = data;
+
+    //         if (res.status!==200){
+    //             statusMessage = "No hay radares con ese filtro"
+    //             setTimeout(() => {
+    //                 statusMessage = ""
+    //             }, 2000);
+                
+    //         }else{
+    //             statusMessage = "Radares Mostrados"
+    //             setTimeout(() => {
+    //                 statusMessage = ""
+    //             }, 2000);
+    //         }
+
+    //         // Verificar si no hay resultados
+    //         if (radars.length === 0) {
+    //             noResultsMessage = "No se encontraron radars con los filtros aplicados.";
+    //         } else {
+    //             noResultsMessage = "";
+    //         }
+           
+            
+
+    //         console.log(`Response received:\n ${JSON.stringify(radars, null, 2)}`);
+    //     } catch (error) {
+    //         console.log(`ERROR: GET from ${API}: ${error}`);
+    //         statusMessage = "Hubo un problema al obtener los radars. Por favor, intenta de nuevo.";
+    //     }
+    // }
+    async function getRadars() {
+    resultStatus = result = "";
+    try {
+        const queryParams = new URLSearchParams({
+            autonomousCommunity: filterCommunity,
+            province: filterProvince,
+            way: filterWay,
+            kilometerPoint: filterKilometerPoint,
+            complaint: filterComplaint,
+            year: filterYear,
+            speedEstimation: filterSpeedEstimation,
+            averageSpeedFined: filterAverageSpeedFined,
+        });
+
+        const res = await fetch(`${API}?${queryParams}`, { method: "GET" });
+
+        // Si la respuesta no es 200, asignar mensaje de error
+        if (res.status !== 200) {
+            statusMessage = "No hay radares con ese filtro";
+            setTimeout(() => {
+                statusMessage = "";
+            }, 2000);
+        } else {
             const data = await res.json();
             radars = data;
+
+            // Si hay radares, mostrar mensaje de éxito
+            if (radars.length > 0) {
+                statusMessage = "Radares Mostrados";
+                setTimeout(() => {
+                    statusMessage = "";
+                }, 2000);
+            } else {
+                noResultsMessage = "No se encontraron radares con los filtros aplicados.";
+            }
+
             console.log(`Response received:\n ${JSON.stringify(radars, null, 2)}`);
-        } catch (error) {
-            console.log(`ERROR: GET from ${API}: ${error}`);
-            statusMessage = "Error al obtener los datos. Inténtalo nuevamente.";
         }
+    } catch (error) {
+        console.log(`ERROR: GET from ${API}: ${error}`);
+        statusMessage = "Hubo un problema al obtener los radars. Por favor, intenta de nuevo.";
     }
+}
+
 
     async function createRadar() {
         resultStatus = result = "";
@@ -78,14 +146,14 @@
             const status = await res.status;
             resultStatus = status;
             if (status == 201) {
-                statusMessage = "Radar creado con éxito!";
+                statusMessage = "¡Radar creado correctamente!";
                 getRadars();
             } else {
-                statusMessage = "Error al crear el radar.";
+                statusMessage = "Hubo un error al intentar crear el radar. Por favor, inténtalo nuevamente.";
             }
         } catch (error) {
             console.log(`ERROR: GET from ${API}: ${error}`);
-            statusMessage = "Error al crear el radar. Inténtalo nuevamente.";
+            statusMessage = "Hubo un problema al crear el radar. Inténtalo de nuevo.";
         }
     }
 
@@ -96,24 +164,24 @@
             const status = await res.status;
             resultStatus = status;
             if (status == 200) {
-                statusMessage = `Radar ${way}, ${kilometerPoint} eliminado con éxito!`;
+                statusMessage = `¡Radar ${way}, ${kilometerPoint} eliminado correctamente!`;
                 getRadars();
             } else {
-                statusMessage = `Error al eliminar el radar ${way}, ${kilometerPoint}.`;
+                statusMessage = `Error al eliminar el radar ${way}, ${kilometerPoint}. Puede que no exista.`;
             }
         } catch (error) {
             console.log(`ERROR: GET from ${API}: ${error}`);
-            statusMessage = "Error al eliminar el radar. Inténtalo nuevamente.";
+            statusMessage = "Error al intentar eliminar el radar. Inténtalo nuevamente.";
         }
     }
 
     async function deleteAllRadars() {
         const res = await fetch(API, { method: "DELETE" });
         if (res.status === 200) {
-            statusMessage = "Todos los radars han sido eliminados.";
+            statusMessage = "¡Todos los radars han sido eliminados!";
             await getRadars();
         } else {
-            statusMessage = "Error al eliminar todos los radars.";
+            statusMessage = "Hubo un problema al intentar eliminar todos los radars.";
         }
     }
 
@@ -121,20 +189,22 @@
         const res = await fetch(`${API}/loadInitialData`);
         const status = res.status;
         if (status === 201 || status === 200) {
-            statusMessage = "Datos cargados correctamente.";
+            statusMessage = "¡Datos cargados correctamente!";
             await getRadars();
         } else if (status === 400) {
             statusMessage = "Los datos ya estaban cargados.";
         } else {
             const errorText = await res.text();
             console.error("Error:", status, errorText);
-            statusMessage = "Error al cargar los datos iniciales.";
+            statusMessage = "Hubo un problema al cargar los datos iniciales.";
         }
     }
+
     function goToEdit(way, kilometerPoint) {
         // Genera la URL de la página de edición con los parámetros
         goto(`/radars-stats/edit/${encodeURIComponent(way)}/${encodeURIComponent(kilometerPoint)}`);
     }
+
     onMount(async () => {
         getRadars();
     });
@@ -142,11 +212,14 @@
 
 <h2>Radars List</h2>
 
-
-
 <!-- Mensaje de estado -->
 {#if statusMessage}
     <div class="alert alert-info">{statusMessage}</div>
+{/if}
+
+<!-- Mensaje de resultados vacíos -->
+{#if noResultsMessage}
+    <div class="alert alert-warning">{noResultsMessage}</div>
 {/if}
 
 <Table>
@@ -173,11 +246,10 @@
             <td><input bind:value={newRadarYear}></td>
             <td><input bind:value={newRadarSpeedEstimation}></td>
             <td><input bind:value={newRadarAverageSpeedFined}></td>
-            
             <td>
-              <Button color="secondary" on:click={createRadar}>Crear Radar</Button>
+                <Button color="secondary" on:click={createRadar}>Crear Radar</Button>
             </td>
-          </tr>
+        </tr>
         {#each radars as radar}
         <tr>
             <td>{radar.autonomousCommunity}</td>
@@ -189,20 +261,20 @@
             <td>{radar.speedEstimation}</td>
             <td>{radar.averageSpeedFined}</td>
             <td>
-                <Button color="danger" on:click={() => deleteRadar(radar.way, radar.kilometerPoint)}>Delete</Button>
-                <Button color="warning" on:click={() => goToEdit(radar.way, radar.kilometerPoint)}>Edit</Button>
+                <Button color="danger" on:click={() => deleteRadar(radar.way, radar.kilometerPoint)}>Eliminar</Button>
+                <Button color="warning" on:click={() => goToEdit(radar.way, radar.kilometerPoint)}>Editar</Button>
             </td>
         </tr>
         {/each}
         <tr>
             <td colspan="9">
-                <Button color="danger" on:click={deleteAllRadars}>Delete All Radars</Button>
-                <Button color="secondary" on:click={loadInitialData}>Load Initial Data</Button>
+                <Button color="danger" on:click={deleteAllRadars}>Eliminar Todos</Button>
+                <Button color="secondary" on:click={loadInitialData}>Cargar Datos Iniciales</Button>
             </td>
         </tr>
-        
     </tbody>
 </Table>
+
 <!-- Filtros de búsqueda -->
 <div>
     <h4>Filtros de Búsqueda</h4>
