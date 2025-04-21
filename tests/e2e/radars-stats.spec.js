@@ -12,7 +12,7 @@ test('get radars link', async ({ page }) => {
   await page.goto('localhost:16079');
 
   // Click the get started link.
-  await page.getByRole('link', { name: 'radars' }).click();
+  await page.getByRole('link', { name: 'radars-stats' }).click();
 
   // Expects page to have a heading with the name of Installation.
   await expect(page).toHaveTitle(/Radars-stats/);
@@ -31,7 +31,7 @@ test('create and delete radars', async ({ page }) => {
   await page.goto('localhost:16079');
 
   // Click the get started link.
-  await page.getByRole('link', { name: 'radars' }).click();
+  await page.getByRole('link', { name: 'radars-stats' }).click();
 
   // Expects page to have a heading with the name of Installation.
   await expect(page).toHaveTitle(/Radars-stats/);
@@ -45,7 +45,7 @@ test('create and delete radars', async ({ page }) => {
   await page.getByRole('textbox').nth(6).fill(testSpeedEstimation);
   await page.getByRole('textbox').nth(7).fill(testAverageSpeedFined);
 
-  await page.getByRole('button',{name: "Create"}).click();
+  await page.getByRole('button',{name: "Crear Radar"}).click();
 
   const contactRow = page.locator('tr',{hasText: testWay});
 
