@@ -155,10 +155,25 @@ async function createRegistration() {
   }
 }
 
+async function funcionFiltro() {
+  getRegistrationsStats()
+  if (JAM.length === 0) {
+    mostrarMensaje("⚠️ No se encontraron accidentes con esos filtros", "error");
+  } else {
+    mostrarMensaje("✅ Búsqueda realizada correctamente", "ok");
+      }
+
+
+}
+
 async function deleteAllRegistrations() {
     const res = await fetch(API, { method: "DELETE" });
     if (res.status === 200) {
-        mostrarMensaje("✅ Todos los registros han sido eliminados", "ok");
+    if (JAM.length === 0){
+      mostrarMensaje("❌ Los datos ya estan borrados", "ok");
+    }else if(!(JAM.length === 0)){
+      mostrarMensaje("✅ Todos los accidentes han sido eliminados", "ok");
+    }
         await getRegistrationsStats();
     } else {
         mostrarMensaje("❌ Error al eliminar todos los registros", "error");
@@ -201,7 +216,7 @@ onMount(async () => {
     <input placeholder="Hasta (año)" bind:value={filters.to}>
     <input placeholder="Límite (limit)" bind:value={filters.limit}>
     <input placeholder="Desplazamiento (offset)" bind:value={filters.offset}>
-    <Button on:click={getRegistrationsStats}>Buscar</Button>
+    <Button on:click={funcionFiltro}>Buscar</Button>
 </div>
 
 <Table>

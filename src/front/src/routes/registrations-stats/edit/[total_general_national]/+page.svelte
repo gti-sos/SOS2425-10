@@ -23,6 +23,9 @@
     });
 
     async function updateRegistration() {
+
+        
+        
         const res = await fetch(`/api/v1/registrations-stats/${id}`, {
             method: "PUT",
             headers: {
@@ -30,6 +33,7 @@
             },
             body: JSON.stringify(registration)
         });
+        
 
         if (res.ok) {
             successMessage = "Registro actualizado correctamente ✅";

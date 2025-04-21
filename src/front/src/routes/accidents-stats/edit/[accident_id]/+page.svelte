@@ -26,6 +26,7 @@
   });
   
   async function updateAccident() {
+    
       const res = await fetch(`${API}/${id}`, {
           method: "PUT",
           headers: {
