@@ -51,7 +51,7 @@ test('create and delete radars', async ({ page }) => {
 
   await expect(contactRow).toContainText(testKilometerPoint);
 
-  const deleteButton = contactRow.getByRole('button',{name: 'Delete'});
+  const deleteButton = contactRow.getByRole('button',{name: 'Eliminar'});
   await deleteButton.click();
 
   await expect(contactRow).toHaveCount(0);
