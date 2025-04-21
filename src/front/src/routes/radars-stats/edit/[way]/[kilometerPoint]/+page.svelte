@@ -20,8 +20,10 @@
     // Cargar el radar cuando el componente se monte
     onMount(async () => {
         const res = await fetch(`/api/v1/radars-stats/${encodeURIComponent(way)}/${encodeURIComponent(kilometerPoint)}`);
+        console.log(res.body);
         if (res.ok) {
             radar = await res.json();
+            
         } else {
             console.log("Error fetching radar:", res.status);
             errorMessage = `No existe un radar con way: ${way} y kilometerPoint: ${kilometerPoint}.`;
