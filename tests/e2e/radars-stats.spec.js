@@ -15,7 +15,7 @@ test('get radars link', async ({ page }) => {
   await page.getByRole('link', { name: 'radars-stats' }).click();
 
   // Expects page to have a heading with the name of Installation.
-  await expect(page).toHaveTitle(/Radars-stats/);
+  await expect(page).toHaveTitle(/RADARS STATS/);
 });
 
 
