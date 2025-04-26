@@ -1,7 +1,8 @@
 <svelte:head>
-    <title>Radars-stats</title>
+    <title>
+      RADARS STATS
+    </title>
 </svelte:head>
-
 <script>
     //@ts-nocheck
     import { dev } from "$app/environment";
@@ -32,54 +33,9 @@
     // Mensaje de estado de operación
     let statusMessage = "";
     let noResultsMessage = "";
+    let filterStatusMessage = ""; // Nueva variable para los mensajes de filtro
 
     // Función para obtener los radars con los filtros
-    // async function getRadars() {
-    //     resultStatus = result = "";
-    //     try {
-    //         const queryParams = new URLSearchParams({
-    //             autonomousCommunity: filterCommunity,
-    //             province: filterProvince,
-    //             way: filterWay,
-    //             kilometerPoint: filterKilometerPoint,
-    //             complaint: filterComplaint,
-    //             year: filterYear,
-    //             speedEstimation: filterSpeedEstimation,
-    //             averageSpeedFined: filterAverageSpeedFined,
-    //         });
-
-    //         const res = await fetch(`${API}?${queryParams}`, { method: "GET" });
-    //         const data = await res.json();
-    //         radars = data;
-
-    //         if (res.status!==200){
-    //             statusMessage = "No hay radares con ese filtro"
-    //             setTimeout(() => {
-    //                 statusMessage = ""
-    //             }, 2000);
-                
-    //         }else{
-    //             statusMessage = "Radares Mostrados"
-    //             setTimeout(() => {
-    //                 statusMessage = ""
-    //             }, 2000);
-    //         }
-
-    //         // Verificar si no hay resultados
-    //         if (radars.length === 0) {
-    //             noResultsMessage = "No se encontraron radars con los filtros aplicados.";
-    //         } else {
-    //             noResultsMessage = "";
-    //         }
-           
-            
-
-    //         console.log(`Response received:\n ${JSON.stringify(radars, null, 2)}`);
-    //     } catch (error) {
-    //         console.log(`ERROR: GET from ${API}: ${error}`);
-    //         statusMessage = "Hubo un problema al obtener los radars. Por favor, intenta de nuevo.";
-    //     }
-    // }
     async function getRadars() {
         resultStatus = result = "";
         try {
@@ -96,29 +52,27 @@
 
             const res = await fetch(`${API}?${queryParams}`, { method: "GET" });
 
-            // Si la respuesta no es 200, asignar mensaje de error
-            if (res.status === 404) { statusMessage = "No se encontraron radares, o han sido eliminados"
-             setTimeout(() => {
-                    statusMessage = ""
-                }, 2000);}
-            if (res.status === 200) {statusMessage = "Aplicado Correctamente"
+            if (res.status === 404) {
+                filterStatusMessage = "No se encontraron radares con los filtros aplicados.";
                 setTimeout(() => {
-                        statusMessage = ""
-                    }, 2000);
-                }
-            const data = await res.json();
-            radars = data;
-
-                
-
-            //     console.log(`Response received:\n ${JSON.stringify(radars, null, 2)}`);
-            // }
+                    filterStatusMessage = ""; // Limpiar el mensaje después de 2 segundos
+                }, 2000);
+            } else if (res.status === 200) {
+                filterStatusMessage = "Radares mostrados correctamente.";
+                setTimeout(() => {
+                    filterStatusMessage = ""; // Limpiar el mensaje después de 2 segundos
+                }, 2000);
+                const data = await res.json();
+                radars = data;
+            }
         } catch (error) {
             console.log(`ERROR: GET from ${API}: ${error}`);
             statusMessage = "Hubo un problema al obtener los radars. Por favor, intenta de nuevo.";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
+        }
     }
-}
-
 
     async function createRadar() {
         resultStatus = result = "";
@@ -142,13 +96,22 @@
             resultStatus = status;
             if (status == 201) {
                 statusMessage = "¡Radar creado correctamente!";
+                setTimeout(() => {
+                    statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+                }, 2000);
                 getRadars();
             } else {
                 statusMessage = "Hubo un error al intentar crear el radar. Por favor, inténtalo nuevamente.";
+                setTimeout(() => {
+                    statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+                }, 2000);
             }
         } catch (error) {
             console.log(`ERROR: GET from ${API}: ${error}`);
             statusMessage = "Hubo un problema al crear el radar. Inténtalo de nuevo.";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
         }
     }
 
@@ -160,51 +123,68 @@
             resultStatus = status;
             if (status == 200) {
                 statusMessage = `¡Radar ${way}, ${kilometerPoint} eliminado correctamente!`;
+                setTimeout(() => {
+                    statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+                }, 2000);
                 getRadars();
             } else {
                 statusMessage = `Error al eliminar el radar ${way}, ${kilometerPoint}. Puede que no exista.`;
+                setTimeout(() => {
+                    statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+                }, 2000);
             }
         } catch (error) {
             console.log(`ERROR: GET from ${API}: ${error}`);
             statusMessage = "Error al intentar eliminar el radar. Inténtalo nuevamente.";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
         }
     }
 
     async function deleteAllRadars() {
-    const res = await fetch(API, { method: "DELETE" });
-    
-    if (res.status === 200) {
-        statusMessage = "¡Todos los radars han sido eliminados!";
-        setTimeout(() => {
-            statusMessage = "";
-        }, 2000);
-    } else if (res.status === 404) {
-        statusMessage = "No se encontraron radares para eliminar.";
-        setTimeout(() => {
-            statusMessage = "";
-        }, 2000);
-    } else {
-        statusMessage = "Hubo un problema al intentar eliminar todos los radares.";
-        setTimeout(() => {
-            statusMessage = "";
-        }, 2000);
+        const res = await fetch(API, { method: "DELETE" });
+        
+        if (res.status === 200) {
+            statusMessage = "¡Todos los radars han sido eliminados!";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
+        } else if (res.status === 404) {
+            statusMessage = "No se encontraron radares para eliminar.";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
+        } else {
+            statusMessage = "Hubo un problema al intentar eliminar todos los radars.";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
+        }
+        await getRadars();
     }
-    await getRadars();
-}
-
 
     async function loadInitialData() {
         const res = await fetch(`${API}/loadInitialData`);
         const status = res.status;
         if (status === 201 || status === 200) {
             statusMessage = "¡Datos cargados correctamente!";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
             await getRadars();
         } else if (status === 400) {
             statusMessage = "Los datos ya estaban cargados.";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
         } else {
             const errorText = await res.text();
             console.error("Error:", status, errorText);
             statusMessage = "Hubo un problema al cargar los datos iniciales.";
+            setTimeout(() => {
+                statusMessage = ""; // Limpiar el mensaje después de 2 segundos
+            }, 2000);
         }
     }
 
@@ -228,6 +208,11 @@
 <!-- Mensaje de resultados vacíos -->
 {#if noResultsMessage}
     <div class="alert alert-warning">{noResultsMessage}</div>
+{/if}
+
+<!-- Mensaje relacionado a filtros -->
+{#if filterStatusMessage}
+    <div class="alert alert-info">{filterStatusMessage}</div>
 {/if}
 
 <Table>
