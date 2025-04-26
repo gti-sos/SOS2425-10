@@ -34,7 +34,7 @@ test('create and delete radars', async ({ page }) => {
   await page.getByRole('link', { name: 'radars-stats' }).click();
 
   // Expects page to have a heading with the name of Installation.
-  await expect(page).toHaveTitle(/Radars-stats/);
+  await expect(page).toHaveTitle(/RADARS STATS/);
 
   await page.getByRole('textbox').nth(0).fill(testAutonomousCommunity);
   await page.getByRole('textbox').nth(1).fill(testProvince);
