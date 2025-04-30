@@ -151,9 +151,9 @@ async function createRegistration() {
 }
 
 async function funcionFiltro() {
-  getRegistrationsStats()
+  await getRegistrationsStats()
   if (JAM.length === 0) {
-    mostrarMensaje("⚠️ No se encontraron accidentes con esos filtros", "error");
+    mostrarMensaje("⚠️ No se encontraron matriculaciones con esos filtros", "error");
   } else {
     mostrarMensaje("✅ Búsqueda realizada correctamente", "ok");
       }
