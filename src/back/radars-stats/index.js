@@ -303,6 +303,18 @@ function loadBackEnd(app){
         console.log("POST to radars-stats/way");
         response.sendStatus(405);
     })
+
+    app.get(BASE_API+"/radars-stats/data",(request,response)=>{
+        console.log("NEW GET to /radars-stats/data");
+        let data = [];
+        function getRandomInt(){
+            return Math.floor(Math.random()*1000);
+        }
+        for (let i=0;i<200;i++)
+            data[i] = getRandomInt();
+
+        response.json(data)
+    })
     
     
 }
