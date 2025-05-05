@@ -300,7 +300,7 @@ let JAM = [
                 res.status(200).json({ message: "Deleted successfully", removed: numRemoved });
             }
         );
-    });
-  }
+    });  
+}
   
 export {JAM,loadInitialDataJAM};

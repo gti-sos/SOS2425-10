@@ -106,7 +106,7 @@ async function deleteRegistration(total_general_national) {
 async function createRegistration() {
   resultStatus = result = "";
 
-  // Validación: comprobar que todos los campos están rellenos
+  //Validación: comprobar que todos los campos están rellenos 
   if (
     !newYear || !newProvince  ||!newTotal_general_national|| 
     !newTotal_general_import || !newTotal_general_auction || !newTotal_general
