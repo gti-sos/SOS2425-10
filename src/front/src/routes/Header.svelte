@@ -4,6 +4,7 @@
 <p>
     <a href="/">Inicio</a>
     <a href="/about">About</a>
+    <a href="/analytics">Analytics</a>
 </p>
 <p>
     Estadísticas:
