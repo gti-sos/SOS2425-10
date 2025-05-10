@@ -106,7 +106,7 @@ async function deleteRegistration(total_general_national) {
 async function createRegistration() {
   resultStatus = result = "";
 
-  // Validación: comprobar que todos los campos están rellenos
+  //Validación: comprobar que todos los campos están rellenos 
   if (
     !newYear || !newProvince  ||!newTotal_general_national|| 
     !newTotal_general_import || !newTotal_general_auction || !newTotal_general
@@ -151,9 +151,9 @@ async function createRegistration() {
 }
 
 async function funcionFiltro() {
-  getRegistrationsStats()
+  await getRegistrationsStats()
   if (JAM.length === 0) {
-    mostrarMensaje("⚠️ No se encontraron accidentes con esos filtros", "error");
+    mostrarMensaje("⚠️ No se encontraron matriculaciones con esos filtros", "error");
   } else {
     mostrarMensaje("✅ Búsqueda realizada correctamente", "ok");
       }
