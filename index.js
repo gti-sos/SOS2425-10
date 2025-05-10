@@ -26,6 +26,18 @@ app.use(cors());
 //         `)
 // })
 // Load backend APIs
+
+// /api/dealers.js
+app.get('/api/dealers', async (req, res) => {
+    const response = await fetch('https://api.mercedes-benz.com/dealer/locations', {
+      headers: {
+        Authorization: 'Bearer TU_API_KEY'
+      }
+    });
+    const data = await response.json();
+    res.json(data);
+  });
+  
 loadBackEnd(app);
 loadBackendJAM(app);
 loadBackendVCH(app);
@@ -50,5 +62,6 @@ app.get("/", (request, response) => {
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`);
 });
+
 
 
