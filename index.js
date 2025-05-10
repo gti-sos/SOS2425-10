@@ -7,7 +7,9 @@ import cors from "cors";
 import path from "path";
 import dataStore from "nedb";
 import { loadBackendVCH_v1 } from "./src/back/accidents-stats/index_v1.js";
-
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const request = require("request");
 const app = express();
 const PORT = process.env.PORT || 16079;
 
@@ -27,17 +29,32 @@ app.use(cors());
 // })
 // Load backend APIs
 
-// /api/dealers.js
-app.get('/api/dealers', async (req, res) => {
-    const response = await fetch('https://api.mercedes-benz.com/dealer/locations', {
-      headers: {
-        Authorization: 'Bearer TU_API_KEY'
-      }
-    });
-    const data = await response.json();
-    res.json(data);
-  });
-  
+
+
+// === 🔀 INTEGRACIÓN DEL PROXY PROPIO HACIA OTRA API SOS ===
+
+
+
+app.use("/api-proxy", (req, res) => {
+    let targetBase;
+
+    if (req.url.startsWith("/api/v1/annual-evolutions")) {
+        targetBase = "https://sos2425-12.onrender.com";
+    } else if (req.url.startsWith("/api/v1/sanctions-and-points-stats")) {
+        targetBase = "https://sos2425-19.onrender.com";
+    } else {
+        console.log("[PROXY] Ruta no permitida:", req.url);
+        return res.status(404).send("Ruta de proxy no válida");
+    }
+
+    const url = targetBase + req.url;
+    console.log("[PROXY] Redirigiendo a:", url);
+    req.pipe(request(url)).pipe(res);
+});
+
+
+
+
 loadBackEnd(app);
 loadBackendJAM(app);
 loadBackendVCH(app);

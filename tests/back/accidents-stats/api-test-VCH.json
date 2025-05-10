@@ -7,6 +7,55 @@
 	},
 	"item": [
 		{
+			"name": "delete todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{BASE_URL}}/api/v2/accidents-stats"
+			},
+			"response": []
+		},
+		{
+			"name": "loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BASE_URL}}/api/v2/accidents-stats/LoadInitialData"
+			},
+			"response": []
+		},
+		{
 			"name": "get",
 			"event": [
 				{

@@ -80,12 +80,13 @@ async function getAccidentsStats() {
 }
 //---
 async function funcionFiltro() {
-  getAccidentsStats()
+  await getAccidentsStats();
   if (VCH.length === 0) {
     mostrarMensaje("⚠️ No se encontraron accidentes con esos filtros", "error");
   } else {
     mostrarMensaje("✅ Búsqueda realizada correctamente", "ok");
-      }
+  }
+  
 
 
 }
