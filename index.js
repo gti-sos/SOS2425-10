@@ -41,7 +41,13 @@ app.use("/api-proxy", (req, res) => {
         targetBase = "https://sos2425-12.onrender.com";
     } else if (req.url.startsWith("/api/v1/sanctions-and-points-stats")) {
         targetBase = "https://sos2425-19.onrender.com";
-    } else {
+    }else if (req.url.startsWith("/api/v1/precipitation-stats")) {
+        targetBase = "https://sos2425-15.onrender.com";
+    }else if (req.url.startsWith("/api/v1/ocupied-grand-stats")) {
+        targetBase = "https://sos2425-15.onrender.com";
+    }else if (req.url.startsWith("/api/v2/students_satisfaction")) {
+        targetBase = "https://sos2425-17.onrender.com";
+    }else {
         console.log("[PROXY] Ruta no permitida:", req.url);
         return res.status(404).send("Ruta de proxy no válida");
     }

@@ -45,6 +45,8 @@
     "@playwright/test": "^1.52.0",
     "@types/chart.js": "^2.9.41",
     "@types/node": "^22.14.1",
-    "start-server-and-test": "^2.0.11"
+    "@types/vis": "^4.21.27",
+    "start-server-and-test": "^2.0.11",
+    "vis-network": "^9.1.10"
   }
 }
