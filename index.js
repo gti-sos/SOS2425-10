@@ -47,6 +47,8 @@ app.use("/api-proxy", (req, res) => {
         targetBase = "https://sos2425-15.onrender.com";
     }else if (req.url.startsWith("/api/v2/students_satisfaction")) {
         targetBase = "https://sos2425-17.onrender.com";
+    }else if (req.url.startsWith("/api/v1/home-buying-selling-stats")) {
+        targetBase = "https://sos2425-21.onrender.com";
     }else {
         console.log("[PROXY] Ruta no permitida:", req.url);
         return res.status(404).send("Ruta de proxy no válida");
