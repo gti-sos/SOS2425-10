@@ -40,8 +40,19 @@
 </p>
 <p>
     GRAFOS  IGNACIO ORTÍZ (RADARS-STATS):<br>
-    <a href="/radars-stats/graph/g1"> Grafo g1 (Donut - Víctimas por provincia)<br></a>
-    <a href="/radars-stats/graph/g2"> Grafo g2 (amCharts - Víctimas por provincia)<br></a>
-    <a href="/radars-stats/graph/g3"> Grafo g3 (Pyramid - Víctimas por provincia)<br></a>
+    <a href="/radars-stats/graph/community"> Grafo g1 (Barras - Denuncias por comunidad)<br></a>
+    <a href="/radars-stats/graph/province"> Grafo g2 (Circular - Víctimas por provincia)<br></a>
+    
+
+    <a href="/radars-stats/graph/integracion-g14"> Integracion  g14 (Burbujas - Empleo y Radares)<br></a>
+    <a href="/radars-stats/graph/integracion-g20"> Integracion  g20 (Lollipop - Total Infracciones por ciudad)<br></a>
+
+    <a href="/radars-stats/graph/integracion-g15"> Visualizacion g15 (Circular - Temperatura media por provincia )<br></a>
+    <a href="/radars-stats/graph/integracion-g17"> Visualizacion g17 (Area Chart - Tasa De exito promedio )<br></a>
+    <a href="/radars-stats/graph/integracion-g21"> Visualizacion g21 (Semicircle donut - Tipos de evento cultural )<br></a>
+    <a href="/radars-stats/graph/pelicula"> API EXTERNA peliculas<br></a>
+    <a href="/radars-stats/graph/pokemon"> API EXTERNA pokemon<br></a>
+    <a href="/radars-stats/graph/rickmorty"> API EXTERNA rickmorty<br></a>
+
 </p>
 
