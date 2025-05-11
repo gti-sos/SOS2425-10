@@ -10,7 +10,6 @@
     <a href="/accidents-stats/graph/g1"> Grafo g1 (Donut - Víctimas por provincia)<br></a>
     <a href="/accidents-stats/graph/g2"> Grafo g2 (Barras - Víctimas por provincia)<br></a>
     <a href="/accidents-stats/graph/g3"> Grafo g3 (Pyramid - Víctimas por provincia)<br><br></a>
-    <a href="/integrations"> Integración g15-precipitation-stats<br></a>
     <a href="/integrations/VCH-g17-university-demands"> Integración g17-university-demands<br></a>
     <a href="/integrations/VCH-g19-sanctions-and-points-stats"> Integración g19-sanctions-and-points-stats</a> (proxy)<br>
     <a href="/integrations/VCH-g15-precipitation-stats"> Integración g15-precipitation-stats</a> (proxy)<br>
@@ -19,7 +18,7 @@
     
     <a href="/integrations/VCH-externa-countries"> VCH-externa-countries<br></a>
     
-    <a href="/integrations/VCH-externa-USA"> VCH-externa-USA<br><br></a>
+    <a href="/integrations/VCH-externa-USA"> VCH-externa-USA<br></a>
      <a href="/integrations/VCH-externa-perros"> VCH-externa-perros<br><br></a>
 
 </p>
