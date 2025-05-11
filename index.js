@@ -17,21 +17,11 @@ const BASE_API = "/api/v1";
 //--
 app.use(express.json());
 app.use(cors());
-// app.get("/",(request,response)=>{
-//     response.send(`Servidor del <a href="/about">grupo 10</a><br>
-//         <a href="https://sos2425-10.onrender.com/api/v1/accidents-stats">API Víctor Cabrera Hurtado</a><br>
-//         <a href="https://sos2425-10.onrender.com/api/v1/registrations-stats">API Jesús Aznar Montero</a><br>
-//         <a href="https://sos2425-10.onrender.com/api/v1/radars-stats">API Ignacio Ortiz Moreno</a><br>
-//         <a href="https://sos2425-10.onrender.com/api/v1/accidents-stats/docs">DOCS Víctor Cabrera Hurtado</a><br>
-//         <a href="https://sos2425-10.onrender.com/api/v1/registrations-stats/docs">DOCS Jesús Aznar Montero</a><br>
-//         <a href="https://sos2425-10.onrender.com/api/v1/radars-stats/docs">DOCS Ignacio Ortiz Moreno</a><br>
-//         `)
-// })
-// Load backend APIs
 
 
 
-// === 🔀 INTEGRACIÓN DEL PROXY PROPIO HACIA OTRA API SOS ===
+
+// === INTEGRACIÓN DEL PROXY PROPIO HACIA OTRA API SOS ===
 
 
 
