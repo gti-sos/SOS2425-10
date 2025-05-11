@@ -8,7 +8,7 @@
     Vídeo Ignacio Ortiz Moreno (RADARS-STATS):<br>
     <a href="https://www.youtube.com/watch?v=3OIBMRKmRms"> Vídeo RADARS-STATS<br></a>
     Vídeo Víctor José Cabrera (ACCIDENTS-STATS):<br>
-    <a href="https://youtu.be/Qbq1P7aEsmY"> Vídeo RADARS-STATS<br></a>
+    <a href="https://youtu.be/Qbq1P7aEsmY"> Vídeo ACCIDENTS-STATS<br></a>
 
     
 
