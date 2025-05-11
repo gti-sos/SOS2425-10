@@ -30,10 +30,14 @@
     <a href="/registrations-stats/graphs/g2"> Grafo g2 (Circular - Matriculaciones totales por provincia)<br></a>
     <a href="/registrations-stats/graphs/g3"> Grafo g3 (Gráfico 3D - Matriculaciones nacionales)<br><br></a>
     <a href="/integrations/JAM-g12-annual-evolutions"> Integración g12-annual-evolution (Barras - Matriculaciones totales por año)</a>(proxy)<br>
-    <a href="/integrations/JAM-g21-home-buying-selling-stats"> Integración G21-home-buying-selling-stats</a><br>
-    <a href="/integrations/JAM-g17-students_satisfaction"> Integración G17-students_satisfaction </a><br>
-    <a href="/integrations/JAM-g15-ocupied-grand-stats"> Integración G15-ocupied-grand-stats </a><br>
+    <a href="/integrations/JAM-g21-home-buying-selling-stats"> Integración G21-home-buying-selling-stats</a>(proxy)<br>
+    <a href="/integrations/JAM-g17-students_satisfaction"> Integración G17-students_satisfaction </a>(proxy)<br>
+    <a href="/integrations/JAM-g15-ocupied-grand-stats"> Integración G15-ocupied-grand-stats </a>(proxy)<br>
     <a href="/integrations/JAM-g11-social-pension-payrolls"> Integración G11-social-pension-payrolls </a><br>
+
+    <a href="/integrations/JAM-external-worldbank"> Integración Api externa worldbank </a><br>
+    <a href="/integrations/JAM-external-spaceX"> Integración Api externa spaceX </a><br>
+    <a href="/integrations/JAM-external-openfood"> Integración Api externa openfood </a><br>
 </p>
 <p>
     GRAFOS  IGNACIO ORTÍZ (RADARS-STATS):<br>

@@ -44,6 +44,7 @@
   "devDependencies": {
     "@playwright/test": "^1.52.0",
     "@types/chart.js": "^2.9.41",
+    "@types/highcharts": "^5.0.44",
     "@types/node": "^22.14.1",
     "@types/vis": "^4.21.27",
     "start-server-and-test": "^2.0.11",
