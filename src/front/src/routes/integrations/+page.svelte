@@ -17,9 +17,10 @@
     <a href="/integrations/VCH-g20-accidents-with-animals"> Integración g20-accidents-with-animals<br></a>
     <a href="/integrations/VCH-g13-water-supply-improvements"> Integración g13-water-supply-improvements<br><br></a>
     
-    <a href="/accidents-stats/integrations/APIEXTERNA1"> APIEXTERNA1<br></a>
+    <a href="/integrations/VCH-externa-countries"> VCH-externa-countries<br></a>
     
-    <a href="/accidents-stats/integrations/APIEXTERNA2"> APIEXTERNA2<br><br></a>
+    <a href="/integrations/VCH-externa-USA"> VCH-externa-USA<br><br></a>
+     <a href="/integrations/VCH-externa-perros"> VCH-externa-perros<br><br></a>
 
 </p>
 
