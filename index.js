@@ -30,6 +30,7 @@ app.use(cors());
 // Load backend APIs
 
 
+
 // === 🔀 INTEGRACIÓN DEL PROXY PROPIO HACIA OTRA API SOS ===
 
 
@@ -86,5 +87,6 @@ app.get("/", (request, response) => {
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`);
 });
+
 
 
